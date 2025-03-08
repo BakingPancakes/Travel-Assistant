@@ -22,7 +22,7 @@ Requirements: https://docs.google.com/document/d/1Ypi3KppVS71BqbsqXiPDjgDAHu4Itz
 
 - Team Member List:
     - Zavier Morales
-      - Role (see "Team Role & Commit Responsibilities" below)
+      - Note taker
       - At least three Issues they plan to work on
     - Jasper McCormack
       - Role

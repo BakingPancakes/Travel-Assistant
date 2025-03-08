@@ -26,7 +26,7 @@ NOTE: With our team still only containing two people, we met up and did the Mile
       - At least three Issues they plan to work on
     - Jasper McCormack
       - Role: TimeKeeper
-      - 3 Issues:
+      - 3 Assigned Issues:
         - Main Page UI
         - Trip Page UI
-        -   
+        - User Profile Data

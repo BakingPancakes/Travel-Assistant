@@ -23,7 +23,10 @@ NOTE: With our team still only containing two people, we met up and did the Mile
 - Team Member List:
     - Zavier Morales
       - Note taker
-      - At least three Issues they plan to work on
+      - 3 assigned issues:
+        - Trips Data
+        - Messaging UI
+        - 
     - Jasper McCormack
       - Role: TimeKeeper
       - 3 Assigned Issues:

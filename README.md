@@ -26,7 +26,7 @@ NOTE: With our team still only containing two people, we met up and did the Mile
       - 3 assigned issues:
         - Trips Data
         - Messaging UI
-        - 
+        - Messaging Data
     - Jasper McCormack
       - Role: TimeKeeper
       - 3 Assigned Issues:

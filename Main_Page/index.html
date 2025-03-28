@@ -43,43 +43,68 @@
         -Opt: Total costs for all budgets at the bottom of the page
     -->
     <div class="container">
+        <!--Contains: Sidebar, Header, Main Content-->
         <div class="sidebar">
-            <div>Profile</div>
-            <div>Home</div>
-            <div>Trips</div>
-            <div>Messages</div>
-            <div>Calendar</div>
-        </div>
+            <button id="button-profile">Profile</button>
+            <button id="button-home" class="sidebar__button">Home</button>
+            <button id="button-trips" class="sidebar__button">Trips</button>
+            <button id="button-messages" class="sidebar__button">Messages</button>
+            <button id="button-calendar" class="sidebar__button">Calendar</button>
+        </div> <!--Sidebar end-->
+
         <div class="header">
-            Header
-            <!--
-            Title, Notification button, New Trip Button
-            (All on same line)
-            -->
-        </div>
+            <!--Title, Notification button, New Trip Button (All on same line)-->
+            <h1>Welcome back!</h1>
+            <button id="header__button--notification">Notifications</button>
+            <button id="header__button--new-trip">New Trip</button>
+        </div> 
+        <!--Header End-->
+
         <div class="main-content">
-            <div id="trip-list" class="list">
-                Trip List
-                <!--
-                Title
-                List items
-                -->
-            </div>
-            <div id="task-list" class="list">
-                Task List
-                <!--
-                Title
-                List items
-                -->
-            </div>
-            <div id="budget-list" class="list">
-                Budget List
-                <!--
-                Title
-                List items
-                -->
-            </div>
-        </div>
-    </div>
+            <!--Contains: Trip List, Task List, Budget List-->
+            <table id="trip-list" class="table__list">
+                <thead>
+                    <tr>
+                    <!--Title, List items-->
+                        <th scope="col">Trip</th>
+                        <th scope="col">Who's coming?</th>
+                        <th scope="col">When?</th>
+                    </tr>
+                </thead>
+            </table> 
+            <!--Trip List End-->
+
+            <table id="task-list" class="table__list">
+                <thead>
+                    <tr>
+                        <th>To-Do's</th>
+                    </tr>
+                    <tr>
+                    <!--Title, List items-->
+                        <th scope="col">Task</th>
+                        <th scope="col">Trip</th>
+                        <th scope="col">Due</th>
+                    </tr>
+                </thead>
+            </table> 
+            <!--Task List End-->
+
+            <table id="budget-list" class="table__list">
+                <thead>
+                    <tr>
+                        <th>Your Budgets</th>
+                    </tr>
+                    <tr>
+                    <!--Title, List items-->
+                        <th scope="col">Trip</th>
+                        <th scope="col">Budget</th>
+                    </tr>
+                </thead>
+            </table> 
+            <!--Budget List End-->
+        </div> 
+        <!--Main Content End-->
+    </div> 
+    <!--Container End-->
 </body>
 </html>

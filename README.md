@@ -31,5 +31,11 @@ NOTE: With our team still only containing two people, we met up and did the Mile
       - Role: TimeKeeper
       - 3 Assigned Issues:
         - Main Page UI
-        - Trip Page UI
+        - Pop-Up Form UI
         - User Profile Data
+    - Joonhyun Heo
+      - Role: Planner
+      - 3 Assigned Issues:
+        - Trip Page Data
+        - Trip Page UI
+        - Sidebar Connection

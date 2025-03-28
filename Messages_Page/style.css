@@ -1,0 +1,11 @@
+.sidebar {
+    flex: 1
+}
+
+.chat-groups {
+    flex: 1
+}
+
+.messages-display {
+    flex: 2
+}

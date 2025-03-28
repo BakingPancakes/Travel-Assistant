@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="" content=" "/>
+        <title>Trip page</title>
+        <style>
+            .app-container {
+                display: flex;
+                height:100vh;
+            }
+            .sidebar {
+                flex: 1;
+                background-color:aquamarine;
+            }
+            .main_content {
+                flex: 5;
+                background-color:antiquewhite;
+            }
+            .traveler-information {
+                display: grid;
+                grid-template-columns: 250px;
+                grid-gap: 10px;
+            }
+
+            .input {
+                padding: 8px;
+                margin-bottom: 10px;
+                width: 250px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="app-container">
+            <!-- sidebar-->
+            <div class="sidebar">
+                <div class="sidebar-item">PROFILE</div>
+                <div class="sidebar-item">home</div>
+                <div class="sidebar-item">messages</div>
+                <div class="sidebar-item">Calender</div>
+            </div>
+
+            <!--Main content-->
+            <div class="main_content">
+                <h1>"Trip Name"</h1>
+                <form>
+                    <!--Traveler information-->
+                    <div class="traveler-information">
+                        Location:<input type="text" placeholder="Enter your trip location">
+                        Name:<input type="text" placeholder="Enter your name">
+                        Date:<input type="text" placeholder="mm/dd/yyyy">
+                    </div>
+                </form>
+                    <!--Traveler Accommodation-->
+                    <h2>Your Accommodations...</h2>
+                <div class="traveler-accomodation">
+                    <!--making location -->
+                    you are staying at:...
+                </div>
+
+                <!--Friend Accommodation-->
+                <h2>Friends will be staying at:...</h2>
+                <div class="friend accommodation">
+                friend and place location with table...
+                </div>
+                <h2>Itinerary(grouped by day, fnu stuff!)</h2>
+                <div class="itinerary">
+                    <div class="itinerary-item">
+                        name of activity
+                    </div>
+                </div>
+            </div>
+
+            <!--TO-DO-->
+            <div class="todo">
+                <h2>TO-DOs</h2>
+
+                <!--Todo-Before-->
+                <div class="todo_before">
+                    <h2>Before you go</h2>
+                </div>
+
+                <!--Todo-During-->
+                <div class="todo_before">
+                    <h2>During</h2>
+                </div>
+
+                <!--Todo-After-->
+                <div class="todo_before">
+                    <h2>After</h2>
+                </div>
+
+                
+            </div>
+        </div>
+    </body>
+</html>
+
+

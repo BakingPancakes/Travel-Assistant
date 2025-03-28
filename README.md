@@ -34,7 +34,7 @@ NOTE: With our team still only containing two people, we met up and did the Mile
         - Pop-Up Form UI
         - User Profile Data
     - Joonhyun Heo
-      - Role: Planner
+      - Role: Trip-page manager
       - 3 Assigned Issues:
         - Trip Page Data
         - Trip Page UI

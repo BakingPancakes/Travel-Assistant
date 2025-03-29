@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home - Travel Assist</title>
+    <link rel="stylesheet" href="main_style.css">
+    <!--
+    <script type="" src="**TBD**" defer></script>
+    I also REALLY want to design an icon for the webpage at some point
+    -->
+    <meta charset="UTF-8">
+    <meta name="author" content="Jasper McCormack, Zavier Morales, Joonhyun Heo">
+    <meta name="application-name" content="Travel Assist">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <!--Travel Assist - Home Page-->
+    <!--
+    Page includes:
+    Side-bar:
+        -Profile
+        -Buttons for:
+            -home
+            -trips
+            -messages
+            -calendar potentially
+    
+    Header:
+        -Title of homepage (maybe welcome back, {name}?)
+        -notification button
+        -new trip button
+
+    Trip list:
+        -Each line contains the name of the trip, whether its solo or with a group, and the calendar dates
+    
+    To-Dos List:
+        -Each line contains the task, the trip name, and the due-date (if it exists)
+        -Clicking on a task brings up either a popup or directs user to the trip page
+        -Opt: tasks remaining: # at the bottom
+
+    Budgets List:
+        -Lists the trip you're going on and what you set your budget for the trip as
+        -Clicking on lines brings user to the specific trip page
+        -Opt: Total costs for all budgets at the bottom of the page
+    -->
+    <div class="screen">
+        <!--Contains: Sidebar, Header, Main Content-->
+        <div class="screen__sidebar">
+            <div id="profile-div">
+                <button id="button-profile">Profile</button>
+            </div>
+            <button id="button-home" class="sidebar__button">Home</button>
+            <button id="button-trips" class="sidebar__button">Trips</button>
+            <button id="button-messages" class="sidebar__button">Messages</button>
+            <button id="button-calendar" class="sidebar__button">Calendar</button>
+        </div> <!--Sidebar end-->
+
+        <div class="screen__header">
+            <!--Title, Notification button, New Trip Button (All on same line)-->
+            <span class="header__welcome-banner">Welcome back!</span>
+            <button id="header__button--notification">
+                <span>Notifications</span>
+                <span class="notification-badge">!</span>
+            </button>
+            <button id="header__button--new-trip">New Trip</button>
+        </div> 
+        <!--Header End-->
+
+        <div class="screen__main-content">
+            <!--Contains: Trip List, Task List, Budget List-->
+            <div id="trip-list" class="table">
+                <div class="table__header">
+                    <div class="t-header__row row">
+                        <div class="t-header__col col">Trip</div>
+                        <div class="t-header__col col">Who's Going?</div>
+                        <div class="t-header__col col">When?</div>
+                    </div>
+                </div>
+                <div class="table__body">
+                    <div class="t-body__row row"></div>
+                </div>
+            </div>
+
+            <div id="task-list" class="table">
+                <div class="table__header">
+                    <div class="t-header__row row">
+                        <div class="t-header__col col">To-Do's</div>
+                    </div>
+                    <div class="t-header__row row">
+                        <div class="t-header__col col">Task</div>
+                        <div class="t-header__col col">Trip</div>
+                        <div class="t-header__col col">Due</div>
+                    </div>
+                </div>
+                <div class="table__body">
+                    <div class="t-body__row row"></div>
+                </div>
+                <div class="table__footer">
+                    <div class="t-footer__row row">
+                        <div class="t-header__col col">Tasks Remaining:</div>
+                        <div class="t-header__col col">--</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="budget-list" class="table">
+                <div class="table__header">
+                    <div class="t-header__row row">
+                        <div class="t-header__col col">Your Budgets</div>
+                    </div>
+                    <div class="t-header__row row">
+                        <div class="t-header__col col">Trip</div>
+                        <div class="t-header__col col">Budget</div>
+                    </div>
+                </div>
+                <div class="table__body">
+                    <div class="t-body__row row"></div>
+                </div>
+                <div class="table__footer">
+                    <div class="t-footer__row row">
+                        <div class="t-header__col col">Total:</div>
+                        <div class="t-header__col col">$$$</div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <!--Main Content End-->
+    </div> 
+    <!--Container End-->
+</body>
+</html>

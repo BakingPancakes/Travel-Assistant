@@ -42,9 +42,9 @@
         -Clicking on lines brings user to the specific trip page
         -Opt: Total costs for all budgets at the bottom of the page
     -->
-    <div class="container">
+    <div class="screen">
         <!--Contains: Sidebar, Header, Main Content-->
-        <div class="sidebar">
+        <div class="screen__sidebar">
             <div id="profile-div">
                 <button id="button-profile">Profile</button>
             </div>
@@ -54,88 +54,20 @@
             <button id="button-calendar" class="sidebar__button">Calendar</button>
         </div> <!--Sidebar end-->
 
-        <div class="header">
+        <div class="screen__header">
             <!--Title, Notification button, New Trip Button (All on same line)-->
-            <span class="welcome-banner">Welcome back!</span>
+            <span class="header__welcome-banner">Welcome back!</span>
             <button id="header__button--notification">
                 <span>Notifications</span>
-                <span class="badge">!</span>
+                <span class="notification-badge">!</span>
             </button>
             <button id="header__button--new-trip">New Trip</button>
         </div> 
         <!--Header End-->
 
-        <div class="main-content">
+        <div class="screen__main-content">
             <!--Contains: Trip List, Task List, Budget List-->
-            <div class="table-div">
-            <table id="trip-list" class="table__list">
-                <thead>
-                    <tr>
-                    <!--Title, List items-->
-                        <th scope="col">Trip</th>
-                        <th scope="col">Who's coming?</th>
-                        <th scope="col">When?</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>stuff</td>
-                    </tr>
-                </tbody>
-            </table> 
-            <!--Trip List End-->
-            </div>
-            <br>
-            <div id="div--list-container">
-                <div class="table-div">
-                    <table id="task-list" class="table__list">
-                        <thead>
-                            <tr>
-                                <th colspan=3>To-Do's</th>
-                            </tr>
-                            <tr>
-                            <!--Title, List items-->
-                                <th scope="col">Task</th>
-                                <th scope="col">Trip</th>
-                                <th scope="col">Due</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th colspan=2>Tasks Remaining: </th><td>--</td>
-                            </tr>
-                        </tfoot>
-                    </table> 
-                    <!--Task List End-->
-                </div>
-                <div class="table-div">
-                    <table id="budget-list" class="table__list">
-                        <thead>
-                            <tr>
-                                <th colspan=2>Your Budgets</th>
-                            </tr>
-                            <tr>
-                            <!--Title, List items-->
-                                <th scope="col">Trip</th>
-                                <th scope="col">Budget</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Total: </th><td>$$$</td>
-                            </tr>
-                        </tfoot>
-                    </table> 
-                    <!--Budget List End-->
-                </div>
-            </div>
-            <!--list container end-->
+            
         </div> 
         <!--Main Content End-->
     </div> 

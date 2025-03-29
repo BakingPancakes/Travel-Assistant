@@ -45,7 +45,9 @@
     <div class="container">
         <!--Contains: Sidebar, Header, Main Content-->
         <div class="sidebar">
-            <button id="button-profile">Profile</button>
+            <div id="profile-div">
+                <button id="button-profile">Profile</button>
+            </div>
             <button id="button-home" class="sidebar__button">Home</button>
             <button id="button-trips" class="sidebar__button">Trips</button>
             <button id="button-messages" class="sidebar__button">Messages</button>
@@ -54,14 +56,18 @@
 
         <div class="header">
             <!--Title, Notification button, New Trip Button (All on same line)-->
-            <h1>Welcome back!</h1>
-            <button id="header__button--notification">Notifications</button>
+            <span class="welcome-banner">Welcome back!</span>
+            <button id="header__button--notification">
+                <span>Notifications</span>
+                <span class="badge">!</span>
+            </button>
             <button id="header__button--new-trip">New Trip</button>
         </div> 
         <!--Header End-->
 
         <div class="main-content">
             <!--Contains: Trip List, Task List, Budget List-->
+            <div class="table-div">
             <table id="trip-list" class="table__list">
                 <thead>
                     <tr>
@@ -71,37 +77,65 @@
                         <th scope="col">When?</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td>stuff</td>
+                    </tr>
+                </tbody>
             </table> 
             <!--Trip List End-->
+            </div>
+            <br>
+            <div id="div--list-container">
+                <div class="table-div">
+                    <table id="task-list" class="table__list">
+                        <thead>
+                            <tr>
+                                <th colspan=3>To-Do's</th>
+                            </tr>
+                            <tr>
+                            <!--Title, List items-->
+                                <th scope="col">Task</th>
+                                <th scope="col">Trip</th>
+                                <th scope="col">Due</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-            <table id="task-list" class="table__list">
-                <thead>
-                    <tr>
-                        <th>To-Do's</th>
-                    </tr>
-                    <tr>
-                    <!--Title, List items-->
-                        <th scope="col">Task</th>
-                        <th scope="col">Trip</th>
-                        <th scope="col">Due</th>
-                    </tr>
-                </thead>
-            </table> 
-            <!--Task List End-->
-
-            <table id="budget-list" class="table__list">
-                <thead>
-                    <tr>
-                        <th>Your Budgets</th>
-                    </tr>
-                    <tr>
-                    <!--Title, List items-->
-                        <th scope="col">Trip</th>
-                        <th scope="col">Budget</th>
-                    </tr>
-                </thead>
-            </table> 
-            <!--Budget List End-->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan=2>Tasks Remaining: </th><td>--</td>
+                            </tr>
+                        </tfoot>
+                    </table> 
+                    <!--Task List End-->
+                </div>
+                <div class="table-div">
+                    <table id="budget-list" class="table__list">
+                        <thead>
+                            <tr>
+                                <th colspan=2>Your Budgets</th>
+                            </tr>
+                            <tr>
+                            <!--Title, List items-->
+                                <th scope="col">Trip</th>
+                                <th scope="col">Budget</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Total: </th><td>$$$</td>
+                            </tr>
+                        </tfoot>
+                    </table> 
+                    <!--Budget List End-->
+                </div>
+            </div>
+            <!--list container end-->
         </div> 
         <!--Main Content End-->
     </div> 

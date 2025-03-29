@@ -1,11 +1,42 @@
-.sidebar {
-    flex: 1
+* {
+    font-family: Arial;
 }
 
-.chat-groups {
-    flex: 1
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 70%;
+    /* grid-template-rows: 10% 70% 20%; */
+    height: 100vh;
 }
 
-.messages-display {
-    flex: 2
+.sidebar__button {
+    margin-inline: 3em;
+    margin: 1em;
+}
+
+#sidebar {
+    grid-column: 1;
+    background-color:antiquewhite;
+}
+
+
+
+#chat-groups {
+    grid-column: 2;
+    background-color: white;
+}
+
+
+
+#messages-display {
+    grid-column: 3;
+    background-color:aquamarine;
+}
+
+#messages-header {
+    grid-row: 1;
+}
+
+#input-box {
+    grid-row: 3;
 }

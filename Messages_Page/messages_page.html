@@ -2,32 +2,33 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <link rel="stylesheet" href="style.css">
         <title>Messaages</title>
     </head>
     <body>
         <div class="app-container">
             <!--Sidebar-->
-            <div class="sidebar">
-                <div class="sidebar-item">Profile</div>
-                <div class="sidebar-item">Home</div>
-                <div class="sidebar-item">Trips</div>
-                <div class="sidebar-item">Messages</div>
-                <div class="sidebar-item">Calendar</div>
+            <div id="sidebar">
+                <div id="profile-icon" class="sidebar__button">Profile</div>
+                <div id="home-button" class="sidebar__button">Home</div>
+                <div id="trips-button" class="sidebar__button">Trips</div>
+                <div id="messages-button" class="sidebar__button">Messages</div>
+                <div id="home-button" class="sidebar__button">Calendar</div>
             </div>
     
             <!--Chat list-->
-            <div class="chat-groups">
+            <div id="chat-groups">
                 <h1>Chats</h1>
             </div>
     
             <!--Messages Display-->
-            <div class="messages-display">
-                <div class="messages-header">
-                    <label></label>
+            <div id="messages-display">
+                <div id="messages-header">
+                    <h1>Chat view</h1>
                 </div>
-                <div class="input-box">
+                <div id="input-box">
                     <input type="text">
-                    <button onclick="sendMessage()"></button>
+                    <label>▶️
                 </div>
             </div>
         </div>

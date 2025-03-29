@@ -9,27 +9,32 @@
         <div class="app-container">
             <!--Sidebar-->
             <div id="sidebar">
-                <div id="profile-icon" class="sidebar__button">Profile</div>
-                <div id="home-button" class="sidebar__button">Home</div>
-                <div id="trips-button" class="sidebar__button">Trips</div>
-                <div id="messages-button" class="sidebar__button">Messages</div>
-                <div id="home-button" class="sidebar__button">Calendar</div>
+                <input id="profile-icon" class="sidebar__button" value="[Profile]">
+                <input id="home-button" class="sidebar__button" value="Home">
+                <input id="trips-button" class="sidebar__button" value="Trips">
+                <input id="messages-button" class="sidebar__button" value="Messages">
+                <input id="home-button" class="sidebar__button" value="Calendar">
             </div>
     
             <!--Chat list-->
-            <div id="chat-groups">
-                <h1>Chats</h1>
+            <div id="chat-groups-container">
+                <div id="chat-groups-header">
+                    <h1>Chats</h1>
+                    <input class="chat-preview" type="button" value="👤 Jasper">
+                    <input class="chat-preview" type="button" value="👤 Joon">
+                </div>
             </div>
     
             <!--Messages Display-->
-            <div id="messages-display">
+            <div id="messages-container">
                 <div id="messages-header">
-                    <h1>Chat view</h1>
+                    <h1>"Chat Name/Trip name"</h1>
                 </div>
-                <div id="input-box">
-                    <input type="text">
-                    <label>▶️
+                <div id="messages-display">
+                    <div class="chat-bubble-from">[Jasper] Hey Zavier! How's the messages page going?</div>
+                    <div class="chat-bubble-to">It's going swell! [Zavier]</div>
                 </div>
+                <input id="input-box" type="text" value="Type message here...">
             </div>
         </div>
         

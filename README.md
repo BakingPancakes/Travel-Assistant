@@ -1,8 +1,6 @@
 # Travel-Assistant
 A web application that puts all of your travel needs in one place
 
-Requirements: https://docs.google.com/document/d/1Ypi3KppVS71BqbsqXiPDjgDAHu4Itz6bJ_ZCjEfcmdQ/edit?usp=sharing
-NOTE: With our team still only containing two people, we met up and did the Milestone #3 work together, so some of the sub-issues and sub-sub-issues are assigned under one person or another, but it was a collaborative effort on all aspects.
 - Team 8: Travel Coordinator
   
 - Description:

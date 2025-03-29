@@ -120,3 +120,40 @@ button {
     background-color: #CD5C5C;
     padding: 30px;
 }
+
+.table {
+    display: grid;
+    grid-template-rows: 20% 20% 20%;
+    border: 2px solid black;
+}
+
+.table__header {
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.t-header__row {
+    display: grid;
+}
+
+.table__body {
+    grid-row: 2;
+    display: grid;
+}
+
+.table__footer {
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.col {
+    display: ;
+}

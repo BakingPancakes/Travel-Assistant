@@ -181,6 +181,10 @@ button {
     color: #666
 }
 
+.footer__col {
+    color: #666;
+}
+
 .row {
     display: flex;
     flex: 1;
@@ -192,6 +196,5 @@ button {
     width: 100%;
     padding: 10px;
     height: fit-content;
-    color: #666;
     font-size: 20px;
 }

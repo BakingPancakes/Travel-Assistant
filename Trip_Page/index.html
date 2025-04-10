@@ -1,79 +1,13 @@
-// new branch
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
     <meta name="" content=" "/>
     <title>Trip page</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="todo.css">
     <style>
-        .app-container {
-            display: grid;
-            grid-template-columns: 1fr 5fr 2fr;
-        }
-        .sidebar {
-            background-color: antiquewhite;
-            padding: 20px;
-        }
-        .main_content {
-            background-color: white;
-            padding: 20px;
-        }
-        .todo-section {
-            background-color: gray;
-            padding: 20px;
-        }
-        .traveler-information {
-            display: grid;
-            grid-template-columns: 250px;
-            grid-gap: 10px;
-        }
-        .sidebar-item {
-            margin-bottom: 15px;
-            padding: 8px;
-        }
-        input {
-            padding: 8px;
-        }
-        .friends-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        .friends-table th, 
-        .friends-table td {
-            border: 1px solid #000;
-            padding: 8px;
-            text-align: left;
-        }
-        .todo-item {
-            display: flex;
-            align-items: center;
-            padding: 5px 0;
-        }
-        .todo-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .activity {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #ccc;
-        }
-        
-        @media (max-width: 1024px) {
-            .app-container {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr auto;
-            }
-        }
+
     </style>
 </head>
 
@@ -142,64 +76,41 @@
         </div>
 
         <!-- TO-DO Section -->
-        <div class="todo-section">
-            <div class="todo-header">
-                <h2>TO-DOs</h2>
-                <button>ADD</button>
-            </div>
+        <div class="todo-container">
+            <h2>TO-DOs</h2>
 
-            <div>
-                <h3>BEFORE YOU GO</h3>
-                <div>
-                    <div class="todo-item">
-                        <input type="checkbox" id="task1">
-                        <label for="task1">Task</label>
-                        <span>D/I/E</span>
-                    </div>
-                    <div class="todo-item">
-                        <input type="checkbox" id="task2">
-                        <label for="task2"></label>
-                    </div>
-                    <div class="todo-item">
-                        <input type="checkbox" id="task3">
-                        <label for="task3"></label>
-                    </div>
+            <!--BEFORE-->
+            <div class="todo-section">
+                <h3>BEFORE</h3>
+                <div class="item-container">
+                    <input type="text" placeholder="Write todo">
+                    <button onclick="addTodo(this)">Add</button>
                 </div>
+                <ol></ol>
             </div>
 
-            <div>
+            <!--DURING-->
+            <div class="todo-section">
                 <h3>DURING</h3>
-                <div>
-                    <div class="todo-item">
-                        <input type="checkbox" id="task4">
-                        <label for="task4"></label>
-                    </div>
-                    <div class="todo-item">
-                        <input type="checkbox" id="task5">
-                        <label for="task5"></label>
-                    </div>
-                    <div class="todo-item">
-                        <input type="checkbox" id="task6">
-                        <label for="task6"></label>
-                    </div>
+                <div class="item-container">
+                    <input type="text" placeholder="Write todo">
+                    <button onclick="addTodo(this)">Add</button>
                 </div>
+                <ol></ol>
             </div>
 
-            <div>
+            <!--AFTER-->
+            <div class="todo-section">
                 <h3>AFTER</h3>
-                <div>
-                    <div class="todo-item">
-                        <input type="checkbox" id="task7">
-                        <label for="task7"></label>
-                    </div>
-                    <div class="todo-item">
-                        <input type="checkbox" id="task8">
-                        <label for="task8"></label>
-                    </div>
+                <div class="item-container">
+                    <input type="text" placeholder="Write todo">
+                    <button onclick="addTodo(this)">Add</button>
                 </div>
+                <ol></ol>
             </div>
         
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

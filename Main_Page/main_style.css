@@ -1,15 +1,25 @@
+/*
+Potential Color Palette:
+#9FAC9D
+#DFD8C5
+#ECE4D7
+#DDC8B7
+#CDACA1
+#89999A
+*/
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    color: #666;
 }
 html {
     height: 100%;
 }
 
 body {
-    background-color: #f5f5f5;
+    background-color: #DDC8B7;
     height: 100%;
 }
 
@@ -26,8 +36,8 @@ button {
 .screen__sidebar {
     flex: 1;
     display: flex;
-    background-color: seagreen;
     flex-flow: column wrap;
+    background-color: #CDACA1;
 }
 
 #profile-div {
@@ -46,16 +56,13 @@ button {
 
 .sidebar__button {
     display: inline-block;
+    background-color: #CDACA1;
     border: none;
     width: 100%;
     height: max(4vw, 1vw);
-    color: white;
-    background-color: green;
     text-align: left;
-    text-decoration: none;
     padding: 5%;
     font-size: 2.0vw;
-    overflow: hidden;
 }
 
 .screen__container {
@@ -66,11 +73,11 @@ button {
 
 .screen__header {
     flex: 1;
-    background-color: dodgerblue;
+    background-color: #DDC8B7;
     display: flex;
     align-items: center;
     padding: 2.5%;
-    color: white;
+    color: #89999A;
     justify-content: space-between;
 }
 
@@ -111,61 +118,80 @@ button {
 
 .screen__main-content {
     flex: 8;
-    background-color: #CD5C5C;
+    background-color: #DFD8C5;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .table {
     display: flex;
-    margin: 10px;
+    margin: 20px;
     flex-direction: column;
-    background-color: darkmagenta;
-    border: 2px solid white;
-    color: white;
-    height: fit-content;
+    background-color: #ECE4D7;
+    border-radius: 2%;
+    height: auto;
+}
+
+#trip-list {
+    width: 100%;
+}
+
+#task-list, #budget-list {
+    flex: 1;
 }
 
 .table__header {
-    flex: 1;
+    height: fit-content;
     display: flex;
     flex-direction: column;
+    font-size: 25px;
+    color: #f0f0f0
 }
 
 .t-header__row {
     display: flex;
+    background-color: #9FAC9D;
+}
+
+.t-header__col {
+    color: #f0f0f0;
 }
 
 .table__body {
-    flex: 1;
+    flex: 2;
     display: flex;
     width: 100%;
-    height: 50px;
+    height: auto;
+    font-size: 20px;
+}
+
+.t-body__row {
+    height: fit-content;
 }
 
 .table__footer {
-    flex: 1;
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    margin-top: auto;
+    height: fit-content;
 }
 
 .footer__row {
     display: flex;
+    color: #666
 }
 
 .row {
     display: flex;
     flex: 1;
     flex-direction: row;
-    justify-content: space-around;
-    border: 1px solid peru;
-    height: max(fit-content, 20px);
     width: auto;
 }
 
 .col {
-    flex: 1;
-    width: 60px;
-    border: 1px solid wheat;
-    padding-left: 1%;
+    width: 100%;
+    padding: 10px;
+    height: fit-content;
+    color: #666;
+    font-size: 20px;
 }

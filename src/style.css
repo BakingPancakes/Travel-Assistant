@@ -1,0 +1,40 @@
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr 5fr 2fr;
+}
+
+.sidebar {
+    background-color: antiquewhite;
+    padding: 20px;
+}
+
+.main_content {
+    background-color: white;
+    padding: 20px;
+}
+
+.todo-container {
+    background-color: #f0f0f0;
+}
+
+input {
+    padding: 8px;
+}
+
+.traveler-information {
+    display: grid;
+    grid-template-columns: 250px;
+    grid-gap: 10px;
+}
+
+.sidebar-item {
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+@media (max-width: 1024px) {
+    .app-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+    }
+}

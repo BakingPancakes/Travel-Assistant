@@ -8,7 +8,7 @@ export class BaseComponent {
      * @returns {HTMLELement}
     */
     render () {
-        throw new Error('render method not implemented');
+        throw new Error{'render method not implemented'};
     }
 
     loadCSS(fileName) {

@@ -2,9 +2,9 @@
 Potential Color Palette:
 #9FAC9D
 #DFD8C5
-#ECE4D7
-#DDC8B7
-#CDACA1
+#ECE4D7 #cfc8bc
+#DDC8B7 #c1afa0
+#CDACA1 #b3978d
 #89999A
 */
 
@@ -52,6 +52,31 @@ button {
     aspect-ratio: 1 / 1;
     width: 60%;
     border-radius: 50%;
+    display: flex;
+}
+
+#profile--pic {
+    width: 100%;
+    border-radius: 50%;
+    margin: auto;
+    align-self: center;
+}
+
+#button-home {
+    border-top: 1.5px solid #b3978d;
+}
+
+#button-trips {
+    border-top: 1.5px solid #b3978d;
+    border-bottom: 1.5px solid #b3978d;
+}
+
+#button-messages {
+    border-bottom: 1.5px solid #b3978d;
+}
+
+#button-calendar {
+    border-bottom: 1.5px solid #b3978d;
 }
 
 .sidebar__button {
@@ -92,12 +117,13 @@ button {
     border-radius: 50%;
     border: none;
     margin-left: auto;
+    background-color: #89999A;
 }
 
 .notification-badge {
     position: relative;
     text-align: center;
-    bottom: max(4vh, 20px);
+    bottom: max(5.5vh, 20px);
     left: max(1.2vw, 10px);
     aspect-ratio: 1 / 1;
     width: 1vh;
@@ -108,12 +134,22 @@ button {
     border: none;
 }
 
+#bell {
+    width: 75%;
+    height: 75%;
+    position: relative;
+    top: 7px;
+}
+
 #header__button--new-trip {
     height: 75%;
     width: max(8%, 50px);
     top: 20%;
     margin-left: 1%;
     border-radius: 4%;
+    background-color: #89999A;
+    color: #f0f0f0;
+    font-size: 125%;
 }
 
 .screen__main-content {
@@ -159,14 +195,19 @@ button {
 
 .table__body {
     flex: 2;
-    display: flex;
     width: 100%;
     height: auto;
     font-size: 20px;
 }
 
+.empty {
+    height: 100%;
+    width: 100%;
+}
+
 .t-body__row {
     height: fit-content;
+    border-bottom: 1.5px solid #cfc8bc;
 }
 
 .table__footer {
@@ -176,12 +217,12 @@ button {
     height: fit-content;
 }
 
-.footer__row {
+.t-footer__row {
     display: flex;
     color: #666
 }
 
-.footer__col {
+.t-footer__col {
     color: #666;
 }
 
@@ -197,4 +238,8 @@ button {
     padding: 10px;
     height: fit-content;
     font-size: 20px;
+}
+
+.right-align {
+    text-align: right;
 }

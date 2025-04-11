@@ -6,9 +6,6 @@
     <title>Trip page</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="todo.css">
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -25,21 +22,38 @@
         <!-- Main content -->
         <div class="main_content">
             <h1>"TRIP NAME"</h1>
-            <div class="header-actions">
+            <div class="section-header">
                 <span>🔔</span>
-                <button>Edit Trip</button>
+                <button id="editTripButton">Edit Trip</button>
             </div>
+            <!--Traveler-information-->
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="Enter your trip location" required />
+            </div>
+            <div class="form-group">
+                <label for="traveler">Traveler</label>
+                <input type="text" id="traveler" name="traveler" placeholder="Enter traveler name" required />
+            </div>
+            <div class="form-group">
+                <label for="companions">Traveler's Companion</label>
+                <input type="text" id="companions" name="companions" placeholder="Enter traveler's companion names" />
+            </div>
+            <div class="form-group">
+                <label for="from">From</label>
+                <input type="date" id="from" name="from" required />
+            </div>
+            <div class="form-group">
+                <label for="to">To</label>
+                <input type="date" id="to" name="to" required />
+            </div>
+            <button type="button" id="submitTrip">Submit Trip</button>
 
-            <form>
-                <div class="traveler-information">
-                    Location: <input type="text" placeholder="Enter your trip location">
-                    Travelers: <input type="text" placeholder="Enter travelers' names">
-                    Date: <input type="text" placeholder="mm/dd/yyyy">
-                </div>
-            </form>
-
+            <!--Accommodation-->
             <div>
                 <div class="section-header">
+                    <div class="accmmodation">
+                    </div>
                     <h2>Your Accommodations</h2>
                     <button>EDIT</button>
                 </div>
@@ -111,6 +125,7 @@
         
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="todo.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>

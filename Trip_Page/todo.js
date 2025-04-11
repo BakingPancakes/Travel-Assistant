@@ -1,3 +1,4 @@
+// TODO SECTION
 function addTodo(section) {
 
     const todoSection = section.closest('.todo-section');

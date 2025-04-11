@@ -1,8 +1,6 @@
 # Travel-Assistant
 A web application that puts all of your travel needs in one place
 
-Requirements: https://docs.google.com/document/d/1Ypi3KppVS71BqbsqXiPDjgDAHu4Itz6bJ_ZCjEfcmdQ/edit?usp=sharing
-NOTE: With our team still only containing two people, we met up and did the Milestone #3 work together, so some of the sub-issues and sub-sub-issues are assigned under one person or another, but it was a collaborative effort on all aspects.
 - Team 8: Travel Coordinator
   
 - Description:
@@ -31,5 +29,11 @@ NOTE: With our team still only containing two people, we met up and did the Mile
       - Role: TimeKeeper
       - 3 Assigned Issues:
         - Main Page UI
-        - Trip Page UI
+        - Pop-Up Form UI
         - User Profile Data
+    - Joonhyun Heo
+      - Role: Trip-page manager
+      - 3 Assigned Issues:
+        - Trip Page Data
+        - Trip Page UI
+        - Sidebar Connection

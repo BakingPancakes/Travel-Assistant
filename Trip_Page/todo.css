@@ -1,0 +1,44 @@
+/* TODO Section Styles */
+.todo-section {
+    flex: 2;
+    background-color: #f0f0f0;
+    border-left: 1px solid #ccc;
+    padding: 20px;
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.todo-item span {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.todo-item .delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 3px;
+}
+
+/* Responsive TODO Styles */
+@media (max-width: 1024px) {
+    .todo-section {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #ccc;
+    }
+}

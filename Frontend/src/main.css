@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #666;
+}
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #DDC8B7;
+    height: 100%;
+}
+
+button {
+    border: none;
+}
+
+#screen {
+    display: flex;
+    height: 100vh;
+    flex-wrap: wrap;
+}
+
+/* Responsive Design */
+/* Mobile (up to 600px) */
+@media (max-width: 600px) {
+    #screen {
+      padding: 10px;
+    }
+  
+    button {
+      width: 100%;
+    }
+  }
+  
+  /* Tablet (600px to 1024px) */
+  @media (min-width: 601px) and (max-width: 1024px) {
+    #screen {
+      padding: 20px;
+    }
+  
+    button {
+      font-size: 1rem;
+      padding: 12px 18px;
+    }
+  }
+  
+  /* Desktop (1025px and up) */
+  @media (min-width: 1025px) {
+    #screen {
+      padding: 20px 40px;
+    }
+  
+    button {
+      font-size: 1.1rem;
+      padding: 14px 20px;
+    }
+  }

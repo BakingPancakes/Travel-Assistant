@@ -42,8 +42,24 @@
         -Clicking on lines brings user to the specific trip page
         -Opt: Total costs for all budgets at the bottom of the page
     -->
-    <div class="screen">
-        <!--Contains: Sidebar, Header, Main Content-->
+    <div id="screen">
+        <!--Contains: Sidebar, Header, Main Content, hidden popup-->
+        <div class="modal">
+            <div class="form-popup" id="new-Trip">
+                <form>
+                    <label for="tripName"><b>Give your trip a name:</b></label>
+                    <input type="text" placeholder="Trip Name Here" name="tripName" required>
+
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" name="startDate" id="startDate" required>
+                    
+                    <label for="cancel">Cancel</label>
+                    <input type="button" name="cancel" id="cancel">
+                    <input type="submit" value="Make Trip">
+                </form>
+            </div>
+        </div>
+        <!--new trip popup end-->
         <div class="screen__sidebar">
             <div id="profile-div">
                 <button id="button-profile"><img id="profile--pic" src="..\..\assets\suitcase.jpg"></button>

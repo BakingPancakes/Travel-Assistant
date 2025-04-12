@@ -1,0 +1,56 @@
+.screen__sidebar {
+    flex: 1;
+    display: flex;
+    flex-flow: column wrap;
+    background-color: #CDACA1;
+}
+
+#profile-div {
+    display: flex;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#button-profile {
+    aspect-ratio: 1 / 1;
+    width: 60%;
+    border-radius: 50%;
+    display: flex;
+}
+
+#profile--pic {
+    width: 100%;
+    border-radius: 50%;
+    margin: auto;
+    align-self: center;
+}
+
+#button-home {
+    border-top: 1.5px solid #b3978d;
+}
+
+#button-trips {
+    border-top: 1.5px solid #b3978d;
+    border-bottom: 1.5px solid #b3978d;
+}
+
+#button-messages {
+    border-bottom: 1.5px solid #b3978d;
+}
+
+#button-calendar {
+    border-bottom: 1.5px solid #b3978d;
+}
+
+.sidebar__button {
+    display: inline-block;
+    background-color: #CDACA1;
+    border: none;
+    width: 100%;
+    height: max(4vw, 1vw);
+    text-align: left;
+    padding: 5%;
+    font-size: 2.0vw;
+}

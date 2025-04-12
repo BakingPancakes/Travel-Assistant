@@ -12,80 +12,107 @@
     <div class="app-container">
         <!-- sidebar-->
         <div class="sidebar">
-            <div class="sidebar-item">PROFILE</div>
-            <div class="sidebar-item">Home</div>
-            <div class="sidebar-item">Your Trips</div>
-            <div class="sidebar-item">Messages</div>
-            <div class="sidebar-item">Calendar</div>
+            <div class="sidebar-item" data-view="profile-view">PROFILE</div>
+            <div class="sidebar-item" data-view="home-view">Home</div>
+            <div class="sidebar-item" data-view="trips-view">Your Trips</div>
+            <div class="sidebar-item" data-view="messages-view">Messages</div>
+            <div class="sidebar-item" data-view="calendar-view">Calendar</div>
         </div>
 
-        <!-- Main content -->
-        <div class="main_content">
-            <h1>"TRIP NAME"</h1>
-            <div class="section-header">
-                <span>🔔</span>
-                <button id="editTripButton">Edit Trip</button>
+        <!-- Views Container -->
+        <div id="views" class="main_content">
+            <!-- Profile View -->
+            <div id="profile-view" class="view" style="display: none;">
+                <h1>This is PROFILE page</h1>
+                <p>This view would show user profile information.</p>
             </div>
-            <!--Traveler-information-->
-            <div class="form-group">
-                <label for="location">Location</label>
-                <input type="text" id="location" name="location" placeholder="Enter your trip location" required />
-            </div>
-            <div class="form-group">
-                <label for="traveler">Traveler</label>
-                <input type="text" id="traveler" name="traveler" placeholder="Enter traveler name" required />
-            </div>
-            <div class="form-group">
-                <label for="companions">Traveler's Companion</label>
-                <input type="text" id="companions" name="companions" placeholder="Enter traveler's companion names" />
-            </div>
-            <div class="form-group">
-                <label for="from">From</label>
-                <input type="date" id="from" name="from" required />
-            </div>
-            <div class="form-group">
-                <label for="to">To</label>
-                <input type="date" id="to" name="to" required />
-            </div>
-            <button type="button" id="submitTrip">Submit Trip</button>
 
-            <!--Accommodation-->
-            <div>
+            <!-- Home View -->
+            <div id="home-view" class="view" style="display: none;">
+                <h1>This is HOME page</h1>
+                <p>show the homepage.</p>
+            </div>
+
+            <!-- Trips View -->
+            <div id="trips-view" class="view">
+                <h1>"TRIP NAME"</h1>
                 <div class="section-header">
-                    <div class="accmmodation">
-                    </div>
-                    <h2>Your Accommodations</h2>
-                    <button>EDIT</button>
+                    <span>🔔</span>
+                    <button id="editTripButton">Edit Trip</button>
                 </div>
-                <p>You are staying at:</p>
-                <p>[Accommodation]</p>
+                <!--Traveler-information-->
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="Enter your trip location" required />
+                </div>
+                <div class="form-group">
+                    <label for="traveler">Traveler</label>
+                    <input type="text" id="traveler" name="traveler" placeholder="Enter traveler name" required />
+                </div>
+                <div class="form-group">
+                    <label for="companions">Traveler's Companion</label>
+                    <input type="text" id="companions" name="companions" placeholder="Enter traveler's companion names" />
+                </div>
+                <div class="form-group">
+                    <label for="from">From</label>
+                    <input type="date" id="from" name="from" required />
+                </div>
+                <div class="form-group">
+                    <label for="to">To</label>
+                    <input type="date" id="to" name="to" required />
+                </div>
+                <button type="button" id="submitTrip">Submit Trip</button>
+
+                <!--Accommodation-->
+                <div>
+                    <div class="section-header">
+                        <div class="accmmodation">
+                        </div>
+                        <h2>Your Accommodations</h2>
+                        <button>EDIT</button>
+                    </div>
+                    <p>You are staying at:</p>
+                    <p>[Accommodation]</p>
+                </div>
+
+                <div>
+                    <h2>Friends will be staying at:</h2>
+                </div>
+
+                <div>
+                    <h2>Itinerary Grouped by day, fun stuff!</h2>
+                    <div>
+                        <h3>Day 1</h3>
+                        <div class="activity">
+                            <span>Name of activity</span>
+                            <span>👤</span>
+                        </div>
+                        <div class="activity">
+                            <span>Another activity</span>
+                            <span>👤</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3>Day 2</h3>
+                        <div class="activity">
+                            <span>Name of activity</span>
+                            <span>👤</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <h2>Friends will be staying at:</h2>
+            <!-- Messages View -->
+            <div id="messages-view" class="view" style="display: none;">
+                <h1>This is MESSAGES page</h1>
+                <p> message page</p>
             </div>
 
-            <div>
-                <h2>Itinerary Grouped by day, fun stuff!</h2>
-                <div>
-                    <h3>Day 1</h3>
-                    <div class="activity">
-                        <span>Name of activity</span>
-                        <span>👤</span>
-                    </div>
-                    <div class="activity">
-                        <span>Another activity</span>
-                        <span>👤</span>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3>Day 2</h3>
-                    <div class="activity">
-                        <span>Name of activity</span>
-                        <span>👤</span>
-                    </div>
-                </div>
+            <!-- Calendar View -->
+            <div id="calendar-view" class="view" style="display: none;">
+                <h1>This is CALENDAR page</h1>
+                <p>Will show Calendar</p>
             </div>
         </div>
 
@@ -125,7 +152,7 @@
         
         </div>
     </div>
+    <script src="app.js"></script>
     <script src="todo.js"></script>
-    <script src="main.js"></script>
 </body>
 </html>

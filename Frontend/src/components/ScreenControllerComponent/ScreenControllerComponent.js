@@ -1,4 +1,6 @@
 import { EventHub } from "../../lib/eventhub/eventHub";
+import { HomePageComponent } from "../HomePageComponent/HomePageComponent";
+import { SidebarComponent } from "../SidebarComponent/SidebarComponent";
 
 export class ScreenControllerComponent {
     #container = null;
@@ -30,9 +32,10 @@ export class ScreenControllerComponent {
 
     // Set up the HTML structure for the container
     #setupContainerContent() {
-        this.#container.innerHTML = `
-        <div id="screen"></div>
-        `;
+        const sidebar = new SidebarComponent();
+        const homepage = new HomePageComponent();
+        this.#container.appendChild(sidebar.render());
+        this.#container.appendChild(homepage.render());
     }
 
     // Attach necessary event listeners

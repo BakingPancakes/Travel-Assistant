@@ -29,11 +29,39 @@ export class TripSimpleInputComponent extends BaseComponent {
 
     #getTemplate() {
         // Returns the HTML template for the component
-        throw new Error("Not yet implemented");
+        return `
+            <div class="form-popup" id="new-Trip">
+                <form>
+                    <label for="tripName"><b>Give your trip a name:</b></label>
+                    <input type="text" placeholder="Trip Name Here" name="tripName" id="tripName" required>
+
+                    <label for="tripGroup"><b>Who is going?</b></label>
+                    <input type="text" placeholder="Enter participants..." name="tripGroup" id="tripGroup" required>
+
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" name="startDate" id="startDate" required>
+                    
+                    <label for="cancel">Cancel</label>
+                    <input type="button" name="cancel" id="cancel">
+                    <input type="button" id="submit" value="Make Trip">
+                </form>
+            </div>
+        `;
     }
 
     #attachEventListeners() {
-        throw new Error("Not yet implemented");
+        // Attach event listeners to input and button elements
+        const tripInput = this.#container.querySelector("#tripName");
+        const groupInput = this.#container.querySelector("#tripGroup");
+        const dateInput = this.#container.querySelector("#startDate");
+        const cancelBtn = this.#container.querySelector("#cancel");
+        const submitBtn = this.#container.querySelector("#submit");
+
+        submitBtn.addEventListener("click", () => 
+            this.#handleAddTrip(tripInput, groupInput, dateInput)
+        );
+
+
     }
 
     #handleAddTrip(tripInput, groupInput, dateInput) {
@@ -44,9 +72,9 @@ export class TripSimpleInputComponent extends BaseComponent {
         // Validation
 
         // Publish newTrip event with task, group, and date data
-        //this.#publishNewTrip(tripName, tripGroup, tripDate);
+        this.#publishNewTrip(tripName, tripGroup, tripDate);
         // Clear inputs
-        //this.#clearInputs(tripInput, groupInput, dateInput);
+        this.#clearInputs(tripInput, groupInput, dateInput);
     }
 
     #publishNewTrip(name, group, date) {

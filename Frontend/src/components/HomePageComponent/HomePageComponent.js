@@ -50,13 +50,92 @@ export class HomePageComponent extends BaseComponent {
     // Create container element for component
     #createContainer() {
         this.#container = document.createElement('div');
-        this.#container.classList.add('home-page-component');
+        this.#container.classList.add('homepage-container');
     }
 
     // Set up basic HTML structure of homepage
     #setupContainerContent() {
         this.#container.innerHTML = `
-        
+        <div class="screen__header">
+                <!--Title, Notification button, New Trip Button (All on same line)-->
+                <span class="header__welcome-banner">Welcome back!</span>
+                <button id="header__button--notification">
+                    <img id="bell" src="..\..\assets\notification.png" alt="Notifications">
+                    <span class="notification-badge">!</span>
+                </button>
+                <button id="header__button--new-trip">New Trip</button>
+            </div> 
+            <!--Header End-->
+    
+            <div class="screen__main-content">
+                <!--Contains: Trip List, Task List, Budget List-->
+                <div id="trip-list" class="table">
+                    <div class="table__header">
+                        <div class="t-header__row row">
+                            <div id="col--where" class="t-header__col col">Trip</div>
+                            <div id="col--who" class="t-header__col col">Who's Going?</div>
+                            <div id="col--when" class="t-header__col col">When?</div>
+                        </div>
+                    </div>
+                    <div class="table__body">
+                        <div class="t-body__row row">
+                            <div class="col"> some trip</div>
+                            <div class="col"> solo</div>
+                            <div class="col"> some date</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="task-list" class="table">
+                    <div class="table__header">
+                        <div class="t-header__row row">
+                            <div class="t-header__col col">To-Do's</div>
+                        </div>
+                        <div class="t-header__row row">
+                            <div class="t-header__col col">Task</div>
+                            <div class="t-header__col col">Trip</div>
+                            <div class="t-header__col due col">Due</div>
+                        </div>
+                    </div>
+                    <div class="table__body">
+                        <div class="t-body__row row">
+                            <div class="col"> some task</div>
+                            <div class="col"> some trip</div>
+                            <div class="due col"> some date</div>
+                        </div>
+                    </div>
+                    <div class="table__footer">
+                        <div class="t-footer__row row">
+                            <div class="t-footer__col col">Tasks Remaining:</div>
+                            <div class="t-footer__col right-align col">--</div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div id="budget-list" class="table">
+                    <div class="table__header">
+                        <div class="t-header__row row">
+                            <div class="t-header__col col">Your Budgets</div>
+                        </div>
+                        <div class="t-header__row row">
+                            <div class="t-header__col col">Trip</div>
+                            <div class="t-header__col col--budget col">Budget</div>
+                        </div>
+                    </div>
+                    <div class="table__body">
+                        <div class="t-body__row row">
+                            <div class="col"> some trip</div>
+                            <div class="col col--budget"> some cost</div>
+                        </div>
+                    </div>
+                    <div class="table__footer">
+                        <div class="t-footer__row row">
+                            <div class="t-footer__col col">Total:</div>
+                            <div class="t-footer__col right-align col">$$$</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         `;
     }
 

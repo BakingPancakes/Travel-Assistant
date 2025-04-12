@@ -1,7 +1,7 @@
 import { Events } from '/lib/eventhub/Events.js';
 import Service from './Service.js';
 
-export class TaskRepositoryService extends Service {
+export class TripRepositoryService extends Service {
     constructor() {
         super();
         this.dbName = "tripDB";

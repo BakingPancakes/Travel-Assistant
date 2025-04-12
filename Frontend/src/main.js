@@ -1,4 +1,5 @@
 import { ScreenControllerComponent } from "./components/ScreenControllerComponent/ScreenControllerComponent";
+import { TripRepositoryFactory } from "./services/TripRepositoryFactory";
 
 // Create instance
 const screenController = new ScreenControllerComponent();
@@ -8,3 +9,4 @@ const screenContainer = document.getElementById("screen");
 screenContainer.appendChild(screenController.render());
 
 // Services
+const tripRepository = TripRepositoryFactory.get("fake");

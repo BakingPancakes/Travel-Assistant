@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="" content=" "/>
+    <title>Trip page</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="todo.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- sidebar-->
+        <div class="sidebar">
+            <div class="sidebar-item">PROFILE</div>
+            <div class="sidebar-item">Home</div>
+            <div class="sidebar-item">Your Trips</div>
+            <div class="sidebar-item">Messages</div>
+            <div class="sidebar-item">Calendar</div>
+        </div>
+
+        <!-- Main content -->
+        <div class="main_content">
+            <h1>"TRIP NAME"</h1>
+            <div class="header-actions">
+                <span>🔔</span>
+                <button>Edit Trip</button>
+            </div>
+
+            <form>
+                <div class="traveler-information">
+                    Location: <input type="text" placeholder="Enter your trip location">
+                    Travelers: <input type="text" placeholder="Enter travelers' names">
+                    Date: <input type="text" placeholder="mm/dd/yyyy">
+                </div>
+            </form>
+
+            <div>
+                <div class="section-header">
+                    <h2>Your Accommodations</h2>
+                    <button>EDIT</button>
+                </div>
+                <p>You are staying at:</p>
+                <p>[Accommodation]</p>
+            </div>
+
+            <div>
+                <h2>Friends will be staying at:</h2>
+            </div>
+
+            <div>
+                <h2>Itinerary Grouped by day, fun stuff!</h2>
+                <div>
+                    <h3>Day 1</h3>
+                    <div class="activity">
+                        <span>Name of activity</span>
+                        <span>👤</span>
+                    </div>
+                    <div class="activity">
+                        <span>Another activity</span>
+                        <span>👤</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Day 2</h3>
+                    <div class="activity">
+                        <span>Name of activity</span>
+                        <span>👤</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TO-DO Section -->
+        <div class="todo-container">
+            <h2>TO-DOs</h2>
+
+            <!--BEFORE-->
+            <div class="todo-section">
+                <h3>BEFORE</h3>
+                <div class="item-container">
+                    <input type="text" placeholder="Write todo">
+                    <button onclick="addTodo(this)">Add</button>
+                </div>
+                <ol></ol>
+            </div>
+
+            <!--DURING-->
+            <div class="todo-section">
+                <h3>DURING</h3>
+                <div class="item-container">
+                    <input type="text" placeholder="Write todo">
+                    <button onclick="addTodo(this)">Add</button>
+                </div>
+                <ol></ol>
+            </div>
+
+            <!--AFTER-->
+            <div class="todo-section">
+                <h3>AFTER</h3>
+                <div class="item-container">
+                    <input type="text" placeholder="Write todo">
+                    <button onclick="addTodo(this)">Add</button>
+                </div>
+                <ol></ol>
+            </div>
+        
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

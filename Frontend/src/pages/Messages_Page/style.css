@@ -124,12 +124,12 @@
     border-radius: 50px;
 }
 .chat-from {
-    float:left;
-    width: 70%;
+    grid-column: 1;
+    grid-row: 1;
 }
 .chat-to {
-    float:right;
-    width: 70%;
+    grid-column: 3;
+    grid-row: 2;
     text-align: right;
     margin-right: 5em;
 }

@@ -60,9 +60,9 @@
 
 #messages-display {
     grid-row: 2;
-    display: grid;
-    grid-template-columns: 5fr 1fr 5fr;
-    grid-template-rows: 10% 10% 1fr
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
 }
 .chat-bubble {
     height: 2em;
@@ -73,12 +73,10 @@
     border-radius: 10px;
 }
 .chat-from {
-    grid-column: 1;
-    grid-row: 1;
+    align-self: flex-start;
 }
 .chat-to {
-    grid-column: 3;
-    grid-row: 2;
+    align-self: flex-end;
     text-align: right;
     margin-right: 5em;
 }

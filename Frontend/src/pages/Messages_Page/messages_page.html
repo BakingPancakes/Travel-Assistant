@@ -6,14 +6,17 @@
         <title>Messaages</title>
     </head>
     <body>
-        <div class="app-container">
+        <div id  ="app-container">
             <!--Sidebar-->
             <div id="sidebar">
-                <input id="profile-icon" class="sidebar__button" value="[Profile]">
-                <input id="home-button" class="sidebar__button" value="Home">
-                <input id="trips-button" class="sidebar__button" value="Trips">
-                <input id="messages-button" class="sidebar__button" value="Messages">
-                <input id="home-button" class="sidebar__button" value="Calendar">
+                <div id="profile-container">
+                    <img id="profile-icon" max-height="20px" max-width="20px" src="..\..\assets\blehh.png">
+                    <input type="button" id="profile-button" class="sidebar__button">
+                </div>
+                <input type="button" id="home-button" class="sidebar__button" value="Home">
+                <input type="button" id="trips-button" class="sidebar__button" value="Trips">
+                <input type="button" id="messages-button" class="sidebar__button" value="Messages">
+                <input type="button" id="home-button" class="sidebar__button" value="Calendar">
             </div>
     
             <!--Chat list-->
@@ -28,7 +31,7 @@
             <!--Messages Display-->
             <div id="messages-container">
                 <div id="messages-header">
-                    <h1>"Chat Name/Trip name"</h1>
+                    <h1>[Chat name]</h1>
                 </div>
                 <div id="messages-display">
                     <div class="chat-bubble chat-from">[Jasper] Hey Zavier! How's the messages page going?</div>

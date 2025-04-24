@@ -1,6 +1,6 @@
-import { EventHub } from "../../lib/eventhub/eventHub";
-import { HomePageComponent } from "../HomePageComponent/HomePageComponent";
-import { SidebarComponent } from "../SidebarComponent/SidebarComponent";
+import { EventHub } from "../../lib/eventhub/eventHub.js";
+import { HomePageComponent } from "../HomePageComponent/HomePageComponent.js";
+import { SidebarComponent } from "../SidebarComponent/SidebarComponent.js";
 
 export class ScreenControllerComponent {
     #container = null;

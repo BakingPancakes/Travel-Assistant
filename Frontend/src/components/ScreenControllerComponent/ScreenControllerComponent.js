@@ -11,7 +11,7 @@ export class ScreenControllerComponent {
         this.#hub = EventHub.getInstance();
         // Component initialization here
     }
-
+kk
     render() {
         this.#createContainer();
         this.#setupContainerContent();

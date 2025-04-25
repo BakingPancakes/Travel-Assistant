@@ -18,12 +18,12 @@
     width: 60%;
     border-radius: 50%;
     display: flex;
+    padding: 0;
 }
 
 #profile--pic {
     width: 100%;
     border-radius: 50%;
-    margin: auto;
     align-self: center;
 }
 
@@ -53,4 +53,11 @@
     text-align: left;
     padding: 5%;
     font-size: 2.0vw;
+}
+
+.sidebar__button:hover {
+    background-color: #b3978d;
+    transition-duration: 0.4s;
+    color: #f0f0f0;
+    cursor: pointer;
 }

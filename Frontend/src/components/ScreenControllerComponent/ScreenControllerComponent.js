@@ -1,25 +1,34 @@
-import { EventHub } from "../../lib/eventhub/eventHub";
-import { HomePageComponent } from "../HomePageComponent/HomePageComponent";
-import { SidebarComponent } from "../SidebarComponent/SidebarComponent";
+import { EventHub } from "../../lib/eventhub/eventHub.js";
+import { HomePageComponent } from "../HomePageComponent/HomePageComponent.js";
+import { SidebarComponent } from "../SidebarComponent/SidebarComponent.js";
 
 export class ScreenControllerComponent {
     #container = null;
     #currentView = 'home';
+    #sidebarComponent = null;
+    #homePageComponent = null;
     #hub = null;
 
     constructor() {
         this.#hub = EventHub.getInstance();
         // Component initialization here
+        this.#sidebarComponent = new SidebarComponent();
+        this.#homePageComponent = new HomePageComponent();
     }
 
     render() {
         this.#createContainer();
         this.#setupContainerContent();
-        this.#attachEventListeners();
+        //this.#attachEventListeners();
+
+        this.#sidebarComponent.render();
+        this.#homePageComponent.render();
+
 
         // Component rendering goes here
 
         this.#renderCurrentView();
+        console.log("Screen Controller rendered")
 
         return this.#container;
     }
@@ -27,15 +36,14 @@ export class ScreenControllerComponent {
     // Create main container element
     #createContainer() {
         this.#container = document.createElement('div');
-        this.#container.classList.add('screen-container');
+        this.#container.classList.add('screen-controller');
     }
 
     // Set up the HTML structure for the container
     #setupContainerContent() {
-        const sidebar = new SidebarComponent();
-        const homepage = new HomePageComponent();
-        this.#container.appendChild(sidebar.render());
-        this.#container.appendChild(homepage.render());
+        this.#container.innerHTML = `
+        <div id="screen"></div>
+        `
     }
 
     // Attach necessary event listeners
@@ -44,6 +52,9 @@ export class ScreenControllerComponent {
     }
 
     #renderCurrentView() {
-        throw new Error("Not yet implemented");
+        const screen = this.#container.querySelector('#screen');
+        screen.innerHTML = ''; // Clear existing content
+        screen.appendChild(this.#sidebarComponent.render());
+        screen.appendChild(this.#homePageComponent.render());
     }
 }

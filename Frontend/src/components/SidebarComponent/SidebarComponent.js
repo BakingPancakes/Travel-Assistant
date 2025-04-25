@@ -1,4 +1,4 @@
-import { BaseComponent } from '../BaseComponent/BaseComponent';
+import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 
 export class SidebarComponent extends BaseComponent {
     #container = null;
@@ -16,7 +16,7 @@ export class SidebarComponent extends BaseComponent {
         this.#createContainer();
         this.#setupContainerContent();
         this.#attachEventListeners();
-
+        console.log("Sidebar rendered");
         return this.#container;
     }
 
@@ -29,7 +29,7 @@ export class SidebarComponent extends BaseComponent {
     #setupContainerContent() {
         this.#container.innerHTML = `
             <div id="profile-div">
-            <button id="button-profile"><img id="profile--pic" src="..\..\assets\suitcase.jpg"></button>
+            <button id="button-profile"><img id="profile--pic" src=".../../assets/suitcase.jpg"></button>
             </div>
             <button id="button-home" class="sidebar__button">Home</button>
             <button id="button-trips" class="sidebar__button">Trips</button>

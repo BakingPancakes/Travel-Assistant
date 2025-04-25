@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-
     initializeNavigation();
-    
     loadTripData();
     
     const submitButton = document.getElementById('submitTrip');
@@ -18,15 +16,23 @@ document.addEventListener('DOMContentLoaded', function() {
             enableTripEdit();
         });
     }
+
+    // Initialize todo functionality
+    initializeTodoSections();
+
+    // Show default view
+    navigate('trips-view');
 });
 
+// Navigation functions
 function navigate(viewId) {
-
+    // Hide all views
     const allViews = document.querySelectorAll('.view');
     allViews.forEach(view => {
         view.style.display = 'none';
     });
     
+    // Show the selected view
     const selectedView = document.getElementById(viewId);
     if (selectedView) {
         selectedView.style.display = 'block';
@@ -39,14 +45,17 @@ function initializeNavigation() {
     navItems.forEach(item => {
         item.addEventListener('click', function() {
             const viewId = this.getAttribute('data-view');
-            navigate(viewId);
-            highlightActiveNavItem(this);
+            if (viewId) {
+                navigate(viewId);
+                highlightActiveNavItem(this);
+            }
         });
     });
     
-    const tripsNavItem = document.querySelector('[data-view="trips-view"]');
-    if (tripsNavItem) {
-        highlightActiveNavItem(tripsNavItem);
+    // Highlight the default navigation item
+    const defaultNavItem = document.querySelector('[data-view="trips-view"]');
+    if (defaultNavItem) {
+        highlightActiveNavItem(defaultNavItem);
     }
 }
 
@@ -59,6 +68,7 @@ function highlightActiveNavItem(activeItem) {
     activeItem.classList.add('active');
 }
 
+// Trip data management functions
 function saveTripData() {
     const travelerData = {
         location: document.getElementById('location').value || '',
@@ -78,11 +88,17 @@ function loadTripData() {
     if (savedData) {
         const travelerData = JSON.parse(savedData);
         
-        document.getElementById('location').value = travelerData.location || '';
-        document.getElementById('traveler').value = travelerData.traveler || '';
-        document.getElementById('companions').value = travelerData.companions || '';
-        document.getElementById('from').value = travelerData.from || '';
-        document.getElementById('to').value = travelerData.to || '';
+        const locationInput = document.getElementById('location');
+        const travelerInput = document.getElementById('traveler');
+        const companionsInput = document.getElementById('companions');
+        const fromInput = document.getElementById('from');
+        const toInput = document.getElementById('to');
+        
+        if (locationInput) locationInput.value = travelerData.location || '';
+        if (travelerInput) travelerInput.value = travelerData.traveler || '';
+        if (companionsInput) companionsInput.value = travelerData.companions || '';
+        if (fromInput) fromInput.value = travelerData.from || '';
+        if (toInput) toInput.value = travelerData.to || '';
         
         displayTripData();
     }
@@ -96,24 +112,27 @@ function displayTripData() {
         const group = formGroups[i];
         const label = group.getElementsByTagName('label')[0];
         const input = group.getElementsByTagName('input')[0];
-        const fieldName = label.textContent;
         
-        const displayText = document.createElement('p');
-        displayText.className = 'display-text';
-        displayText.textContent = `${fieldName}: ${input.value}`;
-        
-        input.style.display = 'none';
-        
-        let existingText = null;
-        const paragraphs = group.getElementsByClassName('display-text');
-        if (paragraphs.length > 0) {
-            existingText = paragraphs[0];
-        }
-        
-        if (existingText) {
-            existingText.textContent = `${fieldName}: ${input.value}`;
-        } else {
-            group.appendChild(displayText);
+        if (label && input) {
+            const fieldName = label.textContent;
+            
+            const displayText = document.createElement('p');
+            displayText.className = 'display-text';
+            displayText.textContent = `${fieldName}: ${input.value}`;
+            
+            input.style.display = 'none';
+            
+            let existingText = null;
+            const paragraphs = group.getElementsByClassName('display-text');
+            if (paragraphs.length > 0) {
+                existingText = paragraphs[0];
+            }
+            
+            if (existingText) {
+                existingText.textContent = `${fieldName}: ${input.value}`;
+            } else {
+                group.appendChild(displayText);
+            }
         }
     }
     
@@ -140,7 +159,9 @@ function enableTripEdit() {
             displayTexts[0].style.display = 'none';
         }
         
-        input.style.display = 'block';
+        if (input) {
+            input.style.display = 'block';
+        }
     }
     
     if (submitButton) {
@@ -150,5 +171,100 @@ function enableTripEdit() {
     const editButton = document.getElementById('editTripButton');
     if (editButton) {
         editButton.style.display = 'none';
+    }
+}
+
+// Todo functionality
+function initializeTodoSections() {
+    const todoSections = document.querySelectorAll('.todo-section');
+    
+    todoSections.forEach(section => {
+        const addButton = section.querySelector('button');
+        if (addButton) {
+            addButton.addEventListener('click', function() {
+                addTodo(this);
+            });
+        }
+        
+        // Load saved todos for this section
+        loadTodos(section);
+    });
+}
+
+function addTodo(button) {
+    const todoSection = button.closest('.todo-section');
+    const todoInput = todoSection.querySelector('input[type="text"]');
+    const todoList = todoSection.querySelector('ol');
+    
+    if (todoInput && todoList) {
+        const todoValue = todoInput.value.trim();
+        
+        if (todoValue) {
+            const li = document.createElement("li");
+            li.classList.add("todo-item");
+            
+            const todoText = document.createElement("span");
+            todoText.textContent = todoValue;
+            
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "Delete";
+            deleteBtn.classList.add("delete-btn");
+            deleteBtn.addEventListener('click', function() {
+                li.remove();
+                saveTodos(todoSection);
+            });
+            
+            li.appendChild(todoText);
+            li.appendChild(deleteBtn);
+            
+            todoList.appendChild(li);
+            todoInput.value = "";
+            
+            // Save todos after adding new one
+            saveTodos(todoSection);
+        }
+    }
+}
+
+function saveTodos(todoSection) {
+    const sectionName = todoSection.querySelector('h3').textContent;
+    const todoItems = todoSection.querySelectorAll('.todo-item span');
+    const todos = [];
+    
+    todoItems.forEach(item => {
+        todos.push(item.textContent);
+    });
+    
+    localStorage.setItem(`todos_${sectionName}`, JSON.stringify(todos));
+}
+
+function loadTodos(todoSection) {
+    const sectionName = todoSection.querySelector('h3').textContent;
+    const savedTodos = localStorage.getItem(`todos_${sectionName}`);
+    const todoList = todoSection.querySelector('ol');
+    
+    if (savedTodos && todoList) {
+        const todos = JSON.parse(savedTodos);
+        
+        todos.forEach(todoText => {
+            const li = document.createElement("li");
+            li.classList.add("todo-item");
+            
+            const todoTextElement = document.createElement("span");
+            todoTextElement.textContent = todoText;
+            
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "Delete";
+            deleteBtn.classList.add("delete-btn");
+            deleteBtn.addEventListener('click', function() {
+                li.remove();
+                saveTodos(todoSection);
+            });
+            
+            li.appendChild(todoTextElement);
+            li.appendChild(deleteBtn);
+            
+            todoList.appendChild(li);
+        });
     }
 }

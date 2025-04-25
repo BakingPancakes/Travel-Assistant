@@ -4,11 +4,12 @@ import { Events } from "../../lib/eventhub/Events";
 
 export class TripPageComponent extends BaseComponent {
     #container = null;
-    #tripData = {};
+    #tripData = null;
 
     constructor() {
         super();
         this.loadCSS('TripPageComponent');
+        this.#setupEventSubscriptions();
     }
 
     render() {
@@ -43,6 +44,8 @@ export class TripPageComponent extends BaseComponent {
                 <div id="todo-section"></div>
             </div>
         `;
+
+        this.#attachEventListeners();
     }
 
     #attachEventListeners() {

@@ -4,13 +4,13 @@
     box-sizing: border-box;
     color: #666;
 }
-html {
-    height: 100%;
-}
 
-body {
+html, body {
     background-color: #DDC8B7;
     height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
 button {
@@ -20,14 +20,20 @@ button {
 #screen {
     display: flex;
     height: 100vh;
+    width: 100%;
     flex-wrap: wrap;
+}
+
+.screen-container {
+  display: flex;
+  width: 100%;
 }
 
 /* Responsive Design */
 /* Mobile (up to 600px) */
 @media (max-width: 600px) {
     #screen {
-      padding: 10px;
+      padding: 0;
     }
   
     button {
@@ -38,7 +44,7 @@ button {
   /* Tablet (600px to 1024px) */
   @media (min-width: 601px) and (max-width: 1024px) {
     #screen {
-      padding: 20px;
+      padding: 0;
     }
   
     button {
@@ -50,7 +56,7 @@ button {
   /* Desktop (1025px and up) */
   @media (min-width: 1025px) {
     #screen {
-      padding: 20px 40px;
+      padding: 0;
     }
   
     button {

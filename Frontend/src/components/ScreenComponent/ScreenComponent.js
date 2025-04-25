@@ -1,1 +1,0 @@
-// IMPLEMENTATION FOR MULTI VIEW UI, will permit different screens to be paired with sidebar, i.e. messaging, trips, homepage, etc.

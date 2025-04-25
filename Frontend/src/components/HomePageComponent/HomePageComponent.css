@@ -20,21 +20,27 @@
 
 #header__button--notification {
     aspect-ratio: 1 / 1;
-    width: max(4vw, 40px);
-    height: auto;
+    width: max(6vw, 40px);
+    height: 97%;
     border-radius: 50%;
     border: none;
     margin-left: auto;
     background-color: #89999A;
 }
 
+#header__button--notification:hover {
+    background-color: #788687;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
 .notification-badge {
     position: relative;
     text-align: center;
-    bottom: max(5.5vh, 20px);
-    left: max(1.2vw, 10px);
+    bottom: max(8.5vh, 20px);
+    left: max(2vw, 10px);
     aspect-ratio: 1 / 1;
-    width: 1vh;
+    width: 3.5vh;
     padding: 5px 10px;
     border-radius: 50%;
     background-color: red;
@@ -43,10 +49,9 @@
 }
 
 #bell {
-    width: 75%;
-    height: 75%;
+    width: 100%;
+    height: auto;
     position: relative;
-    top: 7px;
 }
 
 #header__button--new-trip {
@@ -58,6 +63,12 @@
     background-color: #89999A;
     color: #f0f0f0;
     font-size: 125%;
+}
+
+#header__button--new-trip:hover {
+    background-color: #788687;
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
 
 .screen__main-content {

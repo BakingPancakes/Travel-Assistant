@@ -1,6 +1,6 @@
-import { EventHub } from "../../lib/eventhub/eventHub";
-import { Events } from "../../lib/eventhub/Events";
-import { BaseComponent } from "../BaseComponent/BaseComponent";
+import { EventHub } from "../../lib/eventhub/eventHub.js";
+import { Events } from "../../lib/eventhub/Events.js";
+import { BaseComponent } from "../BaseComponent/BaseComponent.js";
 
 export class TripSimpleInputComponent extends BaseComponent {
     #container = null;

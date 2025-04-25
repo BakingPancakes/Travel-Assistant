@@ -1,6 +1,6 @@
-import { BaseComponent } from "../BaseComponent/BaseComponent";
-import { EventHub } from "../../lib/eventhub/eventHub";
-import { Events } from "../../lib/eventhub/eventHub";
+import { BaseComponent } from "../BaseComponent/BaseComponent.js";
+//import { EventHub } from "../../lib/eventhub/eventHub.js";
+//import { Events } from "../../lib/eventhub/eventHub.js";
 
 export class HomePageComponent extends BaseComponent {
     #container = null; // Private container variable
@@ -22,8 +22,8 @@ export class HomePageComponent extends BaseComponent {
 
         this.#createContainer();
         this.#setupContainerContent();
-        this.#attachEventListeners();
-
+        //this.#attachEventListeners();
+        console.log("HomePage Rendered");
         return this.#container;
     }
 
@@ -60,7 +60,7 @@ export class HomePageComponent extends BaseComponent {
                 <!--Title, Notification button, New Trip Button (All on same line)-->
                 <span class="header__welcome-banner">Welcome back!</span>
                 <button id="header__button--notification">
-                    <img id="bell" src="..\..\assets\notification.png" alt="Notifications">
+                    <img id="bell" src=".../../assets/notification.png" alt="Notifications">
                     <span class="notification-badge">!</span>
                 </button>
                 <button id="header__button--new-trip">New Trip</button>

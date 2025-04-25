@@ -19,7 +19,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    position: fixed;
+    /* position: fixed; */
 }
 .sidebar__button {
     width: 100%;
@@ -60,25 +60,39 @@
 
 /*--Chat Viewport Styling--*/
 #chat-groups-container {
-    grid-column: 2;
+    display: flex;
+    flex-direction: column;
     background-color: white;
+    position: relative;
 }
-#chat-groups-header {
-    margin: 1em;
+#chat-groups-container h1 {
     text-align: center;
 }
-.chat-preview {
+#chat-add-button {
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+    margin: 1em;
+    font-weight: bolder;
+    position: absolute;
+    top: 0.75em;
+}
+.chat-icon {
     margin: .25em;
     padding: .5em;
     background-color: rgb(194, 193, 193);
-    border: 2px solid rgb(164, 163, 163);
+    border: 2px solid rgb(143, 141, 141);
     font-size: 1.5em;
     border-radius: 5px;
-    width: 100%;
     text-align: left;
 }
-.chat-preview:hover {
+.chat-icon:hover {
     background-color: rgb(222, 220, 220);
+}
+.form-container {
+    position: absolute;
+    top: 20%;
+    background-color: white;
 }
 
 

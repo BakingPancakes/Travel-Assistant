@@ -21,12 +21,33 @@ export const Events = {
 
     // Budget Events
 
-    // Message Events
-    // TODO: error handling
+    // Message List Events
     OpenChat: 'OpenChat',
-    UpdateChatGroup: 'UpdateChatGroup',
+    OpenChatSuccess: 'OpenChatSuccess',
+    OpenChatFailure: 'OpenChatFailure',
+
+    AddChatIDToUserPermissions: 'AddChatIDToUserPermissions',
+    AddChatIDToUserPermissionsSuccess: 'AddChatIDToUserPermissionsSuccess',
+    AddChatIDToUserPermissionsFailure: 'AddChatIDToUserPermissionsFailure',
+
     StoreNewChatGroup: 'StoreNewChatGroup',
-    StoreNewMessage: 'StoreNewMessage', // stores as soon as sent
+    StoreNewChatGroupSuccess: 'StoreNewChatGroupSuccess',
+    StoreNewChatGroupFailure: 'StoreNewChatGroupFailure',
+
+    AcceptChatInvitation: 'AcceptChatInvitation',
+    AcceptChatInvitationSuccess: 'AcceptChatInvitationSuccess',
+    AcceptChatInvitationFailure: 'AcceptChatInvitationFailure',
+
+    RetrieveUserData: 'RetrieveUserData',
+    RetrieveUserDataSuccess: 'RetrieveUserDataSuccess',
+    RetrieveUserDataFailure: 'RetrieveUserDataFailure',
+
+    RetrieveChatData: 'RetrieveChatData',
+    RetrieveChatDataSuccess: 'RetrieveChatDataSuccess',
+    RetrieveChatDataFailure: 'RetrieveChatDataFailure',
+
+    // Message Display Events
+    StoreNewMessage: 'StoreNewMessage',
     LoadNewMessage: 'LoadNewMessage',
 
     // View Switching Events

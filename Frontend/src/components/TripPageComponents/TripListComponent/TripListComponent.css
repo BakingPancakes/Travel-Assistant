@@ -1,0 +1,42 @@
+/* Trip List Component Styles */
+.trip-list {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.table__header {
+    background-color: #f5f5f5;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.t-header__row {
+    display: flex;
+    padding: 12px;
+}
+
+.t-header__col {
+    flex: 1;
+    font-weight: bold;
+    color: #333;
+}
+
+.table__body {
+    min-height: 100px;
+}
+
+.no-trips {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+}
+
+.t-body__row {
+    transition: background-color 0.3s ease;
+}
+
+.t-body__row:hover {
+    background-color: #f0f0f0;
+}

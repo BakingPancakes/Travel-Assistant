@@ -7,6 +7,7 @@ import express from "express";
 */
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Establishes path for middleware. Path can be string or pattern
 const STATIC_PAGE_PATH = '';

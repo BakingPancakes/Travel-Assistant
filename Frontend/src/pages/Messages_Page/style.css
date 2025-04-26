@@ -2,55 +2,99 @@
     font-family:'Arial', sans-serif;
 }
 
-.app-container {
+#app-container {
     display: grid;
     grid-template-columns: 10% 2fr 70%;
     height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: -10px;
+    left: -10px;
 }
 
+/*--Sidebar Content--*/
 #sidebar {
     grid-column: 1;
     background-color:antiquewhite;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.sidebar__button {
+    width: 100%;
+    padding: 1em;
+    font-size: large;
+    background-color: antiquewhite;
+    border: solid antiquewhite;
+    border-bottom: solid #f4d1a1;
+    border-top: solid #f4d1a1;
+    cursor: pointer;
+}
+.sidebar__button:hover {
+    background-color: #f4d1a1;
+    border: #f4d1a1;
 }
 
-.sidebar__button {
-    margin: .5em;
-    padding: 1em;
-    background-color: antiquewhite;
-    border: 0px solid ;
+#profile-container {
+    display: grid;
+}
+#profile-container * {
+    grid-column-start: 1;
+    grid-row-start: 1;
 }
 #profile-icon {
-    /* margin: 1em; */
-    font-size: large;
+    width: 75%;
+    padding: 2px;
+    margin: 10px;
+    border: solid white;
+    border-radius: 50%;
+}
+#profile-button{
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
 }
 
 
 
+/*--Chat Viewport Styling--*/
 #chat-groups-container {
-    grid-column: 2;
+    display: flex;
+    flex-direction: column;
     background-color: white;
+    position: relative;
 }
-#chat-groups-header {
+#chat-groups-container h1 {
+    text-align: center;
+}
+#chat-add-button {
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
     margin: 1em;
+    text-align: center;
 }
-.chat-preview {
+.chat-icon {
     margin: .25em;
     padding: .5em;
     background-color: rgb(194, 193, 193);
-    border: 2px solid rgb(164, 163, 163);
+    border: 2px solid rgb(143, 141, 141);
     font-size: 1.5em;
     border-radius: 5px;
-    width: 100%;
     text-align: left;
+}
+.chat-preview:hover {
+    background-color: rgb(222, 220, 220);
 }
 
 
-
+/*--Message Bubble Content*/
 #messages-container {
     grid-column: 3;
     display: grid;
     grid-template-rows: 15% 60% 1fr;
     background-color:rgb(223, 251, 251);
+    
 }
 #messages-header {
     grid-row: 1;
@@ -60,36 +104,31 @@
 
 #messages-display {
     grid-row: 2;
-    display: grid;
-    grid-template-columns: 5fr 1fr 5fr;
-    grid-template-rows: 10% 10% 1fr
+    overflow-y: scroll;
+    max-height: 50vh;
 }
-.chat-bubble-from {
-    grid-column: 1;
-    grid-row: 1;
+.chat-bubble {
     height: 2em;
     margin: .5em;
     padding: .5em;
     border: 1px solid rgb(164, 163, 163);
     background-color: rgb(174, 231, 231);
-    border-radius: 10px;
+    border-radius: 50px;
 }
-.chat-bubble-to {
-    grid-column: 3;
-    grid-row: 2;
-    height: 2em;
-    margin: .5em;
-    padding: .5em;
-    border: 1px solid rgb(164, 163, 163);
-    background-color: rgb(174, 231, 231);
+.chat-from {
+    float:left;
+    width: 70%;
+}
+.chat-to {
+    float:right;
+    width: 70%;
     text-align: right;
     margin-right: 5em;
-    border-radius: 10px
 }
-
 
 #input-box {
     width: 80%;
+    max-height: 0.5em;
     padding: 2em;
     margin: 2em;
     border-radius: 5px;

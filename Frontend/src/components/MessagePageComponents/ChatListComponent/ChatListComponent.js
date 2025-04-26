@@ -1,32 +1,12 @@
-import { BaseComponent } from "../BaseComponent/BaseComponent.js";
-import { EventHub } from "../../lib/eventhub/eventHub.js";
-import { Events } from "../../lib/eventhub/events.js";
+import { BaseComponent } from "../../BaseComponent/BaseComponent.js";
+import { EventHub } from "../../../lib/eventhub/eventHub.js";
+import { Events } from "../../../lib/eventhub/events.js";
+import { Chat } from "../models/Chat.js";
 
 export class ChatListComponent extends BaseComponent {
     #container = null;
-    #profileChatPermissions = []; // ID of all chats that user has access to
-    #localChats = [{
-        id: {
-            id: 99999999,
-            name: 'name text',
-            trip: 'trip name',
-            members: ['JoonID', 'JasperID'],
-            messages: [{
-                    sender: 'from',
-                    timestamp: '1:00PM, April 25',
-                    text: 'Heyooo',
-                    name: 'Jasper',
-                },
-                {
-                    sender: 'to',
-                    timestamp: '1:02PM, April 25',
-                    text: 'Hey!',
-                    name: 'Joon',
-                }
-            ]
-        }
-    }]; // objects with "chat id: chat data" key-value pairs
-    #userData;
+    #localChats = [];
+    #userData = null;
 
     constructor() {
         super();
@@ -76,23 +56,18 @@ export class ChatListComponent extends BaseComponent {
             <input type="button" id="btn-create" value="Create Chat">
             <input type="button" id="btn-cancel" value="Cancel">
         `;
-
         createChatPopupForm.style.display = "none";
         this.#container.appendChild(createChatPopupForm);
 
-        // TODO
-        // this.#profileChatPermissions.forEach(id => this.#retreiveChatsFromServer(id));
-        // grab chats from server
-        // add them to local chats
-        // display each of them to icon display bar
+        // Grab user data & display associated tabs
+        const TEMP_USER_ID = 1
+        this.#userData = this.#retreiveUserData(TEMP_USER_ID);
+
+        this.#localChats = this.#retreiveChatsFromServer(this.#userData);
+        this.#localChats.forEach(chat => this.#displayTab(chat));
     }
 
     #attachEventListeners() {
-        const hub = EventHub.getInstance();
-
-        // New Chat created
-        // hub.subscribe('CreateNewChat', (chatInfo) => this.#CreateNewChat(chatInfo));
-
         // Display Popup Form
         const createChatPopupForm = this.document.getElementsByClassName("form-container")[0];
         const addChatButton = this.document.getElementById("add-chat-button");
@@ -113,41 +88,53 @@ export class ChatListComponent extends BaseComponent {
         
         // Process chat creation
         const createChatButton = this.document.getElementById('btn-create');
-        createChatButton.addEventListener("click", () => {
-            const profileID = document.forms["form-container"].profile_id.value;
-            const chatName = document.forms["form-container"].chat_name.value;
-            const tripName = document.forms["form-container"].trip_id.value;
+        createChatButton.addEventListener("click", () => this.#handleChatCreation());
+    }
+    
+    /**
+     * 
+     * @param {number} id ID of chat to be displayed
+     */
+    #openChatWindow(id) {
+        const hub = EventHub.instance();
+        const newChat = this.#localChats.find(chat => chat.id === id);
 
-            if (!(profileID && chatName)) {
-                alert("Please enter a Profile ID and Chat name if you would like to create a chat.");
-                return;
-            }
-
-            
-            //local:
-            this.#clearForm(createChatPopupForm);
-
-            const newChat = {
-                id: Math.floor(Math.random() * 1001),
-                name: chatName,
-                // members: [this.#userData.id, profileID]
-                trip: tripName,
-                messages: {to: [], from: []},
-            }
-
-            this.#localChats.push(newChat);
-            this.#displayTab(newChat);
-
-            // eventhub:
-            //! update local and send to server, 
-            //!   or send to server and grab new profile every time need to re-load messages?
-            this.#addChatIDToUserPermissions(newChat.id); // update user profile in server
-            this.#storeNewChat(newChat); // add to both local storage & server
-            this.#inviteAssociatedUser(newChat.id); // TBD
-            this.#openChatWindow(newChat.id); // contact other component to display this chat
-        });
+        hub.publish(Events.OpenChat, newChat);
     }
 
+    #handleChatCreation() {
+        const profileID = document.forms["form-container"].profile_id.value;
+        const chatName = document.forms["form-container"].chat_name.value;
+        const tripName = document.forms["form-container"].trip_id.value;
+
+        if (!(profileID && chatName)) {
+            alert("Please enter a Profile ID and Chat name if you would like to create a chat.");
+            return;
+        }
+        
+        //local:
+        const createChatPopupForm = this.document.getElementsByClassName("form-container")[0];
+        this.#clearForm(createChatPopupForm);
+
+        const newChat = new Chat({
+            name: chatName,
+            members: ["My_ID", profileID],
+            trip: tripName,
+            messages: [],
+        })
+
+        this.#localChats.push(newChat);
+        this.#displayTab(newChat);
+
+        // eventhub:
+        //! update local and send to server, 
+        //!   or send to server and grab new profile every time need to re-load messages?
+        this.#addChatIDToUserPermissions(newChat.id); // update user profile in server
+        this.#storeNewChat(newChat); // add to both local storage & server
+        this.#inviteAssociatedUser(newChat.id); // TBD
+        this.#openChatWindow(newChat.id); // contact other component to display this chat
+    }
+    
     #clearForm(popupForm) {
         popupForm.profile_id.value = '';
         popupForm.chat_name.value = '';
@@ -155,6 +142,10 @@ export class ChatListComponent extends BaseComponent {
         popupForm.style.display = 'none';
     }
 
+    /**
+     * 
+     * @param {Chat} chat Tab is displayed in chat list
+     */
     #displayTab(chat) {
         const chatName = chat.name;
         if (chatName != undefined) {
@@ -169,7 +160,23 @@ export class ChatListComponent extends BaseComponent {
         else{
             alert(`There was a problem displaying a chat icon with name, ID: ${chat.name}, ${chat.id}`);
         }
+    }
 
+    /**
+     * @param {User} userData Valid user object
+     * @return {Array<Chat>} Array of chat objects that user has permissions to. Empty if user has no permissions.
+     */
+    #retreiveChatsFromServer(userData) {
+        //TODO
+    }
+    
+    /**
+     * 
+     * @param {number} id User's ID as stored in session.
+     * @return {User} User's data in User object.
+     */
+    #retreiveUserData(id) {
+        //TODO
     }
 
     #addChatIDToUserPermissions(id) {
@@ -182,16 +189,5 @@ export class ChatListComponent extends BaseComponent {
 
     #inviteAssociatedUser(id) {
 
-    }
-
-    #openChatWindow(id) {
-        const hub = EventHub.instance();
-        const newChat = this.#localChats.find(chat => chat.id === id);
-
-        hub.publish(Events.OpenChat, newChat);
-    }
-
-    #retreiveChatsFromServer() {
-        //TODO
     }
 }

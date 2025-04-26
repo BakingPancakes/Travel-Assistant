@@ -1,6 +1,6 @@
-import { BaseComponent } from "../BaseComponent/BaseComponent.js";
-import { EventHub } from "../../lib/eventhub/eventHub.js";
-import { Events } from "../../lib/eventhub/events.js";
+import { BaseComponent } from "../../BaseComponent/BaseComponent.js";
+import { EventHub } from "../../../lib/eventhub/eventHub.js";
+import { Events } from "../../../lib/eventhub/events.js";
 
 export class ChatDisplayComponent extends BaseComponent {
     #container = null;

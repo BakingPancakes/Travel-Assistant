@@ -87,7 +87,6 @@ app.get("/trips/:trip_id", (req, res) => {
 });
 
 // Set up express server
-const PORT = 3000;
 app.listen(PORT, (error) => {
     if (error) console.log(`An error occured when trying to start the server: ${error}`);
     console.log(`Server has started running on http://localhost:${PORT}`);

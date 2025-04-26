@@ -16,7 +16,9 @@ export async function getAllTrips(req, res) {
 export async function getTripById(req, res) {
     try {
         const trips = await readTrips();
-        const trip = trips.find(t => t.id === req.params.id);
+        const newTrip = new Trip(req.body);
+        trips.push(newTrip.toJSON());
+        await writeTrips(trips);
         
         if (!trip) {
             return res.status(404).json({ 

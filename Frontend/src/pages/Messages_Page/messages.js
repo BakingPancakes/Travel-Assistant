@@ -16,14 +16,19 @@ const newChatPopupForm = this.document.createElement("form");
 newChatPopupForm.classList.add("form-container");
 newChatPopupForm.innerHTML = `
     <label for"username"><b>Who would you like to chat with?</b></label>
-    <input type="text" placeholder="Enter Friend's Username" required name="username">
+    <input type="text" placeholder="Enter Friend's ID..." required name="username">
 
     <br>
     <label for="name"><b>Chat Name<b/></label>
-    <input type="text" placeholder="Enter Chat Name" required name="name">
+    <input type="text" placeholder="Enter Chat Name..." required name="name">
 
     <br>
-    <input type="button" class="btn" value="Create Chat"> 
+    <label for="trip">Enter a trip ID if you would like to enable in-message trip edit funcitonality.</label>
+    <input type="text" placeholder="Enter Trip Name..." name="trip">
+
+    <br>
+    <input type="button" class="btn-create" value="Create Chat"> 
+    <input type="button" class="btn-cancel" value="Cancel"> 
 `;
 newChatPopupForm.style.display = "none";
 const chatGroupsContainer = this.document.getElementById("chat-groups-container");

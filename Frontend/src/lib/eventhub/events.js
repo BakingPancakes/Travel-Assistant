@@ -22,6 +22,12 @@ export const Events = {
     // Budget Events
 
     // Message Events
+    // TODO: error handling
+    OpenChat: 'OpenChat',
+    UpdateChatGroup: 'UpdateChatGroup',
+    StoreNewChatGroup: 'StoreNewChatGroup',
+    StoreNewMessage: 'StoreNewMessage', // stores as soon as sent
+    LoadNewMessage: 'LoadNewMessage',
 
     // View Switching Events
     SwitchToHome: 'SwitchToHomePage',

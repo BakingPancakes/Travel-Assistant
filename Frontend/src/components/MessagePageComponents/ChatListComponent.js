@@ -7,6 +7,7 @@ export class ChatListComponent extends BaseComponent {
     #profileChatPermissions = []; // ID of all chats that user has access to
     #localChats = [{
         id: {
+            id: 99999999,
             name: 'name text',
             trip: 'trip name',
             members: ['JoonID', 'JasperID'],
@@ -104,6 +105,11 @@ export class ChatListComponent extends BaseComponent {
         cancelChatCreationButton.addEventListener('click', () => {
             createChatPopupForm.style.display = "none";
         });
+
+        // Open Chats when icon clicked
+        Array.from(document.getElementsByClassName("chat-icon")).forEach(element => {
+            element.addEventListener('click', () => this.#openChatWindow(element.id));
+        });
         
         // Process chat creation
         const createChatButton = this.document.getElementById('btn-create');
@@ -138,7 +144,7 @@ export class ChatListComponent extends BaseComponent {
             this.#addChatIDToUserPermissions(newChat.id); // update user profile in server
             this.#storeNewChat(newChat); // add to both local storage & server
             this.#inviteAssociatedUser(newChat.id); // TBD
-            this.#openChatWindow(newChat); // contact other component to display this chat
+            this.#openChatWindow(newChat.id); // contact other component to display this chat
         });
     }
 
@@ -156,11 +162,14 @@ export class ChatListComponent extends BaseComponent {
             newChatIcon.classList.add("chat-icon");
             newChatIcon.type = "button";
             newChatIcon.value = chatName;
+            newChatIcon.id = chat.id;
+            newChatIcon.addEventListener('click', () => this.#openChatWindow(chat.id));
             this.#container.appendChild(newChatIcon);
         }
         else{
             alert(`There was a problem displaying a chat icon with name, ID: ${chat.name}, ${chat.id}`);
         }
+
     }
 
     #addChatIDToUserPermissions(id) {
@@ -175,8 +184,9 @@ export class ChatListComponent extends BaseComponent {
 
     }
 
-    #openChatWindow(newChat) {
+    #openChatWindow(id) {
         const hub = EventHub.instance();
+        const newChat = this.#localChats.find(chat => chat.id === id);
 
         hub.publish(Events.OpenChat, newChat);
     }

@@ -1,5 +1,5 @@
 import { EventHub } from "../../lib/eventhub/eventHub.js";
-import { HomePageComponent } from "../HomePageComponent/HomePageComponent.js";
+import { HomePageComponent } from "../HomePageComponents/HomePageComponent/HomePageComponent.js";
 import { SidebarComponent } from "../SidebarComponent/SidebarComponent.js";
 
 export class ScreenControllerComponent {
@@ -19,7 +19,7 @@ export class ScreenControllerComponent {
     render() {
         this.#createContainer();
         this.#setupContainerContent();
-        //this.#attachEventListeners();
+        this.#attachEventListeners();
 
         this.#sidebarComponent.render();
         this.#homePageComponent.render();
@@ -48,7 +48,9 @@ export class ScreenControllerComponent {
 
     // Attach necessary event listeners
     #attachEventListeners() {
-        throw new Error("Not yet implemented");
+        this.#hub.subscribe('NewTrip', () => {
+            this.#renderCurrentView();
+        })
     }
 
     #renderCurrentView() {

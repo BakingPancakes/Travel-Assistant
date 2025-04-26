@@ -1,5 +1,5 @@
-import Service from "./Service";
-import { fetch } from "../utility/fetch";
+import Service from "./Service.js";
+import { fetch } from "../utility/fetch.js";
 
 export class TripRepositoryRemoteFakeService extends Service {
     constructor() {
@@ -24,11 +24,11 @@ export class TripRepositoryRemoteFakeService extends Service {
     }
 
     addSubscriptions() {
-        this.subscribe(EventSource.StoreTrip, (data) => {
+        this.subscribe(Events.StoreTrip, (data) => {
             this.storeTrip(data);
         });
 
-        this.subscribe(EventSource.UnStoreTrips, () => {
+        this.subscribe(Events.UnStoreTrips, () => {
             this.clearTrips();
         });
     }

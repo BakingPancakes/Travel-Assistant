@@ -1,9 +1,9 @@
-import { BaseComponent } from "../BaseComponent/BaseComponent.js";
-//import { EventHub } from "../../lib/eventhub/eventHub.js";
-//import { Events } from "../../lib/eventhub/eventHub.js";
+import { BaseComponent } from "../../BaseComponent/BaseComponent.js";
+import { TripSimpleInputComponent } from "../TripSimpleInputComponent/TripSimpleInputComponent.js";
 
 export class HomePageComponent extends BaseComponent {
     #container = null; // Private container variable
+    #tripInputComponent = null; // instance of trip simple input
     #trips = []; // Store trip data
     #profile = {}; // Store profile data
     #tasks = []; // Store task data
@@ -12,6 +12,7 @@ export class HomePageComponent extends BaseComponent {
     constructor() {
         super();
         this.loadCSS('HomePageComponent');
+        this.#tripInputComponent = new TripSimpleInputComponent();
     }
 
     // Method to render the component and return the container
@@ -22,9 +23,20 @@ export class HomePageComponent extends BaseComponent {
 
         this.#createContainer();
         this.#setupContainerContent();
-        //this.#attachEventListeners();
+        this.#attachEventListeners();
         console.log("HomePage Rendered");
         return this.#container;
+    }
+
+    loadCSS(fileName) {
+        if(this.cssLoaded) return;
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        // Dynamically load CSS from the same directory as the JS file
+        link.href = `./components/HomePageComponents/${fileName}/${fileName}.css`;
+        document.head.appendChild(link);
+        this.cssLoaded = true;
     }
 
     // Methods to set the lists of trips, profile object, tasks, and budgets to display
@@ -163,6 +175,16 @@ export class HomePageComponent extends BaseComponent {
     }
 
     #attachEventListeners() {
-        throw new Error("Not yet implemented");
+        const newTripBtn = this.#container.querySelector("#header__button--new-trip");
+
+        // Attach listener to new page button
+        newTripBtn.addEventListener('click', () => {
+            this.#newTrip();
+        });
+        // Subscribe to eventHub events
+    }
+
+    #newTrip() {
+        this.#container.appendChild(this.#tripInputComponent.render());
     }
 }

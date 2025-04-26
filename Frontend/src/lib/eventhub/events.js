@@ -26,5 +26,5 @@ export const Events = {
     // View Switching Events
     SwitchToHome: 'SwitchToHomePage',
     SwitchToTripPage: 'SwitchToTripPage',
-    SwitchToMessagePage: 'SwitchToMessagePage'
+    SwitchToMessagePage: 'SwitchToMessagePage',
 }

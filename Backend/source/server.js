@@ -1,4 +1,5 @@
 import express from "express";
+import userRoutes from '../routes/userRoutes.js';
 import TripRoutes from "../routes/TripRoutes.js";
 
 class Server {
@@ -46,6 +47,9 @@ const PORT = process.env.PORT || 3000;
 // Establishes path for middleware. Path can be string or pattern
 const STATIC_PAGE_PATH = '';
 app.use(express.static(STATIC_PAGE_PATH));
+
+// Mount user routes
+app.use('/users', userRoutes);
 
 // =======================
 // Establishing GET routes

@@ -1,28 +1,28 @@
 import express from 'express';
 import { 
-    getAllTrips, 
-    getTripById, 
-    createTrip, 
-    updateTrip, 
-    deleteTrip 
-} from '../controllers/tripController.js';
-import { validateTripData } from '../source/validation.js';
+    getAllUsers, 
+    getUserById, 
+    createUser, 
+    updateUser, 
+    deleteUser 
+} from '../controllers/userController.js';
+import { validateUserData } from '../source/validation.js';
 
 const router = express.Router();
 
-// GET all trips
-router.get('/', getAllTrips);
+// GET all users
+router.get('/', getAllUsers);
 
-// GET a specific trip
-router.get('/:id', getTripById);
+// GET a specific user
+router.get('/:id', getUserById);
 
-// POST a new trip
-router.post('/', validateTripData, createTrip);
+// POST a new user
+router.post('/', validateUserData, createUser);
 
-// PUT (update) a trip
-router.put('/:id', validateTripData, updateTrip);
+// PUT (update) a user
+router.put('/:id', validateUserData, updateUser);
 
-// DELETE a trip
-router.delete('/:id', deleteTrip);
+// DELETE a user
+router.delete('/:id', deleteUser);
 
 export default router;

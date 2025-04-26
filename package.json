@@ -24,9 +24,10 @@
   },
   "contributors": [],
   "scripts": {
-    "start-server": "http-server Frontend/src -p 3000"
+    "dev": "",
+    "test": ""
   },
   "dependencies": {
-    "http-server": "^14.1.1"
+    "express": "^5.1.0"
   }
 }

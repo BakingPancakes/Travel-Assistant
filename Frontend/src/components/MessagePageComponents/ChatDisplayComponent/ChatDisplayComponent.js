@@ -1,6 +1,6 @@
-import { BaseComponent } from "../BaseComponent/BaseComponent.js";
-import { EventHub } from "../../lib/eventhub/eventHub.js";
-import { Events } from "../../lib/eventhub/events.js";
+import { BaseComponent } from "../../BaseComponent/BaseComponent.js";
+import { EventHub } from "../../../lib/eventhub/eventHub.js";
+import { Events } from "../../../lib/eventhub/events.js";
 
 export class ChatDisplayComponent extends BaseComponent {
     #container = null;
@@ -46,13 +46,16 @@ export class ChatDisplayComponent extends BaseComponent {
 
     #attachEventListeners() {
         const hub = EventHub.instance();
-
         hub.subscribe(Events.OpenChat, chatData => this.#displayChat(chatData));
+
+        // TODO
+        // sending new message
+        // retrieving new message
     }
 
     #displayChat(chatData) {
         const messagesDisplay = document.getElementById('messages-display');
-        document.getElementById('messages-display').innerHTML = '';
+        messagesDisplay.innerHTML = '';
         chatData.messages.forEach(message => {
             const newMessageBubble = document.createElement('div');
             newMessageBubble.classList.add('chat-bubble');
@@ -61,7 +64,7 @@ export class ChatDisplayComponent extends BaseComponent {
                 newMessageBubble.classList.add('chat-from');
             newMessageBubble.innerHTML = message.text;
             //TODO format timestamp and name
-            document.getElementById('messages-display').appendChild(newMessageBubble);
+            messagesDisplay.appendChild(newMessageBubble);
         })
     }
 }

@@ -24,7 +24,7 @@ class TripController {
 
             // Create new trip object with a unique ID
             const trip = await this.model.create(req.body);
-
+            
             // Send back created trip as the response
             return res.status(201).json(trip);
         } catch (error) {

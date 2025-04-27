@@ -93,7 +93,7 @@ export class ChatListComponent extends BaseComponent {
         createChatButton.addEventListener("click", () => this.#handleChatCreation());
 
         // accept invite to new chat
-        hub.subscribe(Events.AcceptChatInvitation, chat => this.#acceptChatInvite(chat.id));
+        this.#hub.subscribe(Events.AcceptChatInvitation, chat => this.#acceptChatInvite(chat.id));
     }
     
     /**
@@ -102,7 +102,7 @@ export class ChatListComponent extends BaseComponent {
      */
     #openChatWindow(id) {
         const newChat = this.#localChats.find(chat => chat.id === id);
-        hub.publish(Events.OpenChat, newChat);
+        this.#hub.publish(Events.OpenChat, newChat);
     }
 
     #handleChatCreation() {
@@ -170,7 +170,7 @@ export class ChatListComponent extends BaseComponent {
      * @return {Array<Chat>} Array of chat objects that user has permissions to. Empty if user has no permissions.
      */
     #retreiveChatsFromServer(chat_ids) {
-        hub.publish(Events.RetrieveChatData, {chat_ids: chat_ids});
+        this.#hub.publish(Events.RetrieveChatData, {chat_ids: chat_ids});
     }
     
     /**
@@ -179,7 +179,7 @@ export class ChatListComponent extends BaseComponent {
      * @return {User} User's data in User object.
      */
     #retreiveUserData(id) {
-        hub.publish(Events.RetrieveUserData, {id: id});
+        this.#hub.publish(Events.RetrieveUserData, {id: id});
     }
 
     /**
@@ -188,7 +188,7 @@ export class ChatListComponent extends BaseComponent {
      */
     #addChatIDToUserPermissions(id) {
         this.#userData.chat_perms.push(id);
-        hub.publish(Events.AddChatIDToUserPermissions, {user_id: this.#userData.id, id: id});
+        this.#hub.publish(Events.AddChatIDToUserPermissions, {user_id: this.#userData.id, id: id});
     }
 
     /**
@@ -196,7 +196,7 @@ export class ChatListComponent extends BaseComponent {
      * @param {Chat} newChat Chat to add to database of chats.
      */
     #storeNewChat(newChat) {
-        hub.publish(Events.StoreNewChatGroup, newChat);
+        this.#hub.publish(Events.StoreNewChatGroup, newChat);
     }
 
     #inviteAssociatedUser(id) {

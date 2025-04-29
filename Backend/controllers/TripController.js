@@ -18,7 +18,7 @@ class TripController {
     async addTrip(req, res) {
         try {
             // Check if 'trip' is provided in the request body
-            if (!req.body || !req.body.task) {
+            if (!req.body || !req.body.trip) {
                 return res.status(400).json({ error: "Trip description is required"});
             }
 

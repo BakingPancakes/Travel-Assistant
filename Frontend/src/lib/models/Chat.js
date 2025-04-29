@@ -1,14 +1,18 @@
 export class Chat {
     constructor(data = {}) {
-        if (data["members"] === undefined || data["members"].length === 0) {
+        if (!(data["members"] || data["members"].length)) {
             throw new Error("Error initializing new Chat object: >= 1 members must be declared.");
         }
-        if (data["name"] === undefined || data["name"] === '') {
-            throw new Error("Errro initializing new Chat object. Name must be specified");
+        if (!data["name"] === undefined) {
+            throw new Error("Error initializing new Chat object. Name must be specified.");
+        }
+        if (!data["date"]) {
+            throw new Error("Error initializing new Chat object. Date must be specified.")
         }
         // required:
         this.name = data.name;    
         this.members = data.members; 
+        this.date = data.date;
 
         // optionl:
         this.id = data.id | Date.now();

@@ -2,6 +2,7 @@ import { BaseComponent } from "../../BaseComponent/BaseComponent.js";
 import { EventHub } from "../../../lib/eventhub/eventHub.js";
 import { Events } from "../../../lib/eventhub/events.js";
 import { Chat } from "../../../lib/models/Chat.js";
+import { User } from "../../../lib/models/user.js";
 
 export class ChatListComponent extends BaseComponent {
     #container = null;
@@ -61,7 +62,7 @@ export class ChatListComponent extends BaseComponent {
         this.#container.appendChild(createChatPopupForm);
 
         // Grab user data & display associated tabs
-        const TEMP_USER_ID = 1
+        const TEMP_USER_ID = 1 // TODO grab local storage OR authentication.
         this.#userData = this.#retreiveUserData(TEMP_USER_ID);
 
         this.#localChats = this.#retreiveChatsFromServer(this.#userData.chat_perms);
@@ -118,11 +119,14 @@ export class ChatListComponent extends BaseComponent {
         const createChatPopupForm = this.document.getElementsByClassName("form-container")[0];
         this.#clearForm(createChatPopupForm);
 
+        const date = new Date();
+
         const newChat = new Chat({
             name: chatName,
-            members: ["My_ID", profileID],
+            members: [this.#userData.id, profileID],
             trip: tripName,
             messages: [],
+            date: `${date.getMonth()} ${date.getDate()}, ${date.getHours()}`,
         })
 
         // TODO: don't display tab, add perms, and send invite if there is an error storing new chat

@@ -63,7 +63,7 @@ export class ChatDisplayComponent extends BaseComponent {
                 newMessageBubble.classList.add('chat-to') :
                 newMessageBubble.classList.add('chat-from');
             newMessageBubble.innerHTML = message.text;
-            //TODO format timestamp and name
+            newMessageBubble.innerHTML += `<span>${chatData.date}: ${chatData.name}</span>`
             messagesDisplay.appendChild(newMessageBubble);
         })
     }

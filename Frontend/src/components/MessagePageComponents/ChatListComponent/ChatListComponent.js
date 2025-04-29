@@ -40,7 +40,7 @@ export class ChatListComponent extends BaseComponent {
         this.#container.innerHTML += `<input class="chat-icon" type="button" value="👤 Jasper">
         <input class="chat-icon" type="button" value="👤 Joon">`;     
 
-        const createChatPopupForm = this.document.createElement("form");
+        const createChatPopupForm = document.createElement("form");
         createChatPopupForm.classList.add("form-container");
         createChatPopupForm.innerHTML = `
             <label for"username"><b>Who would you like to chat with?</b></label>
@@ -65,20 +65,20 @@ export class ChatListComponent extends BaseComponent {
         const TEMP_USER_ID = 1 // TODO grab local storage OR authentication.
         this.#userData = this.#retreiveUserData(TEMP_USER_ID);
 
-        this.#localChats = this.#retreiveChatsFromServer(this.#userData.chat_perms);
+        // this.#localChats = this.#retreiveChatsFromServer(this.#userData.chat_perms);
         this.#localChats.forEach(chat => this.#displayTab(chat));
     }
 
     #attachEventListeners() {
         // Display Popup Form
-        const createChatPopupForm = this.document.getElementsByClassName("form-container")[0];
-        const addChatButton = this.document.getElementById("add-chat-button");
+        const createChatPopupForm = document.getElementsByClassName("form-container")[0];
+        const addChatButton = document.getElementById("add-chat-button");
         addChatButton.addEventListener("click", () => {
             createChatPopupForm.style.display = "block";
         });
         
         // Hide Popup Form
-        const cancelChatCreationButton = this.document.getElementById('btn-cancel');
+        const cancelChatCreationButton = document.getElementById('btn-cancel');
         cancelChatCreationButton.addEventListener('click', () => {
             createChatPopupForm.style.display = "none";
             this.#clearForm(createChatPopupForm);
@@ -90,7 +90,7 @@ export class ChatListComponent extends BaseComponent {
         });
         
         // Process chat creation
-        const createChatButton = this.document.getElementById('btn-create');
+        const createChatButton = document.getElementById('btn-create');
         createChatButton.addEventListener("click", () => this.#handleChatCreation());
 
         // accept invite to new chat
@@ -116,7 +116,7 @@ export class ChatListComponent extends BaseComponent {
             return;
         }
         
-        const createChatPopupForm = this.document.getElementsByClassName("form-container")[0];
+        const createChatPopupForm = document.getElementsByClassName("form-container")[0];
         this.#clearForm(createChatPopupForm);
 
         const date = new Date();

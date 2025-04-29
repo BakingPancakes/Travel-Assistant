@@ -32,6 +32,7 @@ export class ChatDisplayComponent extends BaseComponent {
                 <h1>[Chat name]</h1>
             </div>
             <div id="messages-display">
+                Chats go here
             </div>
             <input id="input-box" type="text" placeholder="Type message here...">
         `;
@@ -40,12 +41,11 @@ export class ChatDisplayComponent extends BaseComponent {
         //     <div class="chat-bubble chat-from">[Jasper] Hey Zavier! How's the messages page going?</div>
         //     <div class="chat-bubble chat-to">It's going swell! [Zavier]</div>
         // `;
-        document.getElementById("messages-display").innerHTML = "Chats go here.";
 
     }
 
     #attachEventListeners() {
-        const hub = EventHub.instance();
+        const hub = EventHub.getInstance();
         hub.subscribe(Events.OpenChat, chatData => this.#displayChat(chatData));
 
         // TODO

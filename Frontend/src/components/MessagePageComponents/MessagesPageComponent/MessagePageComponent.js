@@ -5,13 +5,14 @@ import { EventHub } from "../../../lib/eventhub/eventHub.js";
 
 export class MessagePageComponent extends BaseComponent {
     #container = null;
-    #hub = EventHub.getInstance();
+    #hub = null;
     #ChatListComponent = null;
     #ChatDisplayComponent = null;
 
     constructor() {
         super();
-        this.loadCSS("ChatPageComponent");
+        this.#hub = EventHub.getInstance();
+        // this.loadCSS("ChatPageComponent");
     }
     
     render() {
@@ -26,14 +27,14 @@ export class MessagePageComponent extends BaseComponent {
     
     #createContainerAndSetupContents() {
         this.#container = document.createElement('div');
-        this.#container.id = 'messages-pages';
+        this.#container.id = 'messages-page';
 
 
-        this.#ChatListComponent = new ChatDisplayComponent();
+        this.#ChatListComponent = new ChatListComponent();
         this.#ChatDisplayComponent = new ChatDisplayComponent();
 
-        this.#container.innHTML += ChatListComponent.render();
-        this.#container.innerHTML += ChatDisplayComponent.render();
+        this.#container.innHTML += this.#ChatListComponent.render();
+        this.#container.innerHTML += this.#ChatDisplayComponent.render();
     }
 
     #attachEventListeners() {

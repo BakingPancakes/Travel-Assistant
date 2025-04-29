@@ -1,6 +1,6 @@
 import { BaseComponent } from '../../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../../lib/eventhub/eventHub.js';
-import { Events } from '../../../lib/eventhub/Events.js';
+import { Events } from '../../../lib/eventhub/events.js';
 import { Trip } from '../models/Trip.js';
 
 export class TripInputComponent extends BaseComponent {

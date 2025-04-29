@@ -84,7 +84,7 @@ export class ChatListComponent extends BaseComponent {
             this.#clearForm(createChatPopupForm);
         });
 
-        // Open Chats when icon clicked
+        // Open Chats when any icon is clicked
         Array.from(document.getElementsByClassName("chat-icon")).forEach(element => {
             element.addEventListener('click', () => this.#openChatWindow(element.id));
         });

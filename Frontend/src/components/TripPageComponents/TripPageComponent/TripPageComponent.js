@@ -1,6 +1,6 @@
 import { BaseComponent } from '../../BaseComponent/BaseComponent.js';
 import { EventHub } from '../../../lib/eventhub/eventHub.js';
-import { Events } from '../../../lib/eventhub/Events.js';
+import { Events } from '../../../lib/eventhub/events.js';
 import { TripListComponent } from '../TripListComponent/TripListComponent.js';
 import { TripInputComponent } from '../TripInputComponent/TripInputComponent.js';
 

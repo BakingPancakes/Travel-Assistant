@@ -1,9 +1,9 @@
-import { ChatListComponent } from "../ChatListComponent/ChatListComponent";
-import { ChatDisplayComponent } from "../ChatDisplayComponent/ChatDisplayComponent";
-import { BaseComponent } from "../../BaseComponent/BaseComponent";
-import { EventHub } from "../../../lib/eventhub/eventHub";
+import { ChatListComponent } from "../ChatListComponent/ChatListComponent.js";
+import { ChatDisplayComponent } from "../ChatDisplayComponent/ChatDisplayComponent.js";
+import { BaseComponent } from "../../BaseComponent/BaseComponent.js";
+import { EventHub } from "../../../lib/eventhub/eventHub.js";
 
-class MessagePageComponent extends BaseComponent {
+export class MessagePageComponent extends BaseComponent {
     #container = null;
     #hub = EventHub.getInstance();
     #ChatListComponent = null;

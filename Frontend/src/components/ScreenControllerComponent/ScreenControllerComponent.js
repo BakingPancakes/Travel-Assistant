@@ -1,19 +1,20 @@
 import { EventHub } from "../../lib/eventhub/eventHub.js";
 import { HomePageComponent } from "../HomePageComponents/HomePageComponent/HomePageComponent.js";
 import { SidebarComponent } from "../SidebarComponent/SidebarComponent.js";
+import { TripPageComponent } from "../TripPageComponents/TripPageComponent/TripPageComponent.js";
 
 export class ScreenControllerComponent {
     #container = null;
     #currentView = 'home';
     #sidebarComponent = null;
-    #homePageComponent = null;
+    #viewPageComponent = null;
     #hub = null;
 
     constructor() {
         this.#hub = EventHub.getInstance();
         // Component initialization here
         this.#sidebarComponent = new SidebarComponent();
-        this.#homePageComponent = new HomePageComponent();
+        this.#viewPageComponent = new HomePageComponent();
     }
 
     render() {
@@ -22,7 +23,7 @@ export class ScreenControllerComponent {
         this.#attachEventListeners();
 
         this.#sidebarComponent.render();
-        this.#homePageComponent.render();
+        this.#viewPageComponent.render();
 
 
         // Component rendering goes here
@@ -50,6 +51,21 @@ export class ScreenControllerComponent {
     #attachEventListeners() {
         this.#hub.subscribe('NewTrip', () => {
             this.#renderCurrentView();
+        });
+
+        this.#hub.subscribe('SwitchToHomePage', () => {
+            this.#currentView = 'home';
+            this.#renderCurrentView();
+        });
+
+        this.#hub.subscribe('SwitchToTripPage', () => {
+            this.#currentView = 'trip';
+            this.#renderCurrentView();
+        });
+
+        this.#hub.subscribe('SwitchToMessagePage', () => {
+            this.#currentView = 'message';
+            this.#renderCurrentView();
         })
     }
 
@@ -57,6 +73,17 @@ export class ScreenControllerComponent {
         const screen = this.#container.querySelector('#screen');
         screen.innerHTML = ''; // Clear existing content
         screen.appendChild(this.#sidebarComponent.render());
-        screen.appendChild(this.#homePageComponent.render());
+        switch(this.#currentView) {
+            case 'home':
+                this.#viewPageComponent = new HomePageComponent();
+                break;
+            case 'trip':
+                this.#viewPageComponent = new TripPageComponent();
+                break;
+            case 'message':
+                console.log("incomplete");
+                break;
+        }
+        screen.appendChild(this.#viewPageComponent.render());
     }
 }

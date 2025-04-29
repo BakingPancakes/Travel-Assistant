@@ -1,4 +1,6 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
+import { EventHub } from "../../lib/eventhub/eventHub.js";
+import { Events } from "../../lib/eventhub/Events.js";
 
 export class SidebarComponent extends BaseComponent {
     #container = null;
@@ -46,44 +48,25 @@ export class SidebarComponent extends BaseComponent {
         const messageBtn = this.#container.querySelector('#button-messages');
         const calendarBtn = this.#container.querySelector('#button-calendar');
 
+        const hub = EventHub.getInstance();
         profileBtn.addEventListener("click", () => 
-        this.#handleProfileClick()
+            console.log("We'll get back to this...")
         );
 
         homeBtn.addEventListener("click", () => 
-        this.#handleHomeSwitch()
+            hub.publish(Events.SwitchToHome, null)
         );
 
         tripBtn.addEventListener("click", () => 
-        this.#handleTripSwitch()
+            hub.publish(Events.SwitchToTripPage, null)
         );
 
         messageBtn.addEventListener("click", () => 
-        this.#handleMsgSwitch()
+            hub.publish(Events.SwitchToMessagePage, null)
         );
 
         calendarBtn.addEventListener("click", () => 
-        this.#handleCalendarSwitch()
+            console.log("Not implemented :(")
         );
-    }
-
-    #handleProfileClick() {
-        throw new Error("Not yet implemented");
-    }
-
-    #handleHomeSwitch() {
-        throw new Error("Not yet implemented");
-    }
-
-    #handleTripSwitch() {
-        throw new Error("Not yet implemented");
-    }
-
-    #handleMsgSwitch() {
-        throw new Error("Not yet implemented");
-    }
-
-    #handleCalendarSwitch() {
-        throw new Error("Not yet implemented");
     }
 }

@@ -50,6 +50,16 @@ export class TripPageComponent extends BaseComponent {
         return this.#container;
     }
 
+    loadCSS(fileName) {
+        if(this.cssLoaded) return;
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `./components/TripPageComponents/${fileName}/${fileName}.css`;
+        document.head.appendChild(link);
+        this.cssLoaded = true;
+    }
+
     #attachEventListeners() {
         // Toggle trip input visibility
         const newTripBtn = this.#container.querySelector('#new-trip-btn');

@@ -24,8 +24,7 @@ export class TripPageComponent extends BaseComponent {
         // Create main container
         this.#container = document.createElement('div');
         this.#container.classList.add('trip-page');
-        this.#container.style.display = 'flex';
-        this.#container.style.width = '100%';
+
 
         // Create page structure
         this.#container.innerHTML = `

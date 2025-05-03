@@ -50,17 +50,6 @@ export class TripPageComponent extends BaseComponent {
 
         return this.#container;
     }
-    // override 
-    loadCSS(fileName) {
-        if(this.cssLoaded) return;
-
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        // Dynamically load CSS from the same directory as the JS file
-        link.href = `./components/${fileName}/${fileName}.css`;
-        document.head.appendChild(link);
-        this.cssLoaded = true;
-    }
 
     #attachEventListeners() {
         // Toggle trip input visibility

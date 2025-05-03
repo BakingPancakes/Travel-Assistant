@@ -54,7 +54,7 @@ export class SidebarComponent extends BaseComponent {
         );
 
         homeBtn.addEventListener("click", () => 
-            hub.publish(Events.SwitchToHome, null)
+            hub.publish(Events.SwitchToHomePage, null)
         );
 
         tripBtn.addEventListener("click", () => 

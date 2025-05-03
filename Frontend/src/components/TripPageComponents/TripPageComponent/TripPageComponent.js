@@ -25,6 +25,7 @@ export class TripPageComponent extends BaseComponent {
         this.#container = document.createElement('div');
         this.#container.classList.add('trip-page');
 
+
         // Create page structure
         this.#container.innerHTML = `
             <div class="trip-page__header">
@@ -47,6 +48,16 @@ export class TripPageComponent extends BaseComponent {
         this.#attachEventListeners();
 
         return this.#container;
+    }
+
+    loadCSS(fileName) {
+        if(this.cssLoaded) return;
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `./components/TripPageComponents/${fileName}/${fileName}.css`;
+        document.head.appendChild(link);
+        this.cssLoaded = true;
     }
 
     #attachEventListeners() {

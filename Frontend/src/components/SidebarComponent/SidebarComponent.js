@@ -1,6 +1,6 @@
 import { BaseComponent } from '../BaseComponent/BaseComponent.js';
 import { EventHub } from "../../lib/eventhub/eventHub.js";
-import { Events } from "../../lib/eventhub/Events.js";
+import { Events } from "../../lib/eventhub/events.js";
 
 export class SidebarComponent extends BaseComponent {
     #container = null;
@@ -54,7 +54,7 @@ export class SidebarComponent extends BaseComponent {
         );
 
         homeBtn.addEventListener("click", () => 
-            hub.publish(Events.SwitchToHome, null)
+            hub.publish(Events.SwitchToHomePage, null)
         );
 
         tripBtn.addEventListener("click", () => 

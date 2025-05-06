@@ -2,7 +2,7 @@ import { EventHub } from "../../lib/eventhub/eventHub.js";
 import { HomePageComponent } from "../HomePageComponents/HomePageComponent/HomePageComponent.js";
 import { SidebarComponent } from "../SidebarComponent/SidebarComponent.js";
 import { TripPageComponent } from "../TripPageComponents/TripPageComponent/TripPageComponent.js";
-import { MessagePageComponent } from "../MessagePageComponents/MessagesPageComponent/MessagePageComponent.js";
+import { MessagePageComponent } from "../MessagePageComponents/MessagePageComponent/MessagePageComponent.js";
 
 export class ScreenControllerComponent {
     #container = null;

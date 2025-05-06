@@ -12,7 +12,7 @@ export class MessagePageComponent extends BaseComponent {
     constructor() {
         super();
         this.#hub = EventHub.getInstance();
-        // this.loadCSS("ChatPageComponent");
+        this.loadCSS("MessagePageComponent");
     }
     
     render() {
@@ -24,6 +24,17 @@ export class MessagePageComponent extends BaseComponent {
 
         return this.#container
     }
+
+    loadCSS(fileName) {
+        if(this.cssLoaded) return;
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        // Dynamically load CSS from the same directory as the JS file
+        link.href = `/Frontend/src/components/MessagePageComponents/${fileName}/${fileName}.css`;
+        document.head.appendChild(link);
+        this.cssLoaded = true;
+    }
     
     #createContainerAndSetupContents() {
         this.#container = document.createElement('div');
@@ -33,8 +44,8 @@ export class MessagePageComponent extends BaseComponent {
         this.#ChatListComponent = new ChatListComponent();
         this.#ChatDisplayComponent = new ChatDisplayComponent();
 
-        this.#container.innHTML += this.#ChatListComponent.render();
-        this.#container.innerHTML += this.#ChatDisplayComponent.render();
+        this.#container.appendChild(this.#ChatListComponent.render());
+        this.#container.appendChild(this.#ChatDisplayComponent.render());
     }
 
     #attachEventListeners() {

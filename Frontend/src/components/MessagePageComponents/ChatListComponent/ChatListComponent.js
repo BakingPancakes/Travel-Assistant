@@ -12,7 +12,18 @@ export class ChatListComponent extends BaseComponent {
 
     constructor() {
         super();
-        // this.loadCSS('ChatListComponent');
+        this.loadCSS('ChatListComponent');
+    }
+
+    loadCSS(fileName) {
+        if(this.cssLoaded) return;
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        // Dynamically load CSS from the same directory as the JS file
+        link.href = `/Frontend/src/components/MessagePageComponents/${fileName}/${fileName}.css`;
+        document.head.appendChild(link);
+        this.cssLoaded = true;
     }
 
     render() {
@@ -23,6 +34,7 @@ export class ChatListComponent extends BaseComponent {
         this.#createContainer();
         this.#setupContainerContent();
         this.#attachEventListeners();
+        console.log(this.#container.outerHTML);
         return this.#container;
     }
 
@@ -33,9 +45,9 @@ export class ChatListComponent extends BaseComponent {
 
     #setupContainerContent() {
         this.#container.innerHTML = `
-        <h1>Chats</h1>
-        <input id="add-chat-button" type="button" value="+">
+        <h1>Chats<input id="add-chat-button" type="button" value="+"></h1>
         `;
+        
         // comment out next 2 lines if not using mock data:
         this.#container.innerHTML += `<input class="chat-icon" type="button" value="👤 Jasper">
         <input class="chat-icon" type="button" value="👤 Joon">`;     
@@ -43,15 +55,15 @@ export class ChatListComponent extends BaseComponent {
         const createChatPopupForm = document.createElement("form");
         createChatPopupForm.classList.add("form-container");
         createChatPopupForm.innerHTML = `
-            <label for"username"><b>Who would you like to chat with?</b></label>
+            <label for"profile_id"><b>Who would you like to chat with?</b></label>
             <input type="text" placeholder="Enter Friend's ID..." required name="profile_id">
 
             <br>
-            <label for="name"><b>Chat Name<b/></label>
+            <label for="chat_name"><b>Chat Name<b/></label>
             <input type="text" placeholder="Enter Chat Name..." required name="chat_name">
 
             <br>
-            <label for="trip">Enter a trip ID if you would like to enable in-message trip edit funcitonality.</label>
+            <label for="trip_id"><b>Enter a trip ID if you would like to enable in-message trip edit funcitonality.<b/></label>
             <input type="text" placeholder="Enter Trip ID..." name="trip_id">
 
             <br>
@@ -71,26 +83,26 @@ export class ChatListComponent extends BaseComponent {
 
     #attachEventListeners() {
         // Display Popup Form
-        const createChatPopupForm = document.getElementsByClassName("form-container")[0];
-        const addChatButton = document.getElementById("add-chat-button");
+        const createChatPopupForm = this.#container.getElementsByClassName("form-container")[0];
+        const addChatButton = this.#container.querySelector("#add-chat-button");
         addChatButton.addEventListener("click", () => {
             createChatPopupForm.style.display = "block";
         });
         
         // Hide Popup Form
-        const cancelChatCreationButton = document.getElementById('btn-cancel');
+        const cancelChatCreationButton = this.#container.querySelector('#btn-cancel');
         cancelChatCreationButton.addEventListener('click', () => {
             createChatPopupForm.style.display = "none";
             this.#clearForm(createChatPopupForm);
         });
 
         // Open Chats when any icon is clicked
-        Array.from(document.getElementsByClassName("chat-icon")).forEach(element => {
+        Array.from(this.#container.getElementsByClassName("chat-icon")).forEach(element => {
             element.addEventListener('click', () => this.#openChatWindow(element.id));
         });
         
         // Process chat creation
-        const createChatButton = document.getElementById('btn-create');
+        const createChatButton = this.#container.querySelector('#btn-create');
         createChatButton.addEventListener("click", () => this.#handleChatCreation());
 
         // accept invite to new chat
@@ -116,7 +128,7 @@ export class ChatListComponent extends BaseComponent {
             return;
         }
         
-        const createChatPopupForm = document.getElementsByClassName("form-container")[0];
+        const createChatPopupForm = this.#container.getElementsByClassName("form-container")[0];
         this.#clearForm(createChatPopupForm);
 
         const date = new Date();

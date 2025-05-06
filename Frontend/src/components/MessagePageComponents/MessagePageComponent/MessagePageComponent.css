@@ -1,0 +1,24 @@
+* {
+    font-family:'Arial', sans-serif;
+}
+
+#screen {
+    display: flex;
+}
+
+#screen__sidebar {
+    flex: 2
+}
+
+#messages-page {
+    flex: 8;
+    display: flex;
+}
+
+#chat-groups-container {
+    flex: 3
+}
+
+#chat-display-container {
+    flex: 7
+}

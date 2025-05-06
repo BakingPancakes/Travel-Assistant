@@ -7,7 +7,7 @@ export class ChatDisplayComponent extends BaseComponent {
 
     constructor() {
         super();
-        // this.loadCSS('ChatDisplayComponent');
+        this.loadCSS('ChatDisplayComponent');
     }
 
     render() {
@@ -21,9 +21,20 @@ export class ChatDisplayComponent extends BaseComponent {
         return this.#container;
     }
 
+    loadCSS(fileName) {
+        if(this.cssLoaded) return;
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        // Dynamically load CSS from the same directory as the JS file
+        link.href = `/Frontend/src/components/MessagePageComponents/${fileName}/${fileName}.css`;
+        document.head.appendChild(link);
+        this.cssLoaded = true;
+    }
+
     #createContainer() {
         this.#container = document.createElement('div');
-        this.#container.classList.add('chat-display-container');
+        this.#container.id = 'chat-display-container';
     }
 
     #setupContainerContents() {
@@ -37,7 +48,7 @@ export class ChatDisplayComponent extends BaseComponent {
             <input id="input-box" type="text" placeholder="Type message here...">
         `;
         // comment out below if not using mock data
-        // document.getElementById("messages-display").innerHTML += `
+        // this.#container.getElementById("messages-display").innerHTML += `
         //     <div class="chat-bubble chat-from">[Jasper] Hey Zavier! How's the messages page going?</div>
         //     <div class="chat-bubble chat-to">It's going swell! [Zavier]</div>
         // `;

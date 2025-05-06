@@ -34,7 +34,6 @@ export class ChatListComponent extends BaseComponent {
         this.#createContainer();
         this.#setupContainerContent();
         this.#attachEventListeners();
-        console.log(this.#container.outerHTML);
         return this.#container;
     }
 

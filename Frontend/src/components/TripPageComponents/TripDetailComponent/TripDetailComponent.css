@@ -1,0 +1,46 @@
+/* Trip Details Section */
+.trip-details-section {
+    margin-top: 20px;
+  }
+  
+  .trip-details-section h2 {
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .flexible-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  /* Save Button Container */
+  .save-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .btn-save {
+    background-color: #89999A;
+    color: white;
+    font-size: 16px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-save:hover {
+    background-color: #778889;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .flexible-container {
+      flex-direction: column;
+    }
+  }

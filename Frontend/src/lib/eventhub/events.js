@@ -54,4 +54,22 @@ export const Events = {
     SwitchToHome: 'SwitchToHomePage',
     SwitchToTripPage: 'SwitchToTripPage',
     SwitchToMessagePage: 'SwitchToMessagePage',
+
+    // select trip
+    TRIP_SELECTED: 'trip_selected',
+    TRIP_EDIT: 'trip_edit',
+    TRIP_DELETED: 'trip_deleted',
+    
+    // Create Trip with edit 
+    CREATE_NEW_TRIP: 'create_new_trip',
+    TRIP_CREATED: 'trip_created',
+    TRIP_UPDATED: 'trip_updated',
+    TRIPS_UPDATED: 'trips_updated',
+    TRIP_FORM_CANCELLED: 'trip_form_cancelled',
+    
+    // Trip specific detail
+    TRIP_DETAILS_SAVE_REQUESTED: 'trip_details_save_requested',
+    ACCOMMODATION_DATA_UPDATED: 'accommodation_data_updated',
+    TODO_DATA_UPDATED: 'todo_data_updated'
+    
 }

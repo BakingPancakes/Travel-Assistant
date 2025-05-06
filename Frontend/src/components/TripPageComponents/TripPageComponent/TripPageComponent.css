@@ -1,47 +1,58 @@
 /* Trip Page Component Styles */
 .trip-page {
-    flex: 8;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    background-color: #DFD8C5;
-
+  flex: 8;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #DFD8C5;
+  padding: 20px;
 }
 
 .trip-page__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 2.5%;
-    background-color: #DDC8B7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #DDC8B7;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .trip-page__header h1 {
-    color: #333;
-    font-size: 24px;
+  color: #333;
+  font-size: 24px;
+  margin: 0;
 }
 
 .btn-new-trip {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #CDACA1;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
 }
 
 .btn-new-trip:hover {
-    background-color: #45a049;
+  background-color: #b3978d;
 }
 
-.trip-input-container {
-    margin-bottom: 20px;
-}
-
-.trip-list-container {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Responsive Design */
+@media (max-width: 768px) {
+  .trip-page {
+    padding: 10px;
+  }
+  
+  .trip-page__header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .trip-page__header h1 {
+    font-size: 20px;
+  }
 }

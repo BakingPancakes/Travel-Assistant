@@ -1,54 +1,78 @@
-/* Trip Input Component Styles */
-.trip-input {
-    background-color: #f9f9f9;
-    padding: 20px;
+/* Trip Form Styles */
+.trip-form {
+    background-color: #ECE4D7;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     margin-bottom: 20px;
-}
-
-.trip-input form {
-    display: grid;
-    gap: 15px;
-}
-
-.trip-input label {
-    font-weight: bold;
+  }
+  
+  .trip-form h2 {
     color: #333;
-}
-
-.trip-input input {
-    width: 100%;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .form-row {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-row label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .form-row input, .form-row select {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.form-actions {
+    font-size: 16px;
+  }
+  
+  .form-actions {
     display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-
-.form-actions button {
-    padding: 10px 15px;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .btn-cancel, .btn-create {
+    padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.form-actions button#submit {
-    background-color: #4CAF50;
+    font-size: 16px;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-cancel {
+    background-color: #ddd;
+    color: #333;
+  }
+  
+  .btn-create {
+    background-color: #9FAC9D;
     color: white;
-}
-
-.form-actions button#cancel {
-    background-color: #f44336;
-    color: white;
-}
-
-.form-actions button:hover {
-    opacity: 0.9;
-}
+  }
+  
+  .btn-cancel:hover {
+    background-color: #ccc;
+  }
+  
+  .btn-create:hover {
+    background-color: #89999A;
+  }
+  
+  .styled-select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6"><path d="M0 0l6 6 6-6z" fill="%23333"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+    padding-right: 30px;
+  }

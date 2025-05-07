@@ -51,7 +51,7 @@ export const Events = {
     LoadNewMessage: 'LoadNewMessage',
 
     // View Switching Events
-    SwitchToHome: 'SwitchToHomePage',
+    SwitchToHomePage: 'SwitchToHomePage',
     SwitchToTripPage: 'SwitchToTripPage',
     SwitchToMessagePage: 'SwitchToMessagePage',
 

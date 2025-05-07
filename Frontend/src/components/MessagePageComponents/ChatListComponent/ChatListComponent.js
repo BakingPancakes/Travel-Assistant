@@ -167,9 +167,9 @@ export class ChatListComponent extends BaseComponent {
 
     #handleChatCreationStart() {
         // Grab info from popup form
-        const profileID = document.forms["form-container"].profile_id.value;
-        const chatName = document.forms["form-container"].chat_name.value;
-        const tripName = document.forms["form-container"].trip_id.value;
+        const profileID = this.#container.querySelector('.form-container').profile_id.value;
+        const chatName = this.#container.querySelector('.form-container').chat_name.value;
+        const tripName = this.#container.querySelector('.form-container').trip_id.value;
 
         if (!(profileID && chatName)) {
             alert("Please enter a Profile ID and Chat name if you would like to create a chat.");

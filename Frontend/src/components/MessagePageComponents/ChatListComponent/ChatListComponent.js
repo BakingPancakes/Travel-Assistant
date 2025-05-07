@@ -103,7 +103,6 @@ export class ChatListComponent extends BaseComponent {
         // Storing new Chat ID to user
         this.#hub.subscribe(Events.AddChatIDToUserPermissionsSuccess, (id) => {
             this.#addChatIDToUserPermissions(id);
-
         });
         this.#hub.subscribe(Events.AddChatIDToUserPermissionsFailure, () => {
             alert("Error: unable to add chat ID to the user's permissions on server.");

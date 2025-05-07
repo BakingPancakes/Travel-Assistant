@@ -73,7 +73,6 @@ export class ChatListComponent extends BaseComponent {
         // Grab user data & display associated tabs
         const TEMP_USER_ID = 1
         this.#retreiveUserData(TEMP_USER_ID);
-        this.#loadExistingChats();
     }
 
     #attachEventListeners() {
@@ -81,6 +80,7 @@ export class ChatListComponent extends BaseComponent {
         // Retrieving user's data for particular userID
         this.#hub.subscribe(Events.RetrieveUserDataSuccess, (userData) => {
             this.#setUserData(userData);
+            this.#loadExistingChats();
         });
         this.#hub.subscribe(Events.RetrieveUserDataFailure, () => {
             alert("Error: couldn't retrieve user data from the server. Please refresh the page or contact an admin.");

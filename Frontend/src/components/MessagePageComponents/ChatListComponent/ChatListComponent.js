@@ -42,12 +42,12 @@ export class ChatListComponent extends BaseComponent {
 
     #setupContainerContent() {
         this.#container.innerHTML = `
-        <h1>Chats<input id="add-chat-button" type="button" value="+"></h1>
+        <h1>Chats<input id="add-chat-button" type="button" value="+" style="display: none;"></h1>
         `;
         
         // comment out next 2 lines if not using mock data:
-        this.#container.innerHTML += `<input class="chat-icon" type="button" value="👤 Jasper">
-        <input class="chat-icon" type="button" value="👤 Joon">`;     
+        // this.#container.innerHTML += `<input class="chat-icon" type="button" value="👤 Jasper">
+        // <input class="chat-icon" type="button" value="👤 Joon">`;     
 
         const createChatPopupForm = document.createElement("form");
         createChatPopupForm.classList.add("form-container");
@@ -81,6 +81,7 @@ export class ChatListComponent extends BaseComponent {
         this.#hub.subscribe(Events.RetrieveUserDataSuccess, (userData) => {
             this.#setUserData(userData);
             this.#loadExistingChats();
+            this.#container.querySelector('#add-chat-button').style.display = "block";
         });
         this.#hub.subscribe(Events.RetrieveUserDataFailure, () => {
             alert("Error: couldn't retrieve user data from the server. Please refresh the page or contact an admin.");

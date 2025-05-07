@@ -1,5 +1,6 @@
 import Service from "./Service.js";
 import { fetch } from "../utility/fetch.js";
+import { Events } from "../lib/eventhub/events.js";
 
 export class TripRepositoryRemoteFakeService extends Service {
     constructor() {

@@ -119,6 +119,12 @@ export class HomePageListComponent extends BaseComponent {
         this.#container.appendChild(body);
         if (this.#type !== 'trip') {
             this.#container.appendChild(footer);
+        } else {
+            const savedTrips = localStorage.getItem('savedTrips');
+            if (savedTrips) {
+                this.#trips = JSON.parse(savedTrips);
+            }
+            this.#refreshTripList(this.#trips);
         }
         
     }
@@ -160,14 +166,14 @@ export class HomePageListComponent extends BaseComponent {
         listBody.innerHTML = ``;
         
         // Validate the data structure before processing
-        if (!tripData || !tripData.trips || !Array.isArray(tripData.trips)) {
+        if (!tripData) {
             console.log("Invalid trip data format:", tripData);
             return;
         }
         
         // Only process if we have trips to display
-        if (tripData.trips.length > 0) {
-            tripData.trips.forEach((trip) => {
+        if (tripData.length > 0) {
+            tripData.forEach((trip) => {
                 const tripContainer = document.createElement('div');
                 tripContainer.classList.add('t-body__row', 'row');
                 const curTrip = new HPTripComponent(trip);

@@ -18,6 +18,9 @@ export class TripRepositoryRemoteService extends Service {
         });
     }
 
+    /**
+     * Trip services:
+     */
     async #initTrips() {
         const response = await fetch("/trips");
 
@@ -62,7 +65,16 @@ export class TripRepositoryRemoteService extends Service {
     }
 
     async #toBase64(tripData) {
-        throw new Error("Not yet implemented");
+        if (tripData.file) {
+            // Need to store the mime type separately as it is needed when
+            // converting back to blob when fetched from the server.
+            tripData.mime = tripData.file.type;
+            // Store the filename separately as well
+            tripData.filename = tripData.file.name;
+            // Convert the file to base64
+            const base64 = await Base64.convertFileToBase64(tripData.file);
+            tripData.file = base64;
+          }
     }
 
     async clearTrips() {

@@ -4,6 +4,7 @@ import { Events } from "../../../lib/eventhub/events.js";
 
 export class ChatDisplayComponent extends BaseComponent {
     #container = null;
+    #hub = EventHub.getInstance();
 
     constructor() {
         super();
@@ -56,8 +57,10 @@ export class ChatDisplayComponent extends BaseComponent {
     }
 
     #attachEventListeners() {
-        const hub = EventHub.getInstance();
-        // hub.subscribe(Events.OpenChat, chatData => this.#displayChat(chatData));
+        this.#hub.subscribe(Events.OpenChatSuccess, (chatData) => this.#displayChat(chatData));
+        this.#hub.subscribe(Events.OpenChatFailure, () => {
+            alert("Error: couldn't display chat.");
+        });
 
         const input_box = this.#container.querySelector("#input-box");
         input_box.addEventListener("keypress", (event) => {
@@ -71,9 +74,9 @@ export class ChatDisplayComponent extends BaseComponent {
                 display.appendChild(newMessage);
                 input_box.value = "";
             }
-});
+        });
 
-        // TODO
+        // TODO:
         // sending new message
         // retrieving new message
     }

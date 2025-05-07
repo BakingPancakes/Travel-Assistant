@@ -1,5 +1,5 @@
 import { EventHub } from "../../../lib/eventhub/eventHub.js";
-import { Events } from "../../../lib/eventhub/Events.js";
+import { Events } from "../../../lib/eventhub/events.js";
 import { BaseComponent } from "../../BaseComponent/BaseComponent.js";
 
 export class TripSimpleInputComponent extends BaseComponent {
@@ -117,8 +117,24 @@ export class TripSimpleInputComponent extends BaseComponent {
             alert("You need to set a day to go!");
             return;
         }
+
+        const tripData = {
+            name: tripName.trim(),
+            destination: 'No destination yet!',
+            traveler: '',
+            companions: tripGroup,
+            from: tripDateStart,
+            to: tripDateEnd,
+            budget: 0,
+            accommodations: [],
+            todoItems: {
+              before: [],
+              during: [],
+              after: []
+            }
+          };
         // Publish newTrip event with task, group, and date data
-        this.#publishNewTrip(tripName, tripGroup, tripDateStart, tripDateEnd);
+        this.#publishNewTrip(tripData);
         // Clear inputs
         this.#clear();
     }
@@ -127,11 +143,10 @@ export class TripSimpleInputComponent extends BaseComponent {
         this.#container.innerHTML = ``;
     }
 
-    #publishNewTrip(name, group, dateStart, dateEnd) {
+    #publishNewTrip(tripData) {
         const hub = EventHub.getInstance();
-        hub.publish(Events.NewTrip, { name, group, dateStart, dateEnd });
-        hub.publish(Events.StoreTrip, { name, group, dateStart, dateEnd });
-        alert("Successfully added trip!");
+        hub.publish(Events.TRIP_CREATED, { tripData });
+        console.log("Successfully added trip!");
     }
 
     #clear() {

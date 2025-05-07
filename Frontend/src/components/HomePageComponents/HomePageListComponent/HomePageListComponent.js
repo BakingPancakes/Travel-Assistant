@@ -1,0 +1,192 @@
+import { BaseComponent } from "../../BaseComponent/BaseComponent.js";
+import { EventHub } from "../../../lib/eventhub/eventHub.js";
+import { Events } from "../../../lib/eventhub/events.js";
+import { HPTripComponent } from "../HPTripComponent/HPTripComponent.js";
+import { BudgetComponent } from "../BudgetComponent/BudgetComponent.js";
+import { TaskComponent } from "../TaskComponent/TaskComponent.js";
+
+export class HomePageListComponent extends BaseComponent {
+    #container = null;
+    #type = null; // Private variable to determine whether it's a component for tasks, trips, or budgets
+    #trips = null; // Get trip data in order to refresh lists
+
+    constructor(type) {
+        super();
+        this.#type = type; // Either 'trip', 'task', or 'budget'
+        this.loadCSS('HomePageListComponent');
+    }
+
+    loadCSS(fileName) {
+        if(this.cssLoaded) return;
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        // Dynamically load CSS from the same directory as the JS file
+        link.href = `/Frontend/src/components/HomePageComponents/${fileName}/${fileName}.css`;
+        document.head.appendChild(link);
+        this.cssLoaded = true;
+    }
+
+    render() {
+        if (this.#container) {
+            return this.#container;
+        }
+        // Use type to determine what the header/footer should look like
+        this.#createContainer();
+        this.#setupContainerContent();
+        this.#attachEventListeners();
+
+        return this.#container;
+    }
+
+    // Creates the container element and applies the necessary classes.
+    #createContainer() {
+        this.#container = document.createElement('div');
+        this.#container.classList.add('table');
+        this.#container.id = this.#type + '-list';
+    }
+
+    #setupContainerContent() {
+        // Initialize divs for header, body, and footer
+        const header = document.createElement('div');
+        header.classList.add('table__header');
+
+        const body = document.createElement('div');
+        body.classList.add('table__body');
+
+        // No need for a footer if we have the trip list
+        const footer = document.createElement('div');
+        footer.classList.add('table__footer');
+        
+
+        switch (this.#type) {
+            case 'trip':
+            // Add header content
+            header.innerHTML = `
+                <div class="t-header__row row">
+                    <div id="col--where" class="t-header__col col">Trip</div>
+                    <div id="col--who" class="t-header__col col">Who's Going?</div>
+                    <div id="col--when" class="t-header__col col">When?</div>
+                </div>
+            `;
+            // No footer
+            break;
+
+            case 'task':
+            // Add header Content
+            header.innerHTML = `
+                <div class="t-header__row row">
+                    <div class="t-header__col col">To-Do's</div>
+                </div>
+                <div class="t-header__row row">
+                    <div class="t-header__col col">Task</div>
+                    <div class="t-header__col col">Trip</div>
+                    <div class="t-header__col due col">Due</div>
+                </div>
+            `;
+            // Add footer Content
+            footer.innerHTML = `
+                <div class="t-footer__row row">
+                    <div class="t-footer__col col">Tasks Remaining:</div>
+                    <div class="t-footer__col right-align col">0</div>
+                </div>
+            `
+            break;
+
+            case 'budget':
+            // Add header Content
+            header.innerHTML = `
+                <div class="t-header__row row">
+                    <div class="t-header__col col">Your Budgets</div>
+                </div>
+                <div class="t-header__row row">
+                    <div class="t-header__col col">Trip</div>
+                    <div class="t-header__col col--budget col">Budget</div>
+                </div>
+            `;
+            // Add footer Content
+            footer.innerHTML = `
+                <div class="t-footer__row row">
+                    <div class="t-footer__col col">Total:</div>
+                    <div class="t-footer__col right-align col">$0</div>
+                </div>
+            `
+            break;
+        }
+
+        // Append content to container
+        this.#container.appendChild(header);
+        this.#container.appendChild(body);
+        if (this.#type !== 'trip') {
+            this.#container.appendChild(footer);
+        }
+        
+    }
+
+    #attachEventListeners() {
+        const hub = EventHub.getInstance();
+
+        // Depending on list type:
+        switch (this.#type) {
+            case 'trip':
+                // Subscribe to trip updates
+                hub.subscribe('trip_created', tripData => this.#addTripToList(tripData));
+                hub.subscribe('trips_updated', tripData => this.#refreshTripList(tripData.trips));
+                break;
+            case 'task':
+                // Subscribe to task updates
+                hub.subscribe('todo_data_updated', todoItems => this.#refreshTaskList(todoItems));
+                break;
+            case 'budget':
+                // Subscribe to budget updates
+                hub.subscribe('todo_data_updated', todoData => this.#refreshBudgetList(todoData));
+        }
+    }
+
+    #addTripToList(tripData) {
+        const listBody = this.#getListBodyElement();
+        const tripContainer = document.createElement('div');
+        tripContainer.classList.add('t-body__row', 'row');
+
+        // Create a new tripComponent for each task
+        const trip = new HPTripComponent(tripData);
+        tripContainer.appendChild(trip.render());
+        listBody.appendChild(tripContainer);
+    }
+
+    #refreshTripList(tripData) {
+        // re-render trip list
+        const listBody = this.#getListBodyElement();
+        listBody.innerHTML= ``;
+        tripData.trips.forEach(() => {
+            const tripContainer = document.createElement('div');
+            tripContainer.classList.add('t-body__row row');
+            const curTrip = new HPTripComponent(tripData);
+            tripContainer.appendChild(curTrip.render());
+            listBody.appendChild(tripContainer);
+        });
+    }
+
+    #refreshTaskList(todoItems) {
+        // Update info, re-render task list
+    }
+
+    #addBudgetToList(tripData) {
+        const listBody = this.#getListBodyElement();
+        const budgetContainer = document.createElement('div');
+        budgetContainer.classList.add('t-body__row row');
+
+        //Create a new budgetComponent
+        const budget = new BudgetComponent(tripData);
+        budgetContainer.appendChild(budget.render());
+        listBody.appendChild(budgetContainer);
+    }
+
+    #refreshBudgetList(tripData) {
+        // Select given trip, update budget, re-render budget list
+    }
+
+    #getListBodyElement() {
+        return this.#container.querySelector('.table__body');
+    }
+}

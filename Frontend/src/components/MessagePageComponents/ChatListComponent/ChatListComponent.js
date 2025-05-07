@@ -43,6 +43,7 @@ export class ChatListComponent extends BaseComponent {
     #setupContainerContent() {
         this.#container.innerHTML = `
         <h1>Chats<input id="add-chat-button" type="button" value="+" style="display: none;"></h1>
+        <span id="loading-message">Loading Chat and user data...</span>
         `;
         
         // comment out next 2 lines if not using mock data:
@@ -82,6 +83,8 @@ export class ChatListComponent extends BaseComponent {
             this.#setUserData(userData);
             this.#loadExistingChats();
             this.#container.querySelector('#add-chat-button').style.display = "block";
+            this.#container.querySelector('#loading-message').style.display = "none";
+
         });
         this.#hub.subscribe(Events.RetrieveUserDataFailure, () => {
             alert("Error: couldn't retrieve user data from the server. Please refresh the page or contact an admin.");

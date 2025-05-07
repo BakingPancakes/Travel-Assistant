@@ -1,4 +1,4 @@
-import { Events } from '/lib/eventhub/Events.js';
+import { Events } from '../lib/eventhub/events.js';
 import Service from './Service.js';
 
 export class TripRepositoryService extends Service {

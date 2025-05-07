@@ -16,7 +16,7 @@ export class TripRepositoryRemoteService extends Service {
             this.storeTrip(data);
         });
 
-        this.subscribe(Events.UnstoreTrips, () => {
+        this.subscribe(Events.UnStoreTrips, () => {
             this.clearTrips();
         });
         /**
@@ -31,7 +31,7 @@ export class TripRepositoryRemoteService extends Service {
             this.retrieveChats(chat_ids);
         });
         this.subscribe(Events.RequestUserData, (id) => {
-            this.retrieveUser(id);
+            this.retrieveUser(id.id);
         });
         this.subscribe(Events.StoreNewChatGroup, (chatData) => {
             this.storeChatGroup(chatData);
@@ -47,7 +47,7 @@ export class TripRepositoryRemoteService extends Service {
     async #initTrips() {
         const response = await fetch("/trips");
         if (!response.ok) {
-            throw new Error("Failed to fetch tasks");
+            throw new Error("Failed to fetch trips");
         }
         const data = await response.json();
 
@@ -77,7 +77,7 @@ export class TripRepositoryRemoteService extends Service {
         });
 
         if (!response.ok) {
-            throw new Error("Failed to store task");
+            throw new Error("Failed to store trip");
         }
 
         const data = await response.json();
@@ -91,7 +91,7 @@ export class TripRepositoryRemoteService extends Service {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error("Failed to clear tasks");
+            throw new Error("Failed to clear trips");
         }
 
         // Notify subscribers that trips are cleared from the server

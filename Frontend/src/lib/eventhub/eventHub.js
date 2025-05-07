@@ -16,6 +16,7 @@ export class EventHub {
 
     // Publish an event
     publish(event, data) {
+        console.log(`Publishing event: ${event}`);
         if (!this.events[event]) return;
         this.events[event].forEach((listener) => listener(data));
     }

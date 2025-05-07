@@ -1,6 +1,7 @@
 import express from "express";
-import userRoutes from '../routes/userRoutes.js';
+import UserRoutes from '../routes/UserRoutes.js';
 import TripRoutes from "../routes/TripRoutes.js";
+import ChatRoutes from "../routes/ChatRoutes.js"
 
 class Server {
     constructor() {
@@ -21,6 +22,8 @@ class Server {
     // Setup routes
     setupRoutes() {
         this.app.use("/v1", TripRoutes); // Mount TripRoutes on the app
+        this.app.use("/v1", ChatRoutes);
+        this.app.use("/v1", UserRoutes);
     }
     // Start the server on a specified port
     start(port = 3000) {

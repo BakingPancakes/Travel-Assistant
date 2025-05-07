@@ -1,4 +1,4 @@
-import { EventHub } from '/lib/eventhub/EventHub.js';
+import { EventHub } from '../lib/eventhub/eventHub.js';
 
 /**
  * @abstract

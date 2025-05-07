@@ -4,10 +4,11 @@ import { Events } from "../../../lib/eventhub/events.js";
 
 export class ChatDisplayComponent extends BaseComponent {
     #container = null;
+    #hub = EventHub.getInstance();
 
     constructor() {
         super();
-        // this.loadCSS('ChatDisplayComponent');
+        this.loadCSS('ChatDisplayComponent');
     }
 
     render() {
@@ -21,9 +22,20 @@ export class ChatDisplayComponent extends BaseComponent {
         return this.#container;
     }
 
+    loadCSS(fileName) {
+        if(this.cssLoaded) return;
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        // Dynamically load CSS from the same directory as the JS file
+        link.href = `/Frontend/src/components/MessagePageComponents/${fileName}/${fileName}.css`;
+        document.head.appendChild(link);
+        this.cssLoaded = true;
+    }
+
     #createContainer() {
         this.#container = document.createElement('div');
-        this.#container.classList.add('chat-display-container');
+        this.#container.id = 'chat-display-container';
     }
 
     #setupContainerContents() {
@@ -37,7 +49,7 @@ export class ChatDisplayComponent extends BaseComponent {
             <input id="input-box" type="text" placeholder="Type message here...">
         `;
         // comment out below if not using mock data
-        // document.getElementById("messages-display").innerHTML += `
+        // this.#container.getElementById("messages-display").innerHTML += `
         //     <div class="chat-bubble chat-from">[Jasper] Hey Zavier! How's the messages page going?</div>
         //     <div class="chat-bubble chat-to">It's going swell! [Zavier]</div>
         // `;
@@ -45,10 +57,26 @@ export class ChatDisplayComponent extends BaseComponent {
     }
 
     #attachEventListeners() {
-        const hub = EventHub.getInstance();
-        hub.subscribe(Events.OpenChat, chatData => this.#displayChat(chatData));
+        this.#hub.subscribe(Events.OpenChatSuccess, (chatData) => this.#displayChat(chatData));
+        this.#hub.subscribe(Events.OpenChatFailure, () => {
+            alert("Error: couldn't display chat.");
+        });
 
-        // TODO
+        const input_box = this.#container.querySelector("#input-box");
+        input_box.addEventListener("keypress", (event) => {
+            if (event.key === "Enter" && event.target.value !== ""){
+                const newMessage = document.createElement("div");
+                newMessage.classList.add("chat-bubble");
+                newMessage.classList.add("chat-to");
+                newMessage.textContent = event.target.value + " [Zavier]";
+            
+                const display = document.getElementById("messages-display");
+                display.appendChild(newMessage);
+                input_box.value = "";
+            }
+        });
+
+        // TODO:
         // sending new message
         // retrieving new message
     }

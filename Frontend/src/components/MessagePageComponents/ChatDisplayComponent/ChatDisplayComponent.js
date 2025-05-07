@@ -57,10 +57,7 @@ export class ChatDisplayComponent extends BaseComponent {
     }
 
     #attachEventListeners() {
-        this.#hub.subscribe(Events.OpenChatSuccess, (chatData) => this.#displayChat(chatData));
-        this.#hub.subscribe(Events.OpenChatFailure, () => {
-            alert("Error: couldn't display chat.");
-        });
+        this.#hub.subscribe(Events.OpenChat, (chatData) => this.#displayChat(chatData));
 
         const input_box = this.#container.querySelector("#input-box");
         input_box.addEventListener("keypress", (event) => {
@@ -91,7 +88,7 @@ export class ChatDisplayComponent extends BaseComponent {
                 newMessageBubble.classList.add('chat-to') :
                 newMessageBubble.classList.add('chat-from');
             newMessageBubble.innerHTML = message.text;
-            newMessageBubble.innerHTML += `<span>${chatData.date}: ${chatData.name}</span>`
+            newMessageBubble.innerHTML += `<br><span>${message.timestamp}: ${message.name}</span>`
             messagesDisplay.appendChild(newMessageBubble);
         })
     }

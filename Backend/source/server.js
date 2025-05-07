@@ -21,9 +21,9 @@ class Server {
 
     // Setup routes
     setupRoutes() {
-        this.app.use("/v1", TripRoutes); // Mount TripRoutes on the app
-        this.app.use("/v1", ChatRoutes);
-        this.app.use("/v1", UserRoutes);
+        this.app.use("/", TripRoutes); // Mount TripRoutes on the app
+        this.app.use("/", ChatRoutes);
+        this.app.use("/", UserRoutes);
     }
     // Start the server on a specified port
     start(port = 3000) {

@@ -37,6 +37,10 @@ export class ChatListComponent extends BaseComponent {
         this.#setupContainerContent();
         this.#attachEventListeners();
 
+        // Grab user data & display associated tabs
+        const TEMP_USER_ID = 1
+        this.#retreiveUserData(TEMP_USER_ID);
+
         return this.#container;
     }
 
@@ -53,15 +57,18 @@ export class ChatListComponent extends BaseComponent {
         const createChatPopupForm = document.createElement("form");
         createChatPopupForm.classList.add("form-container");
         createChatPopupForm.innerHTML = `
-            <label for"profile_id"><b>Who would you like to chat with?</b></label>
+            <label><b>Who would you like to chat with?</b></label>
+            <br>
             <input type="text" placeholder="Enter Friend's ID..." required name="profile_id">
 
             <br>
-            <label for="chat_name"><b>Chat Name<b/></label>
+            <label><b>Chat Name<b/></label>
+            <br>
             <input type="text" placeholder="Enter Chat Name..." required name="chat_name">
 
             <br>
-            <label for="trip_id"><b>Enter a trip ID if you would like to enable in-message trip edit funcitonality.<b/></label>
+            <label ><b>Enter a trip ID if you would like to enable in-message trip edit funcitonality.<b/></label>
+            <br>
             <input type="text" placeholder="Enter Trip ID..." name="trip_id">
 
             <br>
@@ -70,23 +77,19 @@ export class ChatListComponent extends BaseComponent {
         `;
         createChatPopupForm.style.display = "none";
         this.#container.appendChild(createChatPopupForm);
-
-        // Grab user data & display associated tabs
-        const TEMP_USER_ID = 1
-        this.#retreiveUserData(TEMP_USER_ID);
     }
 
     #attachEventListeners() {
         /** async server for data retrieval  **/
         // Retrieving user's data for particular userID
-        this.#hub.subscribe(Events.RetrieveUserDataSuccess, (userData) => {
+        this.#hub.subscribe(Events.RequestUserDataSuccess, (userData) => {
             this.#setUserData(userData);
             this.#loadExistingChats();
             this.#container.querySelector('#add-chat-button').style.display = "block";
             this.#container.querySelector('#loading-message').style.display = "none";
 
         });
-        this.#hub.subscribe(Events.RetrieveUserDataFailure, () => {
+        this.#hub.subscribe(Events.RequestUserDataFailure, () => {
             alert("Error: couldn't retrieve user data from the server. Please refresh the page or contact an admin.");
         });
         // Retrieving chats from server for particular user
@@ -237,12 +240,11 @@ export class ChatListComponent extends BaseComponent {
      * When first loading the page, contacts server if chat data isn't already 
      */
     #retrieveChats(chat_ids) {
-        //TODO service implementation
         if (!localStorage.getItem("chatDataList")) {
             this.#hub.publish(Events.RequestChatData, {chat_ids: chat_ids});
         } else {
-            const chatData = JSON.parse(localStorage.getItem("chatDataList"));
-            this.#chatDataList.push(chatData);
+            const chatDataList = JSON.parse(localStorage.getItem("chatDataList"));
+            this.#chatDataList.push(chatDataList);
         }
     }
 
@@ -271,7 +273,6 @@ export class ChatListComponent extends BaseComponent {
      */
     #retreiveUserData(id) {
         if (!localStorage.getItem("userData")) {
-            // TODO service implementation
             this.#hub.publish(Events.RequestUserData, {id: id});
             // subscribed to Events.ReceiveUserDataSuccess, which runs setUserData
         } else {
@@ -279,7 +280,8 @@ export class ChatListComponent extends BaseComponent {
             if (!userData) {
                 alert("Error while retreiving user's data in local storage.");
             }
-            this.#userData = userData;
+            console.log("Grabbed user's data from localStorage.")
+            this.#hub.publish(Events.RequestUserDataSuccess, userData)
         }
     }
 

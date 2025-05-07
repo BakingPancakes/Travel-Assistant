@@ -1,6 +1,6 @@
-import { TripRepositoryService } from "./TripRepositoryService";
-import { TripRepositoryRemoteFakeService } from "./TripRepositoryFakeService";
-import { TripRepositoryRemoteService } from "./TripRepositoryRemoteService";
+import { TripRepositoryService } from "./TripRepositoryService.js";
+import { TripRepositoryRemoteFakeService } from "./TripRepositoryFakeService.js";
+import { TripRepositoryRemoteService } from "./TripRepositoryRemoteService.js";
 
 export class TripRepositoryFactory {
     constructor() {

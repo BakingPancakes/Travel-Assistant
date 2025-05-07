@@ -34,13 +34,23 @@ export const Events = {
     StoreNewChatGroupSuccess: 'StoreNewChatGroupSuccess',
     StoreNewChatGroupFailure: 'StoreNewChatGroupFailure',
 
+    // ======= this is unimplemented in messages page
     AcceptChatInvitation: 'AcceptChatInvitation',
     AcceptChatInvitationSuccess: 'AcceptChatInvitationSuccess',
     AcceptChatInvitationFailure: 'AcceptChatInvitationFailure',
+    // ========
+
+    RequestUserData: 'RequestUserData',
+    RequestUserDataSuccess: 'RequestUserDataSuccess',
+    RequestUserDataFailure: 'RequestUserDataFailure',
 
     RetrieveUserData: 'RetrieveUserData',
     RetrieveUserDataSuccess: 'RetrieveUserDataSuccess',
     RetrieveUserDataFailure: 'RetrieveUserDataFailure',
+
+    RequestChatData: 'RequestChatData',
+    RequestChatDataSuccess: 'RequestChatDataSuccess',
+    RequestChatDataFailure: 'RequestChatDataFailure',
 
     RetrieveChatData: 'RetrieveChatData',
     RetrieveChatDataSuccess: 'RetrieveChatDataSuccess',

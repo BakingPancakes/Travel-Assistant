@@ -35,3 +35,9 @@
     position: absolute;
     background-color: white;
 }
+
+#loading-message {
+    position: absolute;
+    top: 100px;
+    left: 50px
+}

@@ -119,6 +119,12 @@ export class HomePageListComponent extends BaseComponent {
         this.#container.appendChild(body);
         if (this.#type !== 'trip') {
             this.#container.appendChild(footer);
+        } else {
+            const savedTrips = localStorage.getItem('savedTrips');
+            if (savedTrips) {
+                this.#trips = JSON.parse(savedTrips);
+            }
+            this.#refreshTripList(this.#trips);
         }
         
     }
@@ -131,7 +137,7 @@ export class HomePageListComponent extends BaseComponent {
             case 'trip':
                 // Subscribe to trip updates
                 hub.subscribe('trip_created', tripData => this.#addTripToList(tripData));
-                hub.subscribe('trips_updated', tripData => this.#refreshTripList(tripData.trips));
+                hub.subscribe('trips_updated', tripData => this.#refreshTripList(tripData));
                 break;
             case 'task':
                 // Subscribe to task updates
@@ -155,16 +161,26 @@ export class HomePageListComponent extends BaseComponent {
     }
 
     #refreshTripList(tripData) {
-        // re-render trip list
+        // Clear and re-render the trip list
         const listBody = this.#getListBodyElement();
-        listBody.innerHTML= ``;
-        tripData.trips.forEach(() => {
-            const tripContainer = document.createElement('div');
-            tripContainer.classList.add('t-body__row row');
-            const curTrip = new HPTripComponent(tripData);
-            tripContainer.appendChild(curTrip.render());
-            listBody.appendChild(tripContainer);
-        });
+        listBody.innerHTML = ``;
+        
+        // Validate the data structure before processing
+        if (!tripData) {
+            console.log("Invalid trip data format:", tripData);
+            return;
+        }
+        
+        // Only process if we have trips to display
+        if (tripData.length > 0) {
+            tripData.forEach((trip) => {
+                const tripContainer = document.createElement('div');
+                tripContainer.classList.add('t-body__row', 'row');
+                const curTrip = new HPTripComponent(trip);
+                tripContainer.appendChild(curTrip.render());
+                listBody.appendChild(tripContainer);
+            });
+        }
     }
 
     #refreshTaskList(todoItems) {

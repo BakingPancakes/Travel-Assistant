@@ -51,6 +51,7 @@ export class ScreenControllerComponent {
     // Attach necessary event listeners
     #attachEventListeners() {
         this.#hub.subscribe('NewTrip', () => {
+            this.#currentView = 'trip'
             this.#renderCurrentView();
         });
 

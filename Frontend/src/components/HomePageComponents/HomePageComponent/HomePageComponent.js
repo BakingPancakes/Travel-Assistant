@@ -78,7 +78,7 @@ export class HomePageComponent extends BaseComponent {
 
         // Attach listener to new page button
         newTripBtn.addEventListener('click', () => {
-            this.#newTrip();
+            hub.publish(Events.SwitchToTripPage, null);
         });
         // Subscribe to eventHub events
         hub.subscribe('trip_created', tripData => this.#newTrip(tripData));

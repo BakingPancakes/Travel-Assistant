@@ -42,7 +42,7 @@ export class ChatDisplayComponent extends BaseComponent {
     #setupContainerContents() {
         this.#container.innerHTML = `
             <div id="messages-header">
-                <h1>[Chat name]</h1>
+                <h1 id="header-content"></h1>
             </div>
             <div id="messages-display">
                 <div id="default-display-message"> Click on a chat to the left to begin connecting... </div>
@@ -82,13 +82,13 @@ export class ChatDisplayComponent extends BaseComponent {
 
     #displayMessage(message) {
         const newMessageBubble = document.createElement("div");
-                newMessageBubble.classList.add("chat-bubble");
-                newMessageBubble.classList.add("chat-to");
-                newMessageBubble.innerHTML = message.text;
-                newMessageBubble.innerHTML += `<br><span>${message.timestamp}: ${message.name}</span>`
-            
-                const display = document.getElementById("messages-display");
-                display.appendChild(newMessageBubble);
+        newMessageBubble.classList.add("chat-bubble");
+        newMessageBubble.classList.add("chat-to");
+        newMessageBubble.innerHTML = message.text;
+        newMessageBubble.innerHTML += `<br><span>${message.timestamp}: ${message.name}</span>`
+    
+        const display = document.getElementById("messages-display");
+        display.appendChild(newMessageBubble);
     }
 
     #displayChat(chatData) {
@@ -104,5 +104,7 @@ export class ChatDisplayComponent extends BaseComponent {
             newMessageBubble.innerHTML += `<br><span>${message.timestamp}: ${message.name}</span>`
             messagesDisplay.appendChild(newMessageBubble);
         })
+        const header = document.getElementById('header-content');
+        header.innerHTML = chatData.name;
     }
 }

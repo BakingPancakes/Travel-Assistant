@@ -21,25 +21,22 @@ export class Chat {
     }
     /* Example:
     {
-        id: {
-            id: 99999999,
-            name: 'name text',
-            trip: 'trip name',
-            members: ['JoonID', 'JasperID'],
-            messages: [{
-                    sender: 'from',
-                    timestamp: '1:00PM, April 25',
-                    text: 'Heyooo',
-                    name: 'Jasper',
-                },
-                {
-                    sender: 'to',
-                    timestamp: '1:02PM, April 25',
-                    text: 'Hey!',
-                    name: 'Joon',
-                }
-            ]
-        }
+    id: 99999999,
+    name: 'name text',
+    trip: 'trip name',
+    members: ['JoonID', 'JasperID'],
+    messages: [{
+        sender: 'from',
+        timestamp: '1:00PM, April 25',
+        text: 'Heyooo',
+        name: 'Jasper',
+        },
+        {
+        sender: 'to',
+        timestamp: '1:02PM, April 25',
+        text: 'Hey!',
+        name: 'Joon',
+    }]
     }
-        */
+    */
 }

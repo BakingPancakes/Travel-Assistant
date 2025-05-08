@@ -69,4 +69,15 @@ export class SidebarComponent extends BaseComponent {
             console.log("Not implemented :(")
         );
     }
+
+    loadCSS(fileName) {
+        if(this.cssLoaded) return;
+      
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        // Use absolute path instead of relative path
+        link.href = `/components/SidebarComponent/${fileName}.css`;
+        document.head.appendChild(link);
+        this.cssLoaded = true;
+      }
 }

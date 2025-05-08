@@ -1,34 +1,37 @@
 import express from "express";
 import TripController from "../controllers/TripController.js";
 
-class TripRoutes {
-    constructor() {
-        this.router = express.Router();
-        this.initializeRoutes();
-    }
+const router = express.Router();
 
-    initializeRoutes() {
-        // Define routes and connect them to controller methods
+// Define routes with controller methods
+// Get all trips
+router.get("/trips", async (req, res) => {
+    await TripController.getAllTrips(req, res);
+});
 
-        // Get all trips
-        this.router.get("/trips", async (req, res) => {
-            await TripController.getAllTrips(req, res);
-        });
+// Get trip by ID
+router.get("/trips/:id", async (req, res) => {
+    await TripController.getTripById(req, res);
+});
 
-        // Add new trip
-        this.router.post("/trip", async (req, res) => {
-            await TripController.addTrip(req, res);
-        });
+// Add new trip
+router.post("/trip", async (req, res) => {
+    await TripController.addTrip(req, res);
+});
 
-        // Clear all trips
-        this.router.delete("/trips", async (req, res) => {
-            await TripController.clearTrips(req, res);
-        });
-    }
+// Update trip
+router.put("/trips/:id", async (req, res) => {
+    await TripController.updateTrip(req, res);
+});
 
-    getRouter() {
-        return this.router;
-    }
-}
+// Delete trip
+router.delete("/trips/:id", async (req, res) => {
+    await TripController.deleteTrip(req, res);
+});
 
-export default new TripRoutes.getRouter();
+// Clear all trips
+router.delete("/trips", async (req, res) => {
+    await TripController.clearTrips(req, res);
+});
+
+export default router;

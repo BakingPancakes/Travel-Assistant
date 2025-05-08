@@ -11,6 +11,7 @@ export class TripDetailComponent extends BaseComponent {
   _accommodationComponent = null;
   _todoComponent = null;
   _tripData = null;
+  _isProcessingSelection = false; // Flag to prevent recursive calls
 
   constructor() {
     super();
@@ -53,7 +54,12 @@ export class TripDetailComponent extends BaseComponent {
       this.saveTripDetails();
     });
 
+    // Modify this event subscription to prevent recursive calls
     this._hub.subscribe(Events.TRIP_SELECTED, (data) => {
+      // Skip if already processing this trip or it's the same trip
+      if (this._isProcessingSelection || this._selectedTripId === data.tripId) {
+        return;
+      }
       this.selectTrip(data.tripId);
     });
 
@@ -82,35 +88,61 @@ export class TripDetailComponent extends BaseComponent {
 
     // update from lower components
     this._hub.subscribe(Events.ACCOMMODATION_DATA_UPDATED, (data) => {
-      this._tripData.accommodations = data.accommodations;
-      this._tripData.budget = data.totalBudget;
+      if (this._tripData) {
+        this._tripData.accommodations = data.accommodations;
+        this._tripData.budget = data.totalBudget;
+      }
     });
 
     this._hub.subscribe(Events.TODO_DATA_UPDATED, (data) => {
-      this._tripData.todoItems = data.todoItems;
+      if (this._tripData) {
+        this._tripData.todoItems = data.todoItems;
+      }
     });
   }
 
   selectTrip(tripId) {
+    // Set processing flag to prevent recursive calls
+    this._isProcessingSelection = true;
+    
+    // Store the selected trip ID
     this._selectedTripId = tripId;
     
-    // get data
-    const savedTripsJson = localStorage.getItem('savedTrips');
-    if (!savedTripsJson) return;
-    
-    const savedTrips = JSON.parse(savedTripsJson);
-    if (!savedTrips[tripId]) return;
-    
-    this._tripData = savedTrips[tripId];
-    
-    // update travel section 
-    this._container.querySelector('#selected-trip-name').textContent = `${this._tripData.name} - ${this._tripData.destination}`;
-    
-    // show section 
-    this._container.style.display = 'block';
-    
-    // publish event 
-    this._hub.publish(Events.TRIP_SELECTED, { tripId });
+    try {
+      // get data
+      const savedTripsJson = localStorage.getItem('savedTrips');
+      if (!savedTripsJson) {
+        this._isProcessingSelection = false;
+        return;
+      }
+      
+      const savedTrips = JSON.parse(savedTripsJson);
+      if (!savedTrips[tripId]) {
+        this._isProcessingSelection = false;
+        return;
+      }
+      
+      this._tripData = savedTrips[tripId];
+      
+      // update travel section 
+      this._container.querySelector('#selected-trip-name').textContent = 
+        `${this._tripData.name} - ${this._tripData.destination}`;
+      
+      // show section 
+      this._container.style.display = 'block';
+      
+      // Let child components know about the trip selection, but don't re-publish the same event
+      if (this._accommodationComponent) {
+        this._accommodationComponent.loadTripData(tripId);
+      }
+      
+      if (this._todoComponent) {
+        this._todoComponent.loadTodoItems(tripId);
+      }
+    } finally {
+      // Reset the processing flag
+      this._isProcessingSelection = false;
+    }
   }
 
   saveTripDetails() {
@@ -144,7 +176,8 @@ export class TripDetailComponent extends BaseComponent {
 
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = `./components/TripPageComponents/TripDetailComponent/${fileName}.css`;
+    // Use absolute path instead of relative path
+    link.href = `/components/TripPageComponents/${fileName}/${fileName}.css`;
     document.head.appendChild(link);
     this.cssLoaded = true;
   }

@@ -2,7 +2,7 @@ import ModelFactory from "../models/ModelFactory.js";
 
 class TripController {
     constructor() {
-        ModelFactory.getModel().then((model) => {
+        ModelFactory.getModel('sqlite').then((model) => {
             this.model = model;
         });
     }

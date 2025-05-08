@@ -6,6 +6,7 @@ import { Message } from "../../../lib/models/Message.js"
 export class ChatDisplayComponent extends BaseComponent {
     #container = null;
     #hub = EventHub.getInstance();
+    #currentChat = null;
 
     constructor() {
         super();
@@ -54,7 +55,6 @@ export class ChatDisplayComponent extends BaseComponent {
         //     <div class="chat-bubble chat-from">[Jasper] Hey Zavier! How's the messages page going?</div>
         //     <div class="chat-bubble chat-to">It's going swell! [Zavier]</div>
         // `;
-
     }
 
     #attachEventListeners() {
@@ -71,6 +71,7 @@ export class ChatDisplayComponent extends BaseComponent {
                     timestamp: date.toDateString(),
                 });
                 this.#displayMessage(newMessage);
+                this.#storeMessageLocal(newMessage, this.#currentChat)
                 input_box.value = "";
             }
         });
@@ -105,6 +106,14 @@ export class ChatDisplayComponent extends BaseComponent {
             messagesDisplay.appendChild(newMessageBubble);
         })
         const header = document.getElementById('header-content');
+        this.#currentChat = chatData.id;
         header.innerHTML = chatData.name;
+    }
+
+    #storeMessageLocal(newMessage, chat_id) {
+        const chatDataList = JSON.parse(localStorage.getItem("chatDataList"));
+        console.log(chatDataList);
+        chatDataList.find(chatData => chatData.id === chat_id).messages.push(newMessage);
+        localStorage.setItem("chatDataList", JSON.stringify(chatDataList));
     }
 }

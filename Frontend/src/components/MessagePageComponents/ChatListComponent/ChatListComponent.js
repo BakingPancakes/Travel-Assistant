@@ -272,6 +272,11 @@ export class ChatListComponent extends BaseComponent {
             chatDataList.push(chatData);
             localStorage.setItem('chatDataList', JSON.stringify(chatDataList));
         }
+        // if in local that means message were updated
+        else {
+            const updatedMessages = chatData.messages;
+            this.#chatDataList = this.#chatDataList.map(chat => chat.id === chatData.id ? chatData.messages = updatedMessages: chatData);
+        }
     }
 
     /**

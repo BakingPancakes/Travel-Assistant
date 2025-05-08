@@ -16,6 +16,7 @@ export function fetch(url, options = {}) {
         const dateTo = new Date();
         setTimeout(1000);
         const dateFrom = new Date();
+        const getRandomID = () => Math.floor(Math.random() * 1000);
         const mockChat1 = {
             id: 1,
             name: 'Chat #1 ',
@@ -26,12 +27,14 @@ export function fetch(url, options = {}) {
                 timestamp: dateTo.toDateString(),
                 text: 'yo!',
                 name: 'Jasper',
+                id: getRandomID(),
             },
             {
                 sender: 'from',
                 timestamp: dateFrom.toDateString(),
                 text: 'What\s up',
                 name: 'Zavier',
+                id: getRandomID(),
             }]
         }
         const mockChat2 = {
@@ -44,12 +47,14 @@ export function fetch(url, options = {}) {
                 timestamp: dateTo.toDateString(),
                 text: 'Heyoo',
                 name: 'Jasper',
+                id: getRandomID(),
             },
             {
                 sender: 'from',
                 timestamp: dateFrom.toDateString(),
                 text: 'Hey!',
                 name: 'Joon',
+                id: getRandomID(),
             }]
         }
         const mockChat3 = {
@@ -62,12 +67,14 @@ export function fetch(url, options = {}) {
                 timestamp: dateTo.toDateString(),
                 text: 'Hi..??',
                 name: 'Jasper',
+                id: getRandomID(),
             },
             {
                 sender: 'from',
                 timestamp: dateFrom.toDateString(),
                 text: '...',
                 name: 'MysteriousStranger',
+                id: getRandomID(),
             }]
         }
         const mockUser = { 

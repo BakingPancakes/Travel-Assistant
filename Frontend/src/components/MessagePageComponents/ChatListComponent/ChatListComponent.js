@@ -83,7 +83,7 @@ export class ChatListComponent extends BaseComponent {
         /** async server for data retrieval  **/
         // Retrieving user's data for particular userID
         this.#hub.subscribe(Events.RequestUserDataSuccess, (userData) => {
-            this.#setUserData(userData);
+            this.#setUserDataLocal(userData);
             this.#loadExistingChats();
             this.#container.querySelector('#add-chat-button').style.display = "block";
             this.#container.querySelector('#loading-message').style.display = "none";
@@ -93,10 +93,11 @@ export class ChatListComponent extends BaseComponent {
             alert("Error: couldn't retrieve user data from the server. Please refresh the page or contact an admin.");
         });
         // Retrieving chats from server for particular user
-        this.#hub.subscribe(Events.RetrieveChatDataSuccess, (chatDataList) => {
+        this.#hub.subscribe(Events.RequestChatDataSuccess, (chatDataList) => {
             chatDataList.forEach(chatData => this.#setChatDataLocal(chatData));
+            chatDataList.forEach(chatData => this.#displayTab(chatData));
         });
-        this.#hub.subscribe(Events.RetrieveChatDataFailure, () => {
+        this.#hub.subscribe(Events.RequestChatDataFailure, () => {
             alert("Error: couldn't retrieve user's chat data from the server. Please refresh the page or contact an admin.");
         });
         // Storing new chats to server
@@ -152,25 +153,6 @@ export class ChatListComponent extends BaseComponent {
         this.#hub.subscribe(Events.AcceptChatInvitation, chat => this.#acceptChatInvite(chat.id));
     }
 
-    #loadExistingChats() {
-        if (!localStorage.getItem("chatDataList")) {
-            this.#retrieveChats(this.#userData.chat_perms);
-        } else {
-            this.#chatDataList = JSON.parse(localStorage.getItem("chatDataList"));
-        }
-        this.#chatDataList.forEach(chatData => this.#displayTab(chatData));
-    }
-    
-    // local updates
-    /**
-     * 
-     * @param {number} id ID of chat to be displayed
-     */
-    #openChatWindow(id) {
-        const chatData = this.#chatDataList.find(chat => chat.id === id);
-        this.#hub.publish(Events.OpenChat, chatData);
-    }
-
     #handleChatCreationStart() {
         // Grab info from popup form
         const profileID = this.#container.querySelector('.form-container').profile_id.value;
@@ -200,21 +182,16 @@ export class ChatListComponent extends BaseComponent {
         this.#hub.publish(Events.StoreNewChatGroup, newChat); // must be in this scope bc form acceptance logic could forego publishing even if return
         return newChat;
     }
-    
+        
     /**
-     * 
-     * @param { HTMLDivElement } popupForm The popform to clear
-     * For form-container
+     * @param {number} id ID of chat to be displayed
      */
-    #clearForm(popupForm) {
-        popupForm.profile_id.value = '';
-        popupForm.chat_name.value = '';
-        popupForm.trip_id.value = '';
-        popupForm.style.display = 'none';
+    #openChatWindow(id) {
+        const chatData = this.#chatDataList.find(chat => chat.id === id);
+        this.#hub.publish(Events.OpenChat, chatData);
     }
 
     /**
-     * 
      * @param {Chat} chat Tab is displayed in chat list
      * For chat-icon
      */
@@ -233,37 +210,32 @@ export class ChatListComponent extends BaseComponent {
             alert(`There was a problem displaying a chat icon with name, ID: ${chat.name}, ${chat.id}`);
         }
     }
-
-    // chat data management
+        
+    #loadExistingChats() {
+        // clear chatDataList before grabbing from storage
+        this.#chatDataList = [];
+        if (!localStorage.getItem("chatDataList")) {
+            this.#retrieveChatData(this.#userData.chat_perms);
+            // chats are displayed in retreivechatdatasuccess subscription
+        } else {
+            this.#chatDataList = JSON.parse(localStorage.getItem("chatDataList"));
+            this.#chatDataList.forEach(chatData => this.#displayTab(chatData));
+        }
+    }
+    
     /**
      * @param {Array<number>} chat_ids Array of chat IDs that user has permission to
      * When first loading the page, contacts server if chat data isn't already 
      */
-    #retrieveChats(chat_ids) {
+    #retrieveChatData(chat_ids) {
         if (!localStorage.getItem("chatDataList")) {
             this.#hub.publish(Events.RequestChatData, {chat_ids: chat_ids});
         } else {
             const chatDataList = JSON.parse(localStorage.getItem("chatDataList"));
-            this.#chatDataList.push(chatDataList);
+            this.#chatDataList = chatDataList;
         }
-    }
-
-    /**
-     * 
-     * @param { Chat } chatData Chat to add to database of chats.
-     * Adds chat to environment chatDataList and localStorage's chatDataList
-     */
-    #setChatDataLocal(chatData) {
-        this.#chatDataList.push(chatData);
-        let chatDataList = JSON.parse(localStorage.getItem("chatDataList"));
-        if (!chatDataList) {
-            chatDataList = Array();
-        }
-        chatDataList.push(chatData);
-        localStorage.setItem('chatDataList', JSON.stringify(chatDataList));
     }
         
-    // user data management
     /**
      * 
      * @param {number} id User's ID as stored in session.
@@ -274,7 +246,7 @@ export class ChatListComponent extends BaseComponent {
     #retreiveUserData(id) {
         if (!localStorage.getItem("userData")) {
             this.#hub.publish(Events.RequestUserData, {id: id});
-            // subscribed to Events.ReceiveUserDataSuccess, which runs setUserData
+            // subscribed to Events.ReceiveUserDataSuccess, which runs setUserDataLocal
         } else {
             const userData = JSON.parse(localStorage.getItem("userData"));
             if (!userData) {
@@ -286,17 +258,33 @@ export class ChatListComponent extends BaseComponent {
     }
 
     /**
+     * @param { Chat } chatData Chat to add to database of chats.
+     * Adds chat to environment chatDataList and localStorage's chatDataList
+     */
+    #setChatDataLocal(chatData) {
+        // only adds to local if not already in local
+        if (!this.#chatDataList.find((chat) => chat.id == chatData.id)) {
+            this.#chatDataList.push(chatData);
+            let chatDataList = JSON.parse(localStorage.getItem("chatDataList"));
+            if (!chatDataList) {
+                chatDataList = Array();
+            }
+            chatDataList.push(chatData);
+            localStorage.setItem('chatDataList', JSON.stringify(chatDataList));
+        }
+    }
+
+    /**
      * 
      * @param { User } userData 
      * Sets environment user data, and stores in localStorage
      */
-    #setUserData(userData) {
+    #setUserDataLocal(userData) {
         localStorage.setItem("userData", JSON.stringify(userData));
         this.#userData = userData;
     }
 
     /**
-     * 
      * @param {number} id ID to add to current user's permissions.
      * Updates local chat perms for user in environment and localstorage
      */
@@ -306,7 +294,6 @@ export class ChatListComponent extends BaseComponent {
     }
 
     /**
-     * 
      * @param { number } id user's associated id, should be in profile page
      * Optional function, not implemented yet
      */
@@ -323,7 +310,19 @@ export class ChatListComponent extends BaseComponent {
     #acceptChatInvite(id) {
         alert("Incoming chat invite. Automatically accepted.");
         this.#addChatIDToUserPermissions(id);
-        const newchat = this.#retrieveChats([id]);
+        const newchat = this.#retrieveChatData([id]);
         this.#displayTab(newchat);
+    }
+        
+    /**
+     * 
+     * @param { HTMLDivElement } popupForm The popform to clear
+     * For form-container
+     */
+    #clearForm(popupForm) {
+        popupForm.profile_id.value = '';
+        popupForm.chat_name.value = '';
+        popupForm.trip_id.value = '';
+        popupForm.style.display = 'none';
     }
 }

@@ -29,11 +29,11 @@ export class TripRepositoryRemoteFakeService extends Service {
             chat_ids: chat_ids
         });
         if (!response.ok) {
-            this.publish(Events.RetrieveChatDataFailure);
+            this.publish(Events.RequestChatDataFailure);
         }
         const data = await response.json();
 
-        this.publish(Events.RetrieveChatDataSuccess, data.chatDataList);
+        this.publish(Events.RequestChatDataSuccess, data.chatDataList);
     }
 
     async storeChatGroup(chatData) {
@@ -60,9 +60,9 @@ export class TripRepositoryRemoteFakeService extends Service {
         if (!response.ok) {
             this.publish(Events.RequestUserDataFailure);
         }
-        const userData = await response.json();
+        const data = await response.json();
 
-        this.publish(Events.RequestUserDataSuccess, userData);
+        this.publish(Events.RequestUserDataSuccess, data.userData);
     }
 
     addSubscriptions() {

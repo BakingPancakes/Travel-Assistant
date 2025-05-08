@@ -75,17 +75,15 @@ export class HomePageComponent extends BaseComponent {
         const hub = EventHub.getInstance();
 
         const newTripBtn = this.#container.querySelector("#header__button--new-trip");
+        const notifBtn = this.#container.querySelector("#header__button--notification");
 
         // Attach listener to new page button
         newTripBtn.addEventListener('click', () => {
             hub.publish(Events.SwitchToTripPage, null);
         });
-        // Subscribe to eventHub events
-        hub.subscribe('trip_created', tripData => this.#newTrip(tripData));
 
-    }
-
-    #newTrip() {
-        this.#container.appendChild(this.#tripInputComponent.render());
+        notifBtn.addEventListener('click', () => {
+            alert("Unfortunately due to time constraints, this couldn't be implemented :(");
+        })
     }
 }

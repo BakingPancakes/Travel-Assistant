@@ -12,53 +12,27 @@ export class TripPageComponent extends BaseComponent {
   _tripListComponent = null;
   _tripInputComponent = null;
   _tripDetailComponent = null;
+  _serverUrl = 'http://localhost:3000'; // Backend server URL
 
   constructor() {
     super();
-    this.loadCSS('TripPageComponent');
     this._hub = EventHub.getInstance();
     
-    // If no event add
-    if (!Events.TRIP_SELECTED) {
-      this.initEvents();
-    }
-    
-    // For debugging
-    window.tripPageComponent = this;
-    
-    // Create Lower Component
+    // Create lower components
     this._tripListComponent = new TripListComponent();
     this._tripInputComponent = new TripInputComponent();
     this._tripDetailComponent = new TripDetailComponent();
     
-    // For debug
-    console.log("TripPageComponent initialized");
-  }
-
-  initEvents() {
-    // Events
-    if (!Events.TRIP_SELECTED) Events.TRIP_SELECTED = 'trip_selected';
-    if (!Events.TRIP_EDIT) Events.TRIP_EDIT = 'trip_edit';
-    if (!Events.TRIP_DELETED) Events.TRIP_DELETED = 'trip_deleted';
-    if (!Events.CREATE_NEW_TRIP) Events.CREATE_NEW_TRIP = 'create_new_trip';
-    if (!Events.TRIP_CREATED) Events.TRIP_CREATED = 'trip_created';
-    if (!Events.TRIP_UPDATED) Events.TRIP_UPDATED = 'trip_updated';
-    if (!Events.TRIPS_UPDATED) Events.TRIPS_UPDATED = 'trips_updated';
-    if (!Events.TRIP_FORM_CANCELLED) Events.TRIP_FORM_CANCELLED = 'trip_form_cancelled';
-    if (!Events.TRIP_DETAILS_SAVE_REQUESTED) Events.TRIP_DETAILS_SAVE_REQUESTED = 'trip_details_save_requested';
-    if (!Events.ACCOMMODATION_DATA_UPDATED) Events.ACCOMMODATION_DATA_UPDATED = 'accommodation_data_updated';
-    if (!Events.TODO_DATA_UPDATED) Events.TODO_DATA_UPDATED = 'todo_data_updated';
-    
     // For debugging
-    console.log("Events initialized in TripPageComponent", Events);
+    window.tripPageComponent = this;
   }
 
   render() {
-    // create main container
+    // Create main container
     this._container = document.createElement('div');
     this._container.classList.add('trip-page');
 
-    // header
+    // Create header
     const header = document.createElement('div');
     header.classList.add('trip-page__header');
     header.innerHTML = `
@@ -67,117 +41,167 @@ export class TripPageComponent extends BaseComponent {
     `;
     this._container.appendChild(header);
     
-    // render lower components
+    // Render lower components
     this._container.appendChild(this._tripListComponent.render());
     this._container.appendChild(this._tripDetailComponent.render());
     this._container.appendChild(this._tripInputComponent.render());
     
-    // attach eventlistener
+    // Connect event listeners
     this.attachEventListeners();
     
-    // load prev trip data
+    // Load existing trips
     this.loadExistingTrips();
+
+    // Update CSS
+    this.loadCSS('TripPageComponent');
     
     return this._container;
   }
 
   attachEventListeners() {
-    // add new trip button
+    // New trip button event
     const newTripBtn = this._container.querySelector('#new-trip-btn');
     newTripBtn.addEventListener('click', () => {
       this._hub.publish(Events.CREATE_NEW_TRIP);
     });
     
-    // subscribe create trip
+    // Subscribe to trip created event
     this._hub.subscribe(Events.TRIP_CREATED, (data) => {
       this.createNewTrip(data.tripData);
     });
     
-    // subscribe update trip
+    // Subscribe to trip updated event
     this._hub.subscribe(Events.TRIP_UPDATED, (data) => {
       this.updateExistingTrip(data.tripId, data.tripData);
     });
     
-    // subscribe Trip button on sidebar
+    // Subscribe to sidebar Trips button clicked event
     this._hub.subscribe(Events.SwitchToTripPage, () => {
-
       this.showPage();
     });
   }
   
-  // show page
+  // Method to display page
   showPage() {
-    
-    document.querySelectorAll('.main-content > div').forEach(el => {
-      if (!el.classList.contains('trip-page')) {
-        el.style.display = 'none';
-      }
-    });
-    
-    this._container.style.display = 'flex';
+    if (this._container) {
+      this._container.style.display = 'flex';
+      console.log("Trip page displayed");
+    }
   }
 
-  loadExistingTrips() {
-    // shows localStorage saved data
+  async loadExistingTrips() {
+    console.log("Loading existing trips");
+    
+    try {
+      // Try to load trips from backend server
+      const response = await fetch(`${this._serverUrl}/trips`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Trips from server:", data);
+        
+        if (data.trips && Array.isArray(data.trips)) {
+          this._trips = data.trips;
+          // Update localStorage with server data
+          localStorage.setItem('savedTrips', JSON.stringify(this._trips));
+          this._hub.publish(Events.TRIPS_UPDATED, { trips: this._trips });
+          return;
+        }
+      } else {
+        console.log("Server response not OK:", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching trips from server:", error);
+    }
+    
+    // If server request fails, fallback to localStorage
+    console.log("Falling back to localStorage");
     const savedTrips = localStorage.getItem('savedTrips');
     if (savedTrips) {
       this._trips = JSON.parse(savedTrips);
       this._hub.publish(Events.TRIPS_UPDATED, { trips: this._trips });
+    } else {
+      console.log("No trips found in localStorage");
     }
   }
 
-  createNewTrip(tripData) {
-
-    console.log("createNewTrip called with data:", tripData);
+  async createNewTrip(tripData) {
+    console.log("Creating new trip:", tripData);
     
-    // add saved trip
-    let savedTrips = [];
-    const savedTripsJson = localStorage.getItem('savedTrips');
-    if (savedTripsJson) {
-      savedTrips = JSON.parse(savedTripsJson);
-    }
-    
-    // check data 
+    // Validation
     if (typeof tripData !== 'object' || tripData === null) {
       console.error("Invalid trip data:", tripData);
       alert("Error: Invalid trip data");
       return;
     }
     
-    // 
     if (!tripData.name || !tripData.destination || !tripData.traveler) {
       console.error("Missing required fields in trip data:", tripData);
       alert("Error: Missing required trip information");
       return;
     }
     
+    try {
+      // Try to save to backend server first
+      console.log("Sending trip to server:", tripData);
+      const response = await fetch(`${this._serverUrl}/trip`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tripData)
+      });
+      
+      if (response.ok) {
+        const savedTrip = await response.json();
+        console.log("Trip saved to server successfully:", savedTrip);
+        
+        // If server returned an ID, use it
+        if (savedTrip.id) {
+          tripData.id = savedTrip.id;
+        }
+      } else {
+        console.warn("Server returned error:", response.status);
+      }
+    } catch (error) {
+      console.error("Error saving trip to server:", error);
+    }
+    
+    // Save to localStorage as backup
+    let savedTrips = [];
+    const savedTripsJson = localStorage.getItem('savedTrips');
+    if (savedTripsJson) {
+      savedTrips = JSON.parse(savedTripsJson);
+    }
+    
     savedTrips.push(tripData);
     localStorage.setItem('savedTrips', JSON.stringify(savedTrips));
     
-    // for debugging
     console.log("Trip saved to localStorage:", tripData);
     console.log("Current trips in localStorage:", savedTrips);
     
-    // update table
+    // Update trip table
     this._trips = savedTrips;
     this._hub.publish(Events.TRIPS_UPDATED, { trips: savedTrips });
     
-    // select new trip
+    // Select the new trip
     this._hub.publish(Events.TRIP_SELECTED, { tripId: savedTrips.length - 1 });
     
-    // shows trip create successfully
+    // Show success message
     alert('Trip created successfully!');
   }
 
-  updateExistingTrip(tripId, tripData) {
-    // give saved data
+  async updateExistingTrip(tripId, tripData) {
+    console.log("Updating trip:", tripId, tripData);
+    
+    // Get saved trips
     const savedTripsJson = localStorage.getItem('savedTrips');
     if (!savedTripsJson) return;
     
     const savedTrips = JSON.parse(savedTripsJson);
     if (!savedTrips[tripId]) return;
     
-    // maintain accommodations, todo, budgets
+    // Preserve accommodations and todo items
     if (savedTrips[tripId].accommodations) {
       tripData.accommodations = savedTrips[tripId].accommodations;
     }
@@ -190,19 +214,40 @@ export class TripPageComponent extends BaseComponent {
       tripData.budget = savedTrips[tripId].budget;
     }
     
-    savedTrips[tripId] = tripData;
+    // If the trip has an ID, try to update on the server
+    if (tripData.id) {
+      try {
+        console.log("Updating trip on server:", tripData);
+        const response = await fetch(`${this._serverUrl}/trips/${tripData.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(tripData)
+        });
+        
+        if (response.ok) {
+          console.log("Trip updated on server successfully");
+        } else {
+          console.warn("Server returned error:", response.status);
+        }
+      } catch (error) {
+        console.error("Error updating trip on server:", error);
+      }
+    }
     
-    // save update data
+    // Update locally
+    savedTrips[tripId] = tripData;
     localStorage.setItem('savedTrips', JSON.stringify(savedTrips));
     
-    // update table
+    // Update trip table
     this._trips = savedTrips;
     this._hub.publish(Events.TRIPS_UPDATED, { trips: savedTrips });
     
-    // select update table
+    // Select the updated trip
     this._hub.publish(Events.TRIP_SELECTED, { tripId });
     
-    // checking
+    // Show success message
     alert('Trip updated successfully!');
   }
 

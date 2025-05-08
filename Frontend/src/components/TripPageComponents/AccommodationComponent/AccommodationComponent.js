@@ -8,6 +8,7 @@ export class AccommodationComponent extends BaseComponent {
   _accommodations = [];
   _totalBudget = 0;
   _tripData = null;
+  _currentTripId = null; 
 
   constructor() {
     super();
@@ -111,6 +112,13 @@ export class AccommodationComponent extends BaseComponent {
   }
 
   loadTripData(tripId) {
+    // Skip if we're already displaying this trip
+    if (this._currentTripId === tripId) {
+      return;
+    }
+    
+    this._currentTripId = tripId;
+    
     // load trip data
     const savedTripsJson = localStorage.getItem('savedTrips');
     if (!savedTripsJson) return;

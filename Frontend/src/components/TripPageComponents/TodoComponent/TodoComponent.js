@@ -10,6 +10,7 @@ export class TodoComponent extends BaseComponent {
     during: [],
     after: []
   };
+  _currentTripId = null;
 
   constructor() {
     super();
@@ -102,7 +103,14 @@ export class TodoComponent extends BaseComponent {
   }
 
   loadTodoItems(tripId) {
-    // get trip data
+    // Prevent duplicated loading for the same trip
+    if (this._currentTripId === tripId) {
+      return;
+    }
+    
+    this._currentTripId = tripId;
+    
+    // Get trip data
     const savedTripsJson = localStorage.getItem('savedTrips');
     if (!savedTripsJson) return;
     
@@ -111,10 +119,10 @@ export class TodoComponent extends BaseComponent {
     
     const trip = savedTrips[tripId];
     
-    // restore data
+    // Restore data
     this._todoItems = trip.todoItems || { before: [], during: [], after: [] };
     
-    // update display
+    // Update display
     this.updateTodoDisplay();
   }
 

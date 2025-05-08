@@ -9,4 +9,4 @@ const screenContainer = document.getElementById("app");
 screenContainer.appendChild(screenController.render());
 
 // Services
-const tripRepository = TripRepositoryFactory.get("fake");
+const tripRepository = TripRepositoryFactory.get("remote");

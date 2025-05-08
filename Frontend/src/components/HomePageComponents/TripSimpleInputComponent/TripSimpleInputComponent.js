@@ -22,7 +22,8 @@ export class TripSimpleInputComponent extends BaseComponent {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         // Dynamically load CSS from the same directory as the JS file
-        link.href = `./components/HomePageComponents/${fileName}/${fileName}.css`;
+        link.href = `/components/HomePageComponents/${fileName}/${fileName}.css`;
+
         document.head.appendChild(link);
         this.cssLoaded = true;
     }

@@ -1,0 +1,20 @@
+{
+  "name": "travel-assistant-backend",
+  "version": "1.0.0",
+  "description": "Backend for Travel Assistant application",
+  "main": "source/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node source/server.js",
+    "dev": "nodemon source/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "sequelize": "^6.35.1",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

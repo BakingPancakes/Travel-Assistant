@@ -31,4 +31,5 @@ class TripRoutes {
     }
 }
 
-export default new TripRoutes.getRouter();
+export default new TripRoutes().getRouter();
+

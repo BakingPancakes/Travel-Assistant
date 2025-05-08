@@ -65,7 +65,7 @@ export class ChatDisplayComponent extends BaseComponent {
             if (event.key === "Enter" && event.target.value !== "" && !this.#container.querySelector('#default-display-message')){
                 const date = new Date();
                 const newMessage = new Message({
-                    sender: '',
+                    sender: 'to',
                     text: event.target.value,
                     name: 'Me',
                     timestamp: date.toDateString(),

@@ -17,29 +17,29 @@ export function fetch(url, options = {}) {
             id: 1,
             name: 'Chat #1 ',
             trip: 'trip name',
-            members: ['JoonID', 'JasperID'],
+            members: ['JasperID', 'ZavierID'],
             messages: [{
                 sender: 'from',
                 timestamp: '1:00PM, April 25',
-                text: 'Heyooo',
+                text: 'yo!',
                 name: 'Jasper',
             },
             {
                 sender: 'to',
                 timestamp: '1:02PM, April 25',
-                text: 'Hey!',
-                name: 'Joon',
+                text: 'What\s up',
+                name: 'Zavier',
             }]
         }
         const mockChat2 = {
             id: 2,
             name: 'Super cool chat!',
             trip: 'trip name',
-            members: ['JoonID', 'JasperID'],
+            members: ['JapserID', 'JoonID'],
             messages: [{
                 sender: 'from',
                 timestamp: '1:00PM, April 25',
-                text: 'Heyooo',
+                text: 'Heyoo',
                 name: 'Jasper',
             },
             {
@@ -53,18 +53,18 @@ export function fetch(url, options = {}) {
             id: 3,
             name: 'mysterious chat #3',
             trip: 'trip name',
-            members: ['JoonID', 'JasperID'],
+            members: ['JoonID', 'MysteryID'],
             messages: [{
                 sender: 'from',
                 timestamp: '1:00PM, April 25',
-                text: 'Heyooo',
+                text: 'Hi..??',
                 name: 'Jasper',
             },
             {
                 sender: 'to',
                 timestamp: '1:02PM, April 25',
-                text: 'Hey!',
-                name: 'Joon',
+                text: '...',
+                name: 'MysteriousStranger',
             }]
         }
         const mockUser = { 

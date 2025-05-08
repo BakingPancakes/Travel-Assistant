@@ -1,6 +1,7 @@
 import { BaseComponent } from "../../BaseComponent/BaseComponent.js";
 import { EventHub } from "../../../lib/eventhub/eventHub.js";
 import { Events } from "../../../lib/eventhub/events.js";
+import { Message } from "../../../lib/models/Message.js"
 
 export class ChatDisplayComponent extends BaseComponent {
     #container = null;
@@ -44,7 +45,7 @@ export class ChatDisplayComponent extends BaseComponent {
                 <h1>[Chat name]</h1>
             </div>
             <div id="messages-display">
-                Chats go here
+                <div id="default-display-message"> Click on a chat to the left to begin connecting... </div>
             </div>
             <input id="input-box" type="text" placeholder="Type message here...">
         `;
@@ -61,14 +62,15 @@ export class ChatDisplayComponent extends BaseComponent {
 
         const input_box = this.#container.querySelector("#input-box");
         input_box.addEventListener("keypress", (event) => {
-            if (event.key === "Enter" && event.target.value !== ""){
-                const newMessage = document.createElement("div");
-                newMessage.classList.add("chat-bubble");
-                newMessage.classList.add("chat-to");
-                newMessage.textContent = event.target.value + " [Zavier]";
-            
-                const display = document.getElementById("messages-display");
-                display.appendChild(newMessage);
+            if (event.key === "Enter" && event.target.value !== "" && !this.#container.querySelector('#default-display-message')){
+                const date = new Date();
+                const newMessage = new Message({
+                    sender: '',
+                    text: event.target.value,
+                    name: 'Me',
+                    timestamp: date.toDateString(),
+                });
+                this.#displayMessage(newMessage);
                 input_box.value = "";
             }
         });
@@ -76,6 +78,17 @@ export class ChatDisplayComponent extends BaseComponent {
         // TODO:
         // sending new message
         // retrieving new message
+    }
+
+    #displayMessage(message) {
+        const newMessageBubble = document.createElement("div");
+                newMessageBubble.classList.add("chat-bubble");
+                newMessageBubble.classList.add("chat-to");
+                newMessageBubble.innerHTML = message.text;
+                newMessageBubble.innerHTML += `<br><span>${message.timestamp}: ${message.name}</span>`
+            
+                const display = document.getElementById("messages-display");
+                display.appendChild(newMessageBubble);
     }
 
     #displayChat(chatData) {

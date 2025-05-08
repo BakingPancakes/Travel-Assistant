@@ -13,6 +13,8 @@
 #messages-page {
     flex: 8;
     display: flex;
+    padding: 20px;
+    background-color: #DFD8C5;
 }
 
 #chat-groups-container {

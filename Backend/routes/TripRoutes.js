@@ -31,5 +31,5 @@ class TripRoutes {
     }
 }
 
+// Fixed export statement - this was the issue
 export default new TripRoutes().getRouter();
-

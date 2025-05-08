@@ -1,10 +1,11 @@
+/*
 import express from 'express';
-import { 
-    getAllUsers, 
-    getUserById, 
-    createUser, 
-    updateUser, 
-    deleteUser 
+import {
+    getAllUsers,
+    getUserById,
+    createUser,
+    updateUser,
+    deleteUser
 } from '../controllers/userController.js';
 import { validateUserData } from '../source/validation.js';
 
@@ -25,4 +26,9 @@ router.put('/:id', validateUserData, updateUser);
 // DELETE a user
 router.delete('/:id', deleteUser);
 
+export default router;
+*/
+
+import express from 'express';
+const router = express.Router();
 export default router;

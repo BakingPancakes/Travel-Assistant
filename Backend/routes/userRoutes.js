@@ -1,34 +1,22 @@
-/*
 import express from 'express';
-import {
-    getAllUsers,
-    getUserById,
-    createUser,
-    updateUser,
-    deleteUser
-} from '../controllers/userController.js';
+import userController from '../../Backend/controllers/userController.js';
 import { validateUserData } from '../source/validation.js';
 
 const router = express.Router();
 
 // GET all users
-router.get('/', getAllUsers);
+router.get('/', userController.getAllUsers.bind(userController));
 
 // GET a specific user
-router.get('/:id', getUserById);
+router.get('/:id', userController.getUserById.bind(userController));
 
 // POST a new user
-router.post('/', validateUserData, createUser);
+router.post('/', validateUserData, userController.createUser.bind(userController));
 
 // PUT (update) a user
-router.put('/:id', validateUserData, updateUser);
+router.put('/:id', validateUserData, userController.updateUser.bind(userController));
 
 // DELETE a user
-router.delete('/:id', deleteUser);
+router.delete('/:id', userController.deleteUser.bind(userController));
 
-export default router;
-*/
-
-import express from 'express';
-const router = express.Router();
 export default router;

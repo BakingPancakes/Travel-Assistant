@@ -16,7 +16,7 @@ class TripRoutes {
         });
 
         // Add new trip
-        this.router.post("/trip", async (req, res) => {
+        this.router.post("/trips", async (req, res) => {
             await TripController.addTrip(req, res);
         });
 

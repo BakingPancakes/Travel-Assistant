@@ -17,7 +17,10 @@ export class EventHub {
     // Publish an event
     publish(event, data) {
         console.log(`Publishing event: ${event}`);
-        if (!this.events[event]) return;
+        if (!this.events[event]) {
+            console.log(`Warning: ${event} has not been subscribed to any components yet through the EventHub. Please make sure this event is subscribed before attempting to publish.`);
+            return;
+        };
         this.events[event].forEach((listener) => listener(data));
     }
 

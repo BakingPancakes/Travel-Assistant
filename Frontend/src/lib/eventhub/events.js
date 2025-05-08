@@ -44,14 +44,11 @@ export const Events = {
     RequestUserDataSuccess: 'RequestUserDataSuccess',
     RequestUserDataFailure: 'RequestUserDataFailure',
 
-    RetrieveUserData: 'RetrieveUserData',
-    RetrieveUserDataSuccess: 'RetrieveUserDataSuccess',
-    RetrieveUserDataFailure: 'RetrieveUserDataFailure',
-
     RequestChatData: 'RequestChatData',
     RequestChatDataSuccess: 'RequestChatDataSuccess',
     RequestChatDataFailure: 'RequestChatDataFailure',
 
+    // delete below, is redundant
     RetrieveChatData: 'RetrieveChatData',
     RetrieveChatDataSuccess: 'RetrieveChatDataSuccess',
     RetrieveChatDataFailure: 'RetrieveChatDataFailure',

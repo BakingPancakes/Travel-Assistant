@@ -198,7 +198,7 @@ export class TripRepositoryRemoteService extends Service {
         await this.#toBase64(user_and_chat_IDs);
 
         const response = await fetch(`/user/${user_and_chat_IDs.user_id}`, {
-            method: "UPDATE",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },

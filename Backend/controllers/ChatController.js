@@ -1,6 +1,6 @@
 import ModelFactory from "../models/ModelFactory";
 
-export class ChatController {
+class ChatController {
     constructor() {
         ModelFactory.getModel().then(model => {
             this.model = model;
@@ -34,3 +34,5 @@ export class ChatController {
         }
     }
 }
+
+export default new ChatController();

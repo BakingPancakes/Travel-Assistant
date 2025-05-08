@@ -57,7 +57,24 @@ export class HPTripComponent extends BaseComponent {
     #createTripDate() {
         const tripDate = document.createElement('div');
         tripDate.classList.add('col', 'tripDate');
-        tripDate.innerHTML = this.tripData.to + '-' + this.tripData.from;
+        // format dates
+        const startDate = this.tripData.from ? new Date(this.tripData.from) : null;
+        const endDate = this.tripData.to ? new Date(this.tripData.to) : null;
+        let dateText = 'Dates not set';
+      
+        if (startDate && endDate) {
+            const startFormatted = startDate.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric' 
+            });
+            const endFormatted = endDate.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                year: 'numeric' 
+            });
+        dateText = `${startFormatted} - ${endFormatted}`;
+      }
+        tripDate.innerHTML = dateText;
         return tripDate;
         
     }

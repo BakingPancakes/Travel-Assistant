@@ -35,6 +35,7 @@
 }
 
 .notification-badge {
+    display: none;
     position: relative;
     text-align: center;
     bottom: max(8.5vh, 20px);
@@ -76,89 +77,4 @@
     background-color: #DFD8C5;
     display: flex;
     flex-wrap: wrap;
-}
-
-.table {
-    display: flex;
-    margin: 20px;
-    flex-direction: column;
-    background-color: #ECE4D7;
-    border-radius: 2%;
-    height: auto;
-}
-
-#trip-list {
-    width: 100%;
-}
-
-#task-list, #budget-list {
-    flex: 1;
-}
-
-.table__header {
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    font-size: 25px;
-    color: #f0f0f0
-}
-
-.t-header__row {
-    display: flex;
-    background-color: #9FAC9D;
-}
-
-.t-header__col {
-    color: #f0f0f0;
-}
-
-.table__body {
-    flex: 2;
-    width: 100%;
-    height: auto;
-    font-size: 20px;
-}
-
-.empty {
-    height: 100%;
-    width: 100%;
-}
-
-.t-body__row {
-    height: fit-content;
-    border-bottom: 1.5px solid #cfc8bc;
-}
-
-.table__footer {
-    display: flex;
-    width: 100%;
-    margin-top: auto;
-    height: fit-content;
-}
-
-.t-footer__row {
-    display: flex;
-    color: #666
-}
-
-.t-footer__col {
-    color: #666;
-}
-
-.row {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    width: auto;
-}
-
-.col {
-    width: 100%;
-    padding: 10px;
-    height: fit-content;
-    font-size: 20px;
-}
-
-.right-align {
-    text-align: right;
 }

@@ -3,9 +3,9 @@ import { BaseComponent } from "../../BaseComponent/BaseComponent.js";
 export class BudgetComponent extends BaseComponent {
     #container = null;
 
-    constructor(budgetData = {}) {
+    constructor(tripData = {}) {
         super();
-        this.budgetData = budgetData;
+        this.tripData = tripData;
         this.loadCSS('BudgetComponent');
     }
 
@@ -26,15 +26,26 @@ export class BudgetComponent extends BaseComponent {
         this.#container.classList.add('t-body__row', 'row');
 
         // Render the budget content
-        const budgetContent = this.#createBudgetContent();
+        const tripName = this.#getTripName();
+        const budgetContent = this.#getBudget();
+        this.#container.appendChild(tripName);
         this.#container.appendChild(budgetContent);
 
         return this.#container;
     }
 
-    // Private method to create content
-    #createBudgetContent() {
-        const budgetContent = document.createElement('span');
-        // Need column for trip name, column for cost
+    // Private methods to create content
+    #getTripName() {
+        const tripName = document.createElement('div');
+        tripName.classList.add('col');
+        tripName.innerHTML = this.tripData.name;
+        return tripName;
+    }
+
+    #getBudget() {
+        const budget = document.createElement('div');
+        budget.classList.add('col', 'col--budget');
+        budget.innerHTML = `$${this.tripData.budget}`;
+        return budget;
     }
 }

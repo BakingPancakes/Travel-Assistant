@@ -1,6 +1,6 @@
 import { BaseComponent } from "../../BaseComponent/BaseComponent.js";
-import { EventHub } from "../../../lib/eventhub/eventHub.js";
-import { Events } from "../../../lib/eventhub/events.js";
+//import { EventHub } from "../../../lib/eventhub/eventHub.js";
+//import { Events } from "../../../lib/eventhub/events.js";
 import { HPTripComponent } from "../HPTripComponent/HPTripComponent.js";
 import { BudgetComponent } from "../BudgetComponent/BudgetComponent.js";
 import { TaskComponent } from "../TaskComponent/TaskComponent.js";
@@ -14,6 +14,10 @@ export class HomePageListComponent extends BaseComponent {
         super();
         this.#type = type; // Either 'trip', 'task', or 'budget'
         this.loadCSS('HomePageListComponent');
+        const savedTrips = localStorage.getItem('savedTrips');
+        if (savedTrips) {
+            this.#trips = JSON.parse(savedTrips);
+        }
     }
 
     loadCSS(fileName) {
@@ -34,7 +38,7 @@ export class HomePageListComponent extends BaseComponent {
         // Use type to determine what the header/footer should look like
         this.#createContainer();
         this.#setupContainerContent();
-        this.#attachEventListeners();
+        //this.#attachEventListeners();
 
         return this.#container;
     }
@@ -53,6 +57,9 @@ export class HomePageListComponent extends BaseComponent {
 
         const body = document.createElement('div');
         body.classList.add('table__body');
+        if(!this.#trips) {
+            body.innerHTML = `No trips yet!`;
+        }
 
         // No need for a footer if we have the trip list
         const footer = document.createElement('div');
@@ -119,35 +126,36 @@ export class HomePageListComponent extends BaseComponent {
         this.#container.appendChild(body);
         if (this.#type !== 'trip') {
             this.#container.appendChild(footer);
-        } else {
-            const savedTrips = localStorage.getItem('savedTrips');
-            if (savedTrips) {
-                this.#trips = JSON.parse(savedTrips);
+            if(this.#type === 'task') {
+                this.#refreshTaskList(this.#trips);
+            } else if (this.#type === 'budget') {
+                this.#refreshBudgetList(this.#trips);
             }
+        } else {
             this.#refreshTripList(this.#trips);
         }
         
     }
 
-    #attachEventListeners() {
-        const hub = EventHub.getInstance();
+    // #attachEventListeners() {
+    //     const hub = EventHub.getInstance();
 
-        // Depending on list type:
-        switch (this.#type) {
-            case 'trip':
-                // Subscribe to trip updates
-                hub.subscribe('trip_created', tripData => this.#addTripToList(tripData));
-                hub.subscribe('trips_updated', tripData => this.#refreshTripList(tripData));
-                break;
-            case 'task':
-                // Subscribe to task updates
-                hub.subscribe('todo_data_updated', todoItems => this.#refreshTaskList(todoItems));
-                break;
-            case 'budget':
-                // Subscribe to budget updates
-                hub.subscribe('todo_data_updated', todoData => this.#refreshBudgetList(todoData));
-        }
-    }
+    //     // Depending on list type:
+    //     switch (this.#type) {
+    //         case 'trip':
+    //             // Subscribe to trip updates
+    //             hub.subscribe('trip_created', tripData => this.#addTripToList(tripData));
+    //             hub.subscribe('trips_updated', tripData => this.#refreshTripList(tripData));
+    //             break;
+    //         case 'task':
+    //             // Subscribe to task updates
+    //             hub.subscribe('todo_data_updated', todoItems => this.#refreshTaskList(todoItems));
+    //             break;
+    //         case 'budget':
+    //             // Subscribe to budget updates
+    //             hub.subscribe('todo_data_updated', todoData => this.#refreshBudgetList(todoData));
+    //     }
+    // }
 
     #addTripToList(tripData) {
         const listBody = this.#getListBodyElement();
@@ -170,10 +178,14 @@ export class HomePageListComponent extends BaseComponent {
             console.log("Invalid trip data format:", tripData);
             return;
         }
+        // Sort trips by date
+        const sortedData = tripData.sort((a,b) => {
+            return new Date(b.from) - new Date(a.from);
+        });
         
         // Only process if we have trips to display
-        if (tripData.length > 0) {
-            tripData.forEach((trip) => {
+        if (sortedData.length > 0) {
+            sortedData.forEach((trip) => {
                 const tripContainer = document.createElement('div');
                 tripContainer.classList.add('t-body__row', 'row');
                 const curTrip = new HPTripComponent(trip);
@@ -183,26 +195,100 @@ export class HomePageListComponent extends BaseComponent {
         }
     }
 
-    #refreshTaskList(todoItems) {
-        // Update info, re-render task list
-    }
-
-    #addBudgetToList(tripData) {
+    #refreshTaskList(tripData) {
+        // re-render task list
         const listBody = this.#getListBodyElement();
-        const budgetContainer = document.createElement('div');
-        budgetContainer.classList.add('t-body__row row');
+        listBody.innerHTML = ``;
+        
+        // Validate the data structure before processing
+        if (!tripData) {
+            console.log("Invalid trip data format:", tripData);
+            return;
+        }
+        
+        // Only process if we have trips to display
+        if (tripData.length > 0) {
+            let count = 0;
+            tripData.forEach((trip) => {
+                if (trip.todoItems.before.length > 0) {
+                    trip.todoItems.before.forEach((task) => {
+                        const taskContainer = document.createElement('div');
+                        taskContainer.classList.add('t-body__row', 'row');
+                        const curTask = new TaskComponent(trip, task, 'before');
+                        taskContainer.appendChild(curTask.render());
+                        listBody.appendChild(taskContainer);
+                        count++; 
+                    });
+                }
+                if (trip.todoItems.during.length > 0) {
+                    trip.todoItems.during.forEach((task) => {
+                        const taskContainer = document.createElement('div');
+                        taskContainer.classList.add('t-body__row', 'row');
+                        const curTask = new TaskComponent(trip, task, 'during');
+                        taskContainer.appendChild(curTask.render());
+                        listBody.appendChild(taskContainer);
+                        count++; 
+                    });
+                }
+                if (trip.todoItems.after.length > 0) {
+                    trip.todoItems.after.forEach((task) => {
+                        const taskContainer = document.createElement('div');
+                        taskContainer.classList.add('t-body__row', 'row');
+                        const curTask = new TaskComponent(trip, task, 'after');
+                        taskContainer.appendChild(curTask.render());
+                        listBody.appendChild(taskContainer);
+                        count++; 
+                    });
+                }
+            });
+            // Determine how many tasks remain
+            const remainder = this.#getListFooterCounter();
+            remainder.innerHTML = count;
 
-        //Create a new budgetComponent
-        const budget = new BudgetComponent(tripData);
-        budgetContainer.appendChild(budget.render());
-        listBody.appendChild(budgetContainer);
+        }
     }
+
+    // #addBudgetToList(tripData) {
+    //     const listBody = this.#getListBodyElement();
+    //     const budgetContainer = document.createElement('div');
+    //     budgetContainer.classList.add('t-body__row row');
+
+    //     //Create a new budgetComponent
+    //     const budget = new BudgetComponent(tripData);
+    //     budgetContainer.appendChild(budget.render());
+    //     listBody.appendChild(budgetContainer);
+    // }
 
     #refreshBudgetList(tripData) {
-        // Select given trip, update budget, re-render budget list
+        // re-render budget list
+        const listBody = this.#getListBodyElement();
+        const listFooter = this.#getListFooterCounter();
+
+        // Validate the data structure before processing
+        if (!tripData) {
+            console.log("Invalid trip data format:", tripData);
+            return;
+        }
+
+        if(tripData.length > 0) {
+            let total = 0;
+            tripData.forEach((trip) => {
+                const budgetContainer = document.createElement('div');
+                budgetContainer.classList.add('t-body__row', 'row');
+                const budget = new BudgetComponent(trip);
+                budgetContainer.appendChild(budget.render());
+                listBody.appendChild(budgetContainer);
+                total += trip.budget;
+            });
+            listFooter.innerHTML = `$${total}`;
+        }
     }
 
     #getListBodyElement() {
         return this.#container.querySelector('.table__body');
+    }
+
+    #getListFooterCounter() {
+        return this.#container.querySelector('.right-align');
     }
 }

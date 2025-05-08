@@ -13,20 +13,23 @@ export function fetch(url, options = {}) {
     return new Promise((resolve, reject) => {
         // Define a delay to simulate network latency (e.g., 1 second)
         const delay = 1000;
+        const dateTo = new Date();
+        setTimeout(1000);
+        const dateFrom = new Date();
         const mockChat1 = {
             id: 1,
             name: 'Chat #1 ',
             trip: 'trip name',
             members: ['JasperID', 'ZavierID'],
             messages: [{
-                sender: 'from',
-                timestamp: '1:00PM, April 25',
+                sender: 'to',
+                timestamp: dateTo.toDateString(),
                 text: 'yo!',
                 name: 'Jasper',
             },
             {
-                sender: 'to',
-                timestamp: '1:02PM, April 25',
+                sender: 'from',
+                timestamp: dateFrom.toDateString(),
                 text: 'What\s up',
                 name: 'Zavier',
             }]
@@ -37,14 +40,14 @@ export function fetch(url, options = {}) {
             trip: 'trip name',
             members: ['JapserID', 'JoonID'],
             messages: [{
-                sender: 'from',
-                timestamp: '1:00PM, April 25',
+                sender: 'to',
+                timestamp: dateTo.toDateString(),
                 text: 'Heyoo',
                 name: 'Jasper',
             },
             {
-                sender: 'to',
-                timestamp: '1:02PM, April 25',
+                sender: 'from',
+                timestamp: dateFrom.toDateString(),
                 text: 'Hey!',
                 name: 'Joon',
             }]
@@ -55,14 +58,14 @@ export function fetch(url, options = {}) {
             trip: 'trip name',
             members: ['JoonID', 'MysteryID'],
             messages: [{
-                sender: 'from',
-                timestamp: '1:00PM, April 25',
+                sender: 'to',
+                timestamp: dateTo.toDateString(),
                 text: 'Hi..??',
                 name: 'Jasper',
             },
             {
-                sender: 'to',
-                timestamp: '1:02PM, April 25',
+                sender: 'from',
+                timestamp: dateFrom.toDateString(),
                 text: '...',
                 name: 'MysteriousStranger',
             }]

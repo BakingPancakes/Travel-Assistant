@@ -132,6 +132,7 @@ export class ChatListComponent extends BaseComponent {
         // Open Chats when any icon is clicked
         Array.from(this.#container.getElementsByClassName("chat-icon")).forEach(element => {
             element.addEventListener('click', () => this.#openChatWindow(element.id));
+            this.#retrieveChatData([]);
         });
         
         // Process chat creation - publishes newChat, once stored successfully, then make local changes
@@ -187,7 +188,9 @@ export class ChatListComponent extends BaseComponent {
      * @param {number} id ID of chat to be displayed
      */
     #openChatWindow(id) {
+        // TODO update chatDataList to include most recent messages before here but after storemessagelocal called in displaycomponent
         const chatData = this.#chatDataList.find(chat => chat.id === id);
+        // TODO chatDataList may not be properly saved, or user has no chats they have access to
         this.#hub.publish(Events.OpenChat, chatData);
     }
 
